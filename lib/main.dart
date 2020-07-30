@@ -1,8 +1,6 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
-// for http
+import 'package:mega/services/api.dart';
+
 
 void main()=>runApp(MegaApp());
 
@@ -96,7 +94,7 @@ class MyEmailInput extends StatelessWidget{
         border: OutlineInputBorder()
       ),
       onSaved: (String value) {
-        print(API().checkEmailExists(value));
+        API().checkEmailExists(value).then((value) => print(value.body));
       },
       validator: (String value) {
         return emailRegex.hasMatch(value) ? null : 'Enter a valid email';
@@ -131,43 +129,6 @@ class MySubmitButton extends StatelessWidget{
 class WelcomeForm extends StatefulWidget{
   @override
   WelcomeFormState createState() => WelcomeFormState();
-}
-
-class API {
-  static const String url = 'http://0.0.0.0:9000/';
-
-  Future<http.Response> post(String endpoint, Map<String, String> data, Map<String, String> additionalHeaders){
-    Map<String, String> headers = <String, String>{
-      'Content-Type': 'application/json; charset=UTF-8',
-    };
-
-    headers = {
-      ...headers,
-      ...additionalHeaders
-    };
-
-    return http.post(
-      url + endpoint,
-      headers: headers,
-      body: jsonEncode(data),
-    );
-  }
-
-  Future<http.Response> checkEmailExists(String email){
-    Map<String, String> headers = <String, String>{
-      'Content-Type': 'application/json; charset=UTF-8',
-    };
-
-    Map<String, String> data = <String, String>{
-      'email': email,
-    };
-
-    return this.post(
-      'api/check_email',
-      headers,
-      data
-    );
-  }
 }
 
 class WelcomeFormState extends State<WelcomeForm>{
