@@ -130,6 +130,12 @@ class WelcomeForm extends StatefulWidget{
   WelcomeFormState createState() => WelcomeFormState();
 }
 
+class API {
+  static const String rl = 'http://0.0.0.0:9000/';
+
+
+}
+
 class WelcomeFormState extends State<WelcomeForm>{
   final _formKey = GlobalKey<FormState>();
 
