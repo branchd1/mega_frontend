@@ -1,18 +1,7 @@
 import 'package:http/http.dart' as http;
-
 import 'dart:convert';
 
-class EmailExistsResponse{
-  final bool exists;
-
-  EmailExistsResponse({this.exists});
-
-  factory EmailExistsResponse.fromJson(Map<String, dynamic> json) {
-    return EmailExistsResponse(
-      exists: json['exists'],
-    );
-  }
-}
+import 'package:mega/models/EmailExistsResponse.dart';
 
 class API {
   static const String url = 'http://0.0.0.0:9000/';

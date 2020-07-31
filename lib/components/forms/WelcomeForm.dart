@@ -1,0 +1,56 @@
+import 'dart:io';
+
+import 'package:flutter/material.dart';
+import 'package:mega/models/EmailExistsResponse.dart';
+import 'package:mega/services/api.dart';
+
+import '../ErrorSnackBar.dart';
+import '../MyEmailInput.dart';
+import '../MySubmitButton.dart';
+
+class WelcomeForm extends StatefulWidget{
+  @override
+  _WelcomeFormState createState() => _WelcomeFormState();
+}
+
+class _WelcomeFormState extends State<WelcomeForm>{
+  final TextEditingController _emailController = TextEditingController();
+  final _formKey = GlobalKey<FormState>();
+
+  void submit() async {
+    if (_formKey.currentState.validate()){
+      EmailExistsResponse _res;
+      try {
+        _res = await API().checkEmailExists(_emailController.text);
+      } on SocketException {
+        showErrorSnackBar(context);
+      }
+      if(_res.exists){
+        Navigator.pushNamed(context, '/login');
+      } else {
+        Navigator.pushNamed(context, '/register');
+      }
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Form(
+        key: _formKey,
+        child: Column(
+          children: <Widget>[
+            MyEmailInput(
+                controller: _emailController
+            ),
+            Align(
+                alignment: Alignment.bottomRight,
+                child: MySubmitButton(
+                    buttonText: 'Go',
+                    submitCallback: submit
+                )
+            ),
+          ],
+        )
+    );
+  }
+}
