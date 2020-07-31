@@ -5,21 +5,15 @@ import 'package:http/http.dart' as http;
 import 'package:mega/components/ErrorSnackBar.dart';
 import 'dart:convert';
 
-import 'package:mega/models/EmailExistsResponse.dart';
-import 'package:mega/models/LoginResponse.dart';
+import 'package:mega/models/EmailExistsResponseModel.dart';
+import 'package:mega/models/LoginResponseModel.dart';
 
 typedef void SetErrorTextCallback(String text);
 
 class API {
   static const String url = 'http://0.0.0.0:9000/';
 
-  final BuildContext context;
-
-  final SetErrorTextCallback setErrorText;
-
-  API({@required this.context, this.setErrorText});
-
-  Future<http.Response> post(String endpoint, {Map<String, String> data, Map<String, String> additionalHeaders}){
+  static Future<http.Response> post(String endpoint, {Map<String, String> data, Map<String, String> additionalHeaders}){
     Map<String, String> headers = <String, String>{
       'Content-Type': 'application/json; charset=UTF-8',
     };
@@ -36,7 +30,7 @@ class API {
     );
   }
 
-  Future<EmailExistsResponse> checkEmailExists(String email) async {
+  static Future<EmailExistsResponse> checkEmailExists(BuildContext context, String email) async {
     Map<String, String> headers = <String, String>{
       'Content-Type': 'application/json',
     };
@@ -48,7 +42,7 @@ class API {
     http.Response _res;
 
     try{
-      _res = await this.post(
+      _res = await API.post(
           'api/check_email/',
           additionalHeaders: headers,
           data: data
@@ -67,7 +61,7 @@ class API {
     }
   }
 
-  Future<LoginResponse> login(String email, String password) async {
+  static Future<LoginResponse> login(BuildContext context, String email, String password, SetErrorTextCallback setErrorText) async {
     Map<String, String> headers = <String, String>{
       'Content-Type': 'application/json',
     };
@@ -80,7 +74,7 @@ class API {
     http.Response _res;
 
     try{
-      _res = await this.post(
+      _res = await API.post(
           'auth/token/login/',
           additionalHeaders: headers,
           data: data

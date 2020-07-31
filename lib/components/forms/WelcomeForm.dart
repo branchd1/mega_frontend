@@ -1,7 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:mega/models/EmailExistsResponse.dart';
+import 'package:mega/models/EmailExistsResponseModel.dart';
 import 'package:mega/screens/LoginScreen.dart';
 import 'package:mega/services/api.dart';
 
@@ -21,9 +21,7 @@ class _WelcomeFormState extends State<WelcomeForm>{
   void submit() async {
     if (_formKey.currentState.validate()){
       // check email
-       EmailExistsResponse _res = await API(
-        context: context
-      ).checkEmailExists(_emailController.text);
+       EmailExistsResponse _res = await API.checkEmailExists(context, _emailController.text);
 
       // check successful
       if(_res!= null && _res.exists){

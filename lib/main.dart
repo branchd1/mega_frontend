@@ -1,9 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:mega/models/AuthTokenModel.dart';
 import 'package:mega/screens/LoginScreen.dart';
 import 'package:mega/screens/WelcomeScreen.dart';
-import 'package:mega/services/api.dart';
+import 'package:provider/provider.dart';
 
-void main()=>runApp(MegaApp());
+void main()=>runApp(
+  MultiProvider(
+    providers: [
+      ChangeNotifierProvider(create: (context) => AuthTokenModel()),
+    ],
+    child: MegaApp(),
+  ),
+);
 
 class MegaApp extends StatelessWidget{
   @override

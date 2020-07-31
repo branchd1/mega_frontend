@@ -1,7 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:mega/models/LoginResponse.dart';
+import 'package:mega/models/LoginResponseModel.dart';
 import 'package:mega/services/api.dart';
 
 import '../ErrorSnackBar.dart';
@@ -33,10 +33,7 @@ class _LoginFormState extends State<LoginForm>{
   void submit() async {
     if (_formKey.currentState.validate()){
       // do login
-      LoginResponse _res = await API(
-        context:context,
-        setErrorText: setErrorText
-      ).login(this.widget.email, _passwordController.text);
+      LoginResponse _res = await API.login(context, this.widget.email, _passwordController.text, setErrorText);
 
       // check successful login
       print(_res.auth_token);
