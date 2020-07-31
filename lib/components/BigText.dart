@@ -9,7 +9,7 @@ class BigText extends StatelessWidget{
   Widget build(BuildContext context) {
     return Align(
       child: Text(
-        'Welcome',
+        text,
         textScaleFactor: 3,
         textAlign: TextAlign.left,
         style: TextStyle(

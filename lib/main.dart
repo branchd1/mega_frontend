@@ -12,10 +12,8 @@ class MegaApp extends StatelessWidget{
       title: 'Mega App',
       initialRoute: '/',
       routes: {
-        // When navigating to the "/" route, build the FirstScreen widget.
-        '/': (context) => WelcomeScreen(),
-        // When navigating to the "/second" route, build the SecondScreen widget.
-        '/login': (context) => LoginScreen(),
+        WelcomeScreen.routeName: (context) => WelcomeScreen(),
+        LoginScreen.routeName: (context) => LoginScreen(),
       },
     );
   }

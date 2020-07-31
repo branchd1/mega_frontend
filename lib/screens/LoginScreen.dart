@@ -1,10 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:mega/components/BigText.dart';
-import 'package:mega/components/forms/WelcomeForm.dart';
+import 'package:mega/components/forms/LoginForm.dart';
+
+class ScreenArguments {
+  final String email;
+
+  ScreenArguments({this.email});
+}
 
 class LoginScreen extends StatelessWidget{
+  static const routeName = '/login';
+
   @override
   Widget build(BuildContext context){
+    final ScreenArguments args = ModalRoute.of(context).settings.arguments;
     return(
         Scaffold(
             body: Padding(
@@ -18,7 +27,7 @@ class LoginScreen extends StatelessWidget{
                               text:'Login'
                           ),
                           Padding(
-                            child: Text('Login form here'),
+                            child: LoginForm(),
                             padding: EdgeInsets.fromLTRB(0, 30, 0, 30),
                           )
                         ],

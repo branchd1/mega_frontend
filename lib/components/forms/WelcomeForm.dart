@@ -2,10 +2,11 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:mega/models/EmailExistsResponse.dart';
+import 'package:mega/screens/LoginScreen.dart';
 import 'package:mega/services/api.dart';
 
 import '../ErrorSnackBar.dart';
-import '../MyEmailInput.dart';
+import '../inputs/MyEmailInput.dart';
 import '../MySubmitButton.dart';
 
 class WelcomeForm extends StatefulWidget{
@@ -26,7 +27,12 @@ class _WelcomeFormState extends State<WelcomeForm>{
         showErrorSnackBar(context);
       }
       if(_res.exists){
-        Navigator.pushNamed(context, '/login');
+        Navigator.pushNamed(context,
+          LoginScreen.routeName,
+          arguments: ScreenArguments(
+            email: _emailController.text,
+          ),
+        );
       } else {
         Navigator.pushNamed(context, '/register');
       }
