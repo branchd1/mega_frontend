@@ -10,7 +10,6 @@ import '../MySubmitButton.dart';
 
 class LoginForm extends StatefulWidget{
   final String email;
-
   LoginForm({this.email});
 
   @override
@@ -21,17 +20,15 @@ class _LoginFormState extends State<LoginForm>{
   final TextEditingController _passwordController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
 
-
-
   void submit() async {
     if (_formKey.currentState.validate()){
       LoginResponse _res;
-      try {
-        // do login
-        await API().login(this.widget.email, _passwordController.text);
-      } on SocketException {
-        showErrorSnackBar(context);
-      }
+
+      // do login
+      await API(
+        context:context
+      ).login(this.widget.email, _passwordController.text);
+
       // check successful login
     }
   }

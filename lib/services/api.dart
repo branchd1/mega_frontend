@@ -1,4 +1,8 @@
+import 'dart:io';
+
+import 'package:flutter/cupertino.dart';
 import 'package:http/http.dart' as http;
+import 'package:mega/components/ErrorSnackBar.dart';
 import 'dart:convert';
 
 import 'package:mega/models/EmailExistsResponse.dart';
@@ -7,6 +11,10 @@ import 'package:mega/models/LoginResponse.dart';
 
 class API {
   static const String url = 'http://0.0.0.0:9000/';
+
+  final BuildContext context;
+
+  API({this.context});
 
   Future<http.Response> post(String endpoint, {Map<String, String> data, Map<String, String> additionalHeaders}){
     Map<String, String> headers = <String, String>{
@@ -34,17 +42,21 @@ class API {
       'email': email,
     };
 
-    final http.Response _res = await this.post(
-        'api/check_email/',
-        additionalHeaders: headers,
-        data: data
-    );
+    http.Response _res;
 
-    if (_res.statusCode == 200){
-      return EmailExistsResponse.fromJson(jsonDecode(_res.body));
-    } else {
-      throw Exception('Failed to load data');
+    try{
+      _res = await this.post(
+          'api/check_email/',
+          additionalHeaders: headers,
+          data: data
+      );
+    } on SocketException{
+      showErrorSnackBar(context);
+    } catch (e) {
+      print(e);
     }
+
+    return EmailExistsResponse.fromJson(jsonDecode(_res.body));
   }
 
   Future<LoginResponse> login(String email, String password) async {
@@ -57,16 +69,20 @@ class API {
       'password': password
     };
 
-    final http.Response _res = await this.post(
-        'auth/token/login/',
-        additionalHeaders: headers,
-        data: data
-    );
+    http.Response _res;
 
-    if (_res.statusCode == 200){
-      return LoginResponse.fromJson(jsonDecode(_res.body));
-    } else {
-      throw Exception('Failed to load data');
+    try{
+      _res = await this.post(
+          'auth/token/login/',
+          additionalHeaders: headers,
+          data: data
+      );
+    } on SocketException{
+      showErrorSnackBar(context);
+    } catch (e) {
+      print(e);
     }
+
+    return LoginResponse.fromJson(jsonDecode(_res.body));
   }
 }

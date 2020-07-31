@@ -21,11 +21,13 @@ class _WelcomeFormState extends State<WelcomeForm>{
   void submit() async {
     if (_formKey.currentState.validate()){
       EmailExistsResponse _res;
-      try {
-        _res = await API().checkEmailExists(_emailController.text);
-      } on SocketException {
-        showErrorSnackBar(context);
-      }
+
+      // check email
+      _res = await API(
+        context: context
+      ).checkEmailExists(_emailController.text);
+
+      // check successful
       if(_res.exists){
         Navigator.pushNamed(context,
           LoginScreen.routeName,
