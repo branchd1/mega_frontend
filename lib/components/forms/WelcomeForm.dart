@@ -28,14 +28,14 @@ class _WelcomeFormState extends State<WelcomeForm>{
       ).checkEmailExists(_emailController.text);
 
       // check successful
-      if(_res.exists){
+      if(_res!= null && _res.exists){
         Navigator.pushNamed(context,
           LoginScreen.routeName,
           arguments: ScreenArguments(
             email: _emailController.text,
           ),
         );
-      } else {
+      } else if (_res!= null) {
         Navigator.pushNamed(context, '/register');
       }
     }

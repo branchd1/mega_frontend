@@ -50,6 +50,10 @@ class _LoginFormState extends State<LoginForm>{
         key: _formKey,
         child: Column(
           children: <Widget>[
+            Align(
+              alignment: Alignment.bottomLeft,
+              child: Text(widget.email)
+            ),
             MyPasswordInput(
               controller: _passwordController
             ),

@@ -93,8 +93,11 @@ class API {
 
     if(_res.statusCode == 200){
       return LoginResponse.fromJson(jsonDecode(_res.body));
-    } else {
+    } else if(_res.statusCode == 400) {
       setErrorText('Invalid email/password');
+      return null;
+    } else {
+      showErrorSnackBar(context);
       return null;
     }
   }
