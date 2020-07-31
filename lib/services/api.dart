@@ -2,6 +2,18 @@ import 'package:http/http.dart' as http;
 
 import 'dart:convert';
 
+class EmailExistsResponse{
+  final bool exists;
+
+  EmailExistsResponse({this.exists});
+
+  factory EmailExistsResponse.fromJson(Map<String, dynamic> json) {
+    return EmailExistsResponse(
+      exists: json['exists'],
+    );
+  }
+}
+
 class API {
   static const String url = 'http://0.0.0.0:9000/';
 
@@ -22,19 +34,25 @@ class API {
     );
   }
 
-  Future<http.Response> checkEmailExists(String email){
+  Future<EmailExistsResponse> checkEmailExists(String email) async {
     Map<String, String> headers = <String, String>{
-      'Content-Type': 'application/json; charset=UTF-8',
+      'Content-Type': 'application/json',
     };
 
     Map<String, String> data = <String, String>{
       'email': email,
     };
 
-    return this.post(
+    final http.Response _res = await this.post(
         'api/check_email',
         additionalHeaders: headers,
         data: data
     );
+
+    if (_res.statusCode == 200){
+      return EmailExistsResponse.fromJson(jsonDecode(_res.body));
+    } else {
+      throw Exception('Failed to load data');
+    }
   }
 }

@@ -94,7 +94,7 @@ class MyEmailInput extends StatelessWidget{
         border: OutlineInputBorder()
       ),
       onSaved: (String value) {
-        API().checkEmailExists(value).then((value) => print(value.body));
+        print(API().checkEmailExists(value));
       },
       validator: (String value) {
         return emailRegex.hasMatch(value) ? null : 'Enter a valid email';
@@ -128,10 +128,10 @@ class MySubmitButton extends StatelessWidget{
 
 class WelcomeForm extends StatefulWidget{
   @override
-  WelcomeFormState createState() => WelcomeFormState();
+  _WelcomeFormState createState() => _WelcomeFormState();
 }
 
-class WelcomeFormState extends State<WelcomeForm>{
+class _WelcomeFormState extends State<WelcomeForm>{
   final _formKey = GlobalKey<FormState>();
 
   void submit(){
