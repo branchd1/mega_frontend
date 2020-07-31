@@ -8,6 +8,8 @@ import '../ErrorSnackBar.dart';
 import '../inputs/MyPasswordInput.dart';
 import '../MySubmitButton.dart';
 
+typedef void SetErrorTextCallback(String text);
+
 class LoginForm extends StatefulWidget{
   final String email;
   LoginForm({this.email});
@@ -18,7 +20,15 @@ class LoginForm extends StatefulWidget{
 
 class _LoginFormState extends State<LoginForm>{
   final TextEditingController _passwordController = TextEditingController();
-  final _formKey = GlobalKey<FormState>();
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+
+  String _errorText;
+
+  void setErrorText(text){
+    setState(() {
+      _errorText = text;
+    });
+  }
 
   void submit() async {
     if (_formKey.currentState.validate()){
@@ -26,7 +36,8 @@ class _LoginFormState extends State<LoginForm>{
 
       // do login
       await API(
-        context:context
+        context:context,
+        setErrorText: setErrorText
       ).login(this.widget.email, _passwordController.text);
 
       // check successful login
@@ -49,6 +60,16 @@ class _LoginFormState extends State<LoginForm>{
                 submitCallback: submit
               )
             ),
+            if(_errorText!=null) Align(
+              alignment: Alignment.bottomLeft,
+              child: Text(
+                _errorText,
+                textAlign: TextAlign.left,
+                style: TextStyle(
+                  color: Colors.red
+                ),
+              ),
+            )
           ],
         )
     );

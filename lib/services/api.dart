@@ -8,13 +8,16 @@ import 'dart:convert';
 import 'package:mega/models/EmailExistsResponse.dart';
 import 'package:mega/models/LoginResponse.dart';
 
+typedef void SetErrorTextCallback(String text);
 
 class API {
   static const String url = 'http://0.0.0.0:9000/';
 
   final BuildContext context;
 
-  API({this.context});
+  final SetErrorTextCallback setErrorText;
+
+  API({@required this.context, this.setErrorText});
 
   Future<http.Response> post(String endpoint, {Map<String, String> data, Map<String, String> additionalHeaders}){
     Map<String, String> headers = <String, String>{
@@ -56,7 +59,12 @@ class API {
       print(e);
     }
 
-    return EmailExistsResponse.fromJson(jsonDecode(_res.body));
+    if(_res.statusCode == 200){
+      return EmailExistsResponse.fromJson(jsonDecode(_res.body));
+    } else {
+      showErrorSnackBar(context);
+      return null;
+    }
   }
 
   Future<LoginResponse> login(String email, String password) async {
@@ -83,6 +91,11 @@ class API {
       print(e);
     }
 
-    return LoginResponse.fromJson(jsonDecode(_res.body));
+    if(_res.statusCode == 200){
+      return LoginResponse.fromJson(jsonDecode(_res.body));
+    } else {
+      setErrorText('Invalid email/password');
+      return null;
+    }
   }
 }
