@@ -20,10 +20,8 @@ class _WelcomeFormState extends State<WelcomeForm>{
 
   void submit() async {
     if (_formKey.currentState.validate()){
-      EmailExistsResponse _res;
-
       // check email
-      _res = await API(
+       EmailExistsResponse _res = await API(
         context: context
       ).checkEmailExists(_emailController.text);
 
@@ -44,21 +42,21 @@ class _WelcomeFormState extends State<WelcomeForm>{
   @override
   Widget build(BuildContext context) {
     return Form(
-        key: _formKey,
-        child: Column(
-          children: <Widget>[
-            MyEmailInput(
-                controller: _emailController
-            ),
-            Align(
-                alignment: Alignment.bottomRight,
-                child: MySubmitButton(
-                    buttonText: 'Go',
-                    submitCallback: submit
-                )
-            ),
-          ],
-        )
+      key: _formKey,
+      child: Column(
+        children: <Widget>[
+          MyEmailInput(
+            controller: _emailController
+          ),
+          Align(
+            alignment: Alignment.bottomRight,
+            child: MySubmitButton(
+              buttonText: 'Go',
+              submitCallback: submit
+            )
+          ),
+        ],
+      )
     );
   }
 }

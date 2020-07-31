@@ -32,50 +32,49 @@ class _LoginFormState extends State<LoginForm>{
 
   void submit() async {
     if (_formKey.currentState.validate()){
-      LoginResponse _res;
-
       // do login
-      await API(
+      LoginResponse _res = await API(
         context:context,
         setErrorText: setErrorText
       ).login(this.widget.email, _passwordController.text);
 
       // check successful login
+      print(_res.auth_token);
     }
   }
 
   @override
   Widget build(BuildContext context) {
     return Form(
-        key: _formKey,
-        child: Column(
-          children: <Widget>[
-            Align(
-              alignment: Alignment.bottomLeft,
-              child: Text(widget.email)
-            ),
-            MyPasswordInput(
-              controller: _passwordController
-            ),
-            Align(
-              alignment: Alignment.bottomRight,
-              child: MySubmitButton(
-                buttonText: 'Login',
-                submitCallback: submit
-              )
-            ),
-            if(_errorText!=null) Align(
-              alignment: Alignment.bottomLeft,
-              child: Text(
-                _errorText,
-                textAlign: TextAlign.left,
-                style: TextStyle(
-                  color: Colors.red
-                ),
-              ),
+      key: _formKey,
+      child: Column(
+        children: <Widget>[
+          Align(
+            alignment: Alignment.bottomLeft,
+            child: Text(widget.email)
+          ),
+          MyPasswordInput(
+            controller: _passwordController
+          ),
+          Align(
+            alignment: Alignment.bottomRight,
+            child: MySubmitButton(
+              buttonText: 'Login',
+              submitCallback: submit
             )
-          ],
-        )
+          ),
+          if(_errorText!=null) Align(
+            alignment: Alignment.bottomLeft,
+            child: Text(
+              _errorText,
+              textAlign: TextAlign.left,
+              style: TextStyle(
+                color: Colors.red
+              ),
+            ),
+          )
+        ],
+      )
     );
   }
 }
