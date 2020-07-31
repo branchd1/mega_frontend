@@ -2,6 +2,8 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 
 import 'package:mega/models/EmailExistsResponse.dart';
+import 'package:mega/models/LoginResponse.dart';
+
 
 class API {
   static const String url = 'http://0.0.0.0:9000/';
@@ -33,13 +35,36 @@ class API {
     };
 
     final http.Response _res = await this.post(
-        'api/check_email',
+        'api/check_email/',
         additionalHeaders: headers,
         data: data
     );
 
     if (_res.statusCode == 200){
       return EmailExistsResponse.fromJson(jsonDecode(_res.body));
+    } else {
+      throw Exception('Failed to load data');
+    }
+  }
+
+  Future<LoginResponse> login(String email, String password) async {
+    Map<String, String> headers = <String, String>{
+      'Content-Type': 'application/json',
+    };
+
+    Map<String, String> data = <String, String>{
+      'username': email,
+      'password': password
+    };
+
+    final http.Response _res = await this.post(
+        'auth/token/login/',
+        additionalHeaders: headers,
+        data: data
+    );
+
+    if (_res.statusCode == 200){
+      return LoginResponse.fromJson(jsonDecode(_res.body));
     } else {
       throw Exception('Failed to load data');
     }

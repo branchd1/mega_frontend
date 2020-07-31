@@ -2,12 +2,17 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:mega/models/LoginResponse.dart';
+import 'package:mega/services/api.dart';
 
 import '../ErrorSnackBar.dart';
 import '../inputs/MyPasswordInput.dart';
 import '../MySubmitButton.dart';
 
 class LoginForm extends StatefulWidget{
+  final String email;
+
+  LoginForm({this.email});
+
   @override
   _LoginFormState createState() => _LoginFormState();
 }
@@ -16,11 +21,14 @@ class _LoginFormState extends State<LoginForm>{
   final TextEditingController _passwordController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
 
+
+
   void submit() async {
     if (_formKey.currentState.validate()){
       LoginResponse _res;
       try {
         // do login
+        await API().login(this.widget.email, _passwordController.text);
       } on SocketException {
         showErrorSnackBar(context);
       }

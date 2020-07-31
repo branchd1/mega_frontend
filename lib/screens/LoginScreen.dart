@@ -27,7 +27,9 @@ class LoginScreen extends StatelessWidget{
                               text:'Login'
                           ),
                           Padding(
-                            child: LoginForm(),
+                            child: LoginForm(
+                              email: args.email
+                            ),
                             padding: EdgeInsets.fromLTRB(0, 30, 0, 30),
                           )
                         ],
