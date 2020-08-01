@@ -1,22 +1,28 @@
 import 'package:flutter/material.dart';
 import 'package:mega/components/BigText.dart';
+import 'package:mega/components/MyAppBar.dart';
 import 'package:mega/components/forms/LoginForm.dart';
 import 'package:mega/components/forms/RegisterForm.dart';
 
-class RegisterScreenArguments {
-  final String email;
-
-  RegisterScreenArguments({this.email});
-}
+//class RegisterScreenArguments {
+//  final String email;
+//
+//  RegisterScreenArguments({this.email});
+//}
 
 class RegisterScreen extends StatelessWidget{
-  static const routeName = '/register';
+//  static const routeName = '/register';
+
+  final String email;
+
+  const RegisterScreen({this.email});
 
   @override
   Widget build(BuildContext context){
-    final RegisterScreenArguments args = ModalRoute.of(context).settings.arguments;
+//    final RegisterScreenArguments args = ModalRoute.of(context).settings.arguments;
     return(
         Scaffold(
+            appBar: myAppBar1(),
             body: Padding(
               child: Column(
                 children: <Widget>[
@@ -29,7 +35,7 @@ class RegisterScreen extends StatelessWidget{
                           ),
                           Padding(
                             child: RegisterForm(
-                              email: args.email
+                              email: email
                             ),
                             padding: EdgeInsets.fromLTRB(0, 30, 0, 30),
                           )

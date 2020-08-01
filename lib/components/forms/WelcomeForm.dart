@@ -26,18 +26,26 @@ class _WelcomeFormState extends State<WelcomeForm>{
 
       // check successful
       if(_res!= null && _res.exists){
-        Navigator.pushNamed(context,
-          LoginScreen.routeName,
-          arguments: LoginScreenArguments(
-            email: _emailController.text,
-          ),
+//        Navigator.pushNamed(context,
+//          LoginScreen.routeName,
+//          arguments: LoginScreenArguments(
+//            email: _emailController.text,
+//          ),
+//        );
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => LoginScreen(email: _emailController.text)),
         );
       } else if (_res!= null) {
-        Navigator.pushNamed(context,
-          RegisterScreen.routeName,
-          arguments: RegisterScreenArguments(
-            email: _emailController.text,
-          ),
+//        Navigator.pushNamed(context,
+//          RegisterScreen.routeName,
+//          arguments: RegisterScreenArguments(
+//            email: _emailController.text,
+//          ),
+//        );
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => RegisterScreen(email: _emailController.text)),
         );
       }
     }

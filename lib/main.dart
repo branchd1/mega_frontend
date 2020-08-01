@@ -19,12 +19,13 @@ class MegaApp extends StatelessWidget{
   Widget build(BuildContext context){
     return MaterialApp(
       title: 'Mega App',
-      initialRoute: '/',
-      routes: {
-        WelcomeScreen.routeName: (context) => WelcomeScreen(),
-        LoginScreen.routeName: (context) => LoginScreen(),
-        RegisterScreen.routeName: (context) => RegisterScreen(),
-      },
+      home: WelcomeScreen()
+//      initialRoute: '/',
+//      routes: {
+//        WelcomeScreen.routeName: (context) => WelcomeScreen(),
+//        LoginScreen.routeName: (context) => LoginScreen(),
+//        RegisterScreen.routeName: (context) => RegisterScreen(),
+//      },
     );
   }
 }
