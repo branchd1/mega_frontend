@@ -19,6 +19,9 @@ class MegaApp extends StatelessWidget{
   Widget build(BuildContext context){
     return MaterialApp(
       title: 'Mega App',
+      theme: ThemeData(
+        canvasColor: Colors.white,
+      ),
       home: WelcomeScreen()
 //      initialRoute: '/',
 //      routes: {
