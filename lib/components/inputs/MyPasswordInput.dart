@@ -14,7 +14,7 @@ class MyPasswordInput extends StatelessWidget{
           border: OutlineInputBorder()
       ),
       validator: (String value) {
-        return (value.length>5) ? null : 'Password must be more than 5 characters';
+        return (value.length>8) ? null : 'Password must be more than 8 characters';
       },
       obscureText: true,
     );

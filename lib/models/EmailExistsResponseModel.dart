@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 
-class EmailExistsResponse{
+class EmailExistsResponseModel{
   final bool exists;
 
-  EmailExistsResponse({this.exists});
+  EmailExistsResponseModel({this.exists});
 
-  factory EmailExistsResponse.fromJson(Map<String, dynamic> json) {
-    return EmailExistsResponse(
+  factory EmailExistsResponseModel.fromJson(Map<String, dynamic> json) {
+    return EmailExistsResponseModel(
       exists: json['exists'],
     );
   }

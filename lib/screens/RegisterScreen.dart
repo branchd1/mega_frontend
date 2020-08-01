@@ -1,19 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:mega/components/BigText.dart';
 import 'package:mega/components/forms/LoginForm.dart';
+import 'package:mega/components/forms/RegisterForm.dart';
 
-class LoginScreenArguments {
+class RegisterScreenArguments {
   final String email;
 
-  LoginScreenArguments({this.email});
+  RegisterScreenArguments({this.email});
 }
 
-class LoginScreen extends StatelessWidget{
-  static const routeName = '/login';
+class RegisterScreen extends StatelessWidget{
+  static const routeName = '/register';
 
   @override
   Widget build(BuildContext context){
-    final LoginScreenArguments args = ModalRoute.of(context).settings.arguments;
+    final RegisterScreenArguments args = ModalRoute.of(context).settings.arguments;
     return(
         Scaffold(
             body: Padding(
@@ -24,10 +25,10 @@ class LoginScreen extends StatelessWidget{
                       child: Column(
                         children: <Widget>[
                           BigText(
-                              text:'Login'
+                              text:'Register'
                           ),
                           Padding(
-                            child: LoginForm(
+                            child: RegisterForm(
                               email: args.email
                             ),
                             padding: EdgeInsets.fromLTRB(0, 30, 0, 30),

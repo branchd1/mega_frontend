@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:mega/models/LoginResponseModel.dart';
+import 'package:mega/models/RegisterResponseModel.dart';
 import 'package:mega/services/api.dart';
 
 import '../ErrorSnackBar.dart';
@@ -10,15 +11,15 @@ import '../MySubmitButton.dart';
 
 typedef void SetErrorTextCallback(String text);
 
-class LoginForm extends StatefulWidget{
+class RegisterForm extends StatefulWidget{
   final String email;
-  LoginForm({this.email});
+  RegisterForm({this.email});
 
   @override
-  _LoginFormState createState() => _LoginFormState();
+  _RegisterFormState createState() => _RegisterFormState();
 }
 
-class _LoginFormState extends State<LoginForm>{
+class _RegisterFormState extends State<RegisterForm>{
   final TextEditingController _passwordController = TextEditingController();
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
@@ -33,11 +34,11 @@ class _LoginFormState extends State<LoginForm>{
   void submit() async {
     if (_formKey.currentState.validate()){
       // do login
-      LoginResponseModel _res = await API.login(context, this.widget.email, _passwordController.text, setErrorText);
+      RegisterResponseModel _res = await API.register(context, this.widget.email, _passwordController.text, setErrorText);
 
-      // check successful login
-      if(_res != null){
-        print(_res.auth_token);
+      // check successful registration
+      if(_res != null) {
+        print(_res.username);
       }
     }
   }
@@ -58,7 +59,7 @@ class _LoginFormState extends State<LoginForm>{
           Align(
             alignment: Alignment.bottomRight,
             child: MySubmitButton(
-              buttonText: 'Login',
+              buttonText: 'Register',
               submitCallback: submit
             )
           ),
