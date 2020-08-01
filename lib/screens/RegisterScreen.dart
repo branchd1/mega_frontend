@@ -27,20 +27,18 @@ class RegisterScreen extends StatelessWidget{
               child: Column(
                 children: <Widget>[
                   Image.asset('assets/img/logo/logo.png'),
-                  Center(
-                      child: Column(
-                        children: <Widget>[
-                          BigText(
-                              text:'Register'
-                          ),
-                          Padding(
-                            child: RegisterForm(
-                              email: email
-                            ),
-                            padding: EdgeInsets.fromLTRB(0, 30, 0, 30),
-                          )
-                        ],
+                  Column(
+                    children: <Widget>[
+                      BigText(
+                          text:'Register'
+                      ),
+                      Padding(
+                        child: RegisterForm(
+                            email: email
+                        ),
+                        padding: EdgeInsets.fromLTRB(0, 30, 0, 30),
                       )
+                    ],
                   ),
                 ],
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
