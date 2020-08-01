@@ -166,7 +166,7 @@ class API {
 
     Map<String, String> headers = <String, String>{
       'Content-Type': 'application/json',
-      'Authorization': 'Token ' + Provider.of<AuthTokenModel>(context, listen: false).token
+      'Authorization': 'Token ' + Provider.of<AuthTokenModel>(context).token
     };
 
     Map<String, String> data = <String, String>{

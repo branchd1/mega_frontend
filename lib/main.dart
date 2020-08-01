@@ -9,7 +9,7 @@ import 'package:provider/provider.dart';
 void main()=>runApp(
   MultiProvider(
     providers: [
-      ChangeNotifierProvider(create: (context) => AuthTokenModel()),
+      Provider(create: (context) => AuthTokenModel()),
     ],
     child: MegaApp(),
   ),
