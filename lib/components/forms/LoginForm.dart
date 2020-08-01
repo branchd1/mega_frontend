@@ -1,14 +1,31 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:mega/models/AuthTokenModel.dart';
 import 'package:mega/models/LoginResponseModel.dart';
+import 'package:mega/screens/HomeScreen.dart';
 import 'package:mega/services/api.dart';
+import 'package:provider/provider.dart';
 
 import '../ErrorSnackBar.dart';
 import '../inputs/MyPasswordInput.dart';
 import '../MySubmitButton.dart';
 
 typedef void SetErrorTextCallback(String text);
+
+void doLogin(BuildContext context, String email, String password, {SetErrorTextCallback setErrorText}) async {
+  // do login
+  LoginResponseModel _res = await API.login(context, email, password, setErrorText: setErrorText);
+
+  // check successful login
+  if(_res != null){
+    Provider.of<AuthTokenModel>(context, listen: false).setToken(_res.auth_token);
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => HomeScreen()),
+    );
+  }
+}
 
 class LoginForm extends StatefulWidget{
   final String email;
@@ -30,15 +47,14 @@ class _LoginFormState extends State<LoginForm>{
     });
   }
 
-  void submit() async {
+  void submit() {
     if (_formKey.currentState.validate()){
-      // do login
-      LoginResponseModel _res = await API.login(context, this.widget.email, _passwordController.text, setErrorText);
-
-      // check successful login
-      if(_res != null){
-        print(_res.auth_token);
-      }
+      doLogin(
+          context,
+          this.widget.email,
+          _passwordController.text,
+          setErrorText: setErrorText
+      );
     }
   }
 

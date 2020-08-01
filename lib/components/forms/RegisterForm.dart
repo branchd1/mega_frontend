@@ -1,9 +1,12 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:mega/components/forms/LoginForm.dart';
+import 'package:mega/models/AuthTokenModel.dart';
 import 'package:mega/models/LoginResponseModel.dart';
 import 'package:mega/models/RegisterResponseModel.dart';
 import 'package:mega/services/api.dart';
+import 'package:provider/provider.dart';
 
 import '../ErrorSnackBar.dart';
 import '../inputs/MyPasswordInput.dart';
@@ -38,7 +41,7 @@ class _RegisterFormState extends State<RegisterForm>{
 
       // check successful registration
       if(_res != null) {
-        print(_res.username);
+        doLogin(context, this.widget.email, _passwordController.text);
       }
     }
   }
