@@ -4,7 +4,7 @@ import 'package:mega/components/MyAppBar.dart';
 import 'package:mega/components/forms/WelcomeForm.dart';
 
 class HomeScreen extends StatelessWidget{
-//  static const routeName = '/home';
+  static const routeName = '/home';
 
   @override
   Widget build(BuildContext context){
@@ -14,22 +14,20 @@ class HomeScreen extends StatelessWidget{
             body: Padding(
               child: Column(
                 children: <Widget>[
-                  Image.asset('assets/img/logo/logo.png'),
+                  BigText(
+                      text: 'Your communities'
+                  ),
                   Center(
                       child: Column(
                         children: <Widget>[
-                          BigText(
-                              text:'Welcome'
-                          ),
-                          Padding(
-                            child: WelcomeForm(),
-                            padding: EdgeInsets.fromLTRB(0, 30, 0, 30),
-                          )
+//                          Padding(
+//                            child: SearchBar(),
+//                            padding: EdgeInsets.fromLTRB(0, 30, 0, 30),
+//                          )
                         ],
                       )
                   ),
                 ],
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               ),
               padding: EdgeInsets.all(30),
             )

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mega/models/AuthTokenModel.dart';
+import 'package:mega/screens/HomeScreen.dart';
 import 'package:mega/screens/LoginScreen.dart';
 import 'package:mega/screens/RegisterScreen.dart';
 import 'package:mega/screens/WelcomeScreen.dart';
@@ -22,13 +23,14 @@ class MegaApp extends StatelessWidget{
       theme: ThemeData(
         canvasColor: Colors.white,
       ),
-      home: WelcomeScreen()
+      home: WelcomeScreen(),
 //      initialRoute: '/',
-//      routes: {
+      routes: {
 //        WelcomeScreen.routeName: (context) => WelcomeScreen(),
 //        LoginScreen.routeName: (context) => LoginScreen(),
 //        RegisterScreen.routeName: (context) => RegisterScreen(),
-//      },
+        HomeScreen.routeName: (context) => HomeScreen(),
+      },
     );
   }
 }

@@ -4,7 +4,7 @@ import 'package:mega/components/MyAppBar.dart';
 import 'package:mega/components/forms/WelcomeForm.dart';
 
 class WelcomeScreen extends StatelessWidget{
-//  static const routeName = '/';
+  static const routeName = '/';
 
   @override
   Widget build(BuildContext context){
