@@ -18,17 +18,17 @@ class HomeScreen extends StatefulWidget{
 
 class _HomeScreenState extends State<HomeScreen>{
   Future<List<CommunityModel>> communities;
-  bool isSearch = false;
+  String searchVal;
 
   void onSearch(String val){
     setState(() {
-      isSearch = val != null ?  true : false;
+      searchVal = val;
     });
   }
 
   @override
   Widget build(BuildContext context){
-    if (!isSearch) communities = CommunityAPI.getCommunities(context);
+    if (searchVal != null) communities = CommunityAPI.getCommunities(context);
     return Scaffold(
       appBar: MyAppBars.myAppBar2(),
       body: Padding(
@@ -47,7 +47,8 @@ class _HomeScreenState extends State<HomeScreen>{
                 Widget _widget;
                 if(snapshot.hasData){
                   _widget = CardGrid(
-                    list: snapshot.data,
+                    list: searchVal == null ?
+                    snapshot.data : snapshot.data.where((element) => element.name.toLowerCase().contains(searchVal)).toList(),
                     addButtonCallback: (){
                       Navigator.push(
                         context,
@@ -58,7 +59,7 @@ class _HomeScreenState extends State<HomeScreen>{
                 } else if (snapshot.hasError){
                   _widget = Text('Error');
                 } else {
-                  _widget = Text('loading...');
+                  _widget = CircularProgressIndicator();
                 }
                 return _widget;
               },
