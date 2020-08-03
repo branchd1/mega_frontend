@@ -5,7 +5,6 @@ import 'package:mega/components/cards/CardGrid.dart';
 import 'package:mega/components/bars/MyAppBar.dart';
 import 'package:mega/components/inputs/SearchInput.dart';
 import 'package:mega/models/CommunityModel.dart';
-import 'package:mega/screens/WelcomeScreen.dart';
 import 'package:mega/services/api/CommunityAPI.dart';
 
 class HomeScreen extends StatelessWidget{

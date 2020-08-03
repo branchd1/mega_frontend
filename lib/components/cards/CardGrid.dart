@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import 'MyCard.dart';
@@ -7,7 +6,6 @@ typedef void AddButtonCallback();
 
 class CardGrid extends StatelessWidget{
   final List<dynamic> list;
-
   final AddButtonCallback addButtonCallback;
 
   const CardGrid({Key key, this.list, this.addButtonCallback}) : super(key: key);
