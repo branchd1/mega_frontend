@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mega/models/AuthTokenModel.dart';
 import 'package:mega/screens/HomeScreen.dart';
-import 'package:mega/screens/LoginScreen.dart';
-import 'package:mega/screens/RegisterScreen.dart';
 import 'package:mega/screens/WelcomeScreen.dart';
 import 'package:provider/provider.dart';
 

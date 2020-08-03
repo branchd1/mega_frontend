@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:mega/components/BigText.dart';
+import 'package:mega/components/texts/BigText.dart';
 import 'package:mega/components/MyAppBar.dart';
 import 'package:mega/components/forms/WelcomeForm.dart';
 
@@ -17,9 +17,7 @@ class WelcomeScreen extends StatelessWidget{
                 Image.asset('assets/img/logo/logo.png'),
                 Column(
                   children: <Widget>[
-                    BigText(
-                        text:'Welcome'
-                    ),
+                    BigText('Welcome'),
                     Padding(
                       child: WelcomeForm(),
                       padding: EdgeInsets.fromLTRB(0, 30, 0, 30),

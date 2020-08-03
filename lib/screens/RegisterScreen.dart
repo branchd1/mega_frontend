@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:mega/components/BigText.dart';
+import 'package:mega/components/texts/BigText.dart';
 import 'package:mega/components/MyAppBar.dart';
 import 'package:mega/components/forms/LoginForm.dart';
 import 'package:mega/components/forms/RegisterForm.dart';
@@ -29,9 +29,7 @@ class RegisterScreen extends StatelessWidget{
                   Image.asset('assets/img/logo/logo.png'),
                   Column(
                     children: <Widget>[
-                      BigText(
-                          text:'Register'
-                      ),
+                      BigText('Register'),
                       Padding(
                         child: RegisterForm(
                             email: email

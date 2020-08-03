@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:mega/components/BigText.dart';
+import 'package:mega/components/texts/BigText.dart';
 import 'package:mega/components/MyAppBar.dart';
 import 'package:mega/components/forms/LoginForm.dart';
 
@@ -28,9 +28,7 @@ class LoginScreen extends StatelessWidget{
                 Image.asset('assets/img/logo/logo.png'),
                 Column(
                   children: <Widget>[
-                    BigText(
-                        text:'Login'
-                    ),
+                    BigText('Login'),
                     Padding(
                       child: LoginForm(
                           email: email

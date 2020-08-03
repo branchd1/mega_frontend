@@ -3,9 +3,10 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:mega/components/forms/LoginForm.dart';
 import 'package:mega/models/AuthTokenModel.dart';
-import 'package:mega/models/LoginResponseModel.dart';
-import 'package:mega/models/RegisterResponseModel.dart';
-import 'package:mega/services/api.dart';
+import 'package:mega/models/response/LoginResponseModel.dart';
+import 'package:mega/models/response/RegisterResponseModel.dart';
+import 'package:mega/services/api/BaseAPI.dart';
+import 'package:mega/services/api/AuthAPI.dart';
 import 'package:provider/provider.dart';
 
 import '../ErrorSnackBar.dart';
@@ -37,7 +38,7 @@ class _RegisterFormState extends State<RegisterForm>{
   void submit() async {
     if (_formKey.currentState.validate()){
       // do login
-      RegisterResponseModel _res = await API.register(context, this.widget.email, _passwordController.text, setErrorText);
+      RegisterResponseModel _res = await AuthAPI.register(context, this.widget.email, _passwordController.text, setErrorText);
 
       // check successful registration
       if(_res != null) {

@@ -2,9 +2,10 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:mega/models/AuthTokenModel.dart';
-import 'package:mega/models/LoginResponseModel.dart';
+import 'package:mega/models/response/LoginResponseModel.dart';
 import 'package:mega/screens/HomeScreen.dart';
-import 'package:mega/services/api.dart';
+import 'package:mega/services/api/BaseAPI.dart';
+import 'package:mega/services/api/AuthAPI.dart';
 import 'package:provider/provider.dart';
 
 import '../ErrorSnackBar.dart';
@@ -15,7 +16,7 @@ typedef void SetErrorTextCallback(String text);
 
 void doLogin(BuildContext context, String email, String password, {SetErrorTextCallback setErrorText}) async {
   // do login
-  LoginResponseModel _res = await API.login(context, email, password, setErrorText: setErrorText);
+  LoginResponseModel _res = await AuthAPI.login(context, email, password, setErrorText: setErrorText);
 
   // check successful login
   if(_res != null){

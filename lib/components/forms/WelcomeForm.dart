@@ -1,12 +1,11 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:mega/models/EmailExistsResponseModel.dart';
+import 'package:mega/models/response/EmailExistsResponseModel.dart';
 import 'package:mega/screens/LoginScreen.dart';
 import 'package:mega/screens/RegisterScreen.dart';
-import 'package:mega/services/api.dart';
+import 'package:mega/services/api/AuthAPI.dart';
 
-import '../ErrorSnackBar.dart';
 import '../inputs/MyEmailInput.dart';
 import '../MySubmitButton.dart';
 
@@ -22,27 +21,15 @@ class _WelcomeFormState extends State<WelcomeForm>{
   void submit() async {
     if (_formKey.currentState.validate()){
       // check email
-       EmailExistsResponseModel _res = await API.checkEmailExists(context, _emailController.text);
+       EmailExistsResponseModel _res = await AuthAPI.checkEmailExists(context, _emailController.text);
 
       // check successful
       if(_res!= null && _res.exists){
-//        Navigator.pushNamed(context,
-//          LoginScreen.routeName,
-//          arguments: LoginScreenArguments(
-//            email: _emailController.text,
-//          ),
-//        );
         Navigator.push(
           context,
           MaterialPageRoute(builder: (context) => LoginScreen(email: _emailController.text)),
         );
       } else if (_res!= null) {
-//        Navigator.pushNamed(context,
-//          RegisterScreen.routeName,
-//          arguments: RegisterScreenArguments(
-//            email: _emailController.text,
-//          ),
-//        );
         Navigator.push(
           context,
           MaterialPageRoute(builder: (context) => RegisterScreen(email: _emailController.text)),

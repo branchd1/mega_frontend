@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class BigText extends StatelessWidget{
   final String text;
 
-  BigText({Key key, this.text}) : super(key: key);
+  BigText(this.text, {Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
