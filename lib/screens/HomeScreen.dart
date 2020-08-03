@@ -5,6 +5,7 @@ import 'package:mega/components/cards/CardGrid.dart';
 import 'package:mega/components/bars/MyAppBar.dart';
 import 'package:mega/components/inputs/SearchInput.dart';
 import 'package:mega/models/CommunityModel.dart';
+import 'package:mega/screens/WelcomeScreen.dart';
 import 'package:mega/services/api/CommunityAPI.dart';
 
 class HomeScreen extends StatelessWidget{
@@ -29,7 +30,13 @@ class HomeScreen extends StatelessWidget{
                 Widget _widget;
                 if(snapshot.hasData){
                   _widget = CardGrid(
-                    list: snapshot.data
+                    list: snapshot.data,
+                    addButtonCallback: (){
+//                      Navigator.push(
+//                        context,
+//                        MaterialPageRoute(builder: (context) => AddCommunityScreen()),
+//                      );
+                    },
                   );
                 } else if (snapshot.hasError){
                   _widget = Text('Error');
