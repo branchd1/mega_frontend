@@ -5,6 +5,7 @@ import 'package:http/http.dart' as http;
 import 'package:mega/components/bars/ErrorSnackBar.dart';
 import 'package:mega/models/AuthTokenModel.dart';
 import 'package:mega/models/CommunityModel.dart';
+import 'package:mega/models/response/CreateCommunityResponseModel.dart';
 import 'package:mega/models/response/JoinCommunityResponseModel.dart';
 import 'dart:convert';
 
@@ -84,6 +85,45 @@ class CommunityAPI {
     } else {
       showErrorSnackBar(context);
       return false;
+    }
+  }
+
+  static Future<CreateCommunityResponseModel> createCommunity(BuildContext context, String communityName, String communityType, SetErrorTextCallback setErrorText) async {
+
+    Map<String, String> headers = <String, String>{
+      'Content-Type': 'application/json',
+      'Authorization': 'Token ' + Provider.of<AuthTokenModel>(context, listen: false).token
+    };
+
+    Map<String, String> data = <String, String>{
+      'name': communityName,
+      'type': communityType
+    };
+
+    http.Response _res;
+
+    try{
+      _res = await BaseAPI.post(
+        'api/communities/',
+        additionalHeaders: headers,
+        data: data
+      );
+    } on SocketException{
+      showErrorSnackBar(context);
+    } catch (e) {
+      print(e);
+    }
+
+    if(_res.statusCode==201){
+      return CreateCommunityResponseModel.fromJson(jsonDecode(_res.body));
+    } else if(_res.statusCode == 400) {
+      setErrorText(
+          CreateCommunityResponseModel.fromJson(jsonDecode(_res.body)).errorToString()
+      );
+      return null;
+    } else {
+      showErrorSnackBar(context);
+      return null;
     }
   }
 }

@@ -1,14 +1,10 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:mega/models/AuthTokenModel.dart';
 import 'package:mega/models/response/LoginResponseModel.dart';
 import 'package:mega/screens/HomeScreen.dart';
-import 'package:mega/services/api/BaseAPI.dart';
 import 'package:mega/services/api/AuthAPI.dart';
 import 'package:provider/provider.dart';
 
-import '../bars/ErrorSnackBar.dart';
 import '../inputs/MyPasswordInput.dart';
 import '../MySubmitButton.dart';
 
@@ -20,7 +16,7 @@ void doLogin(BuildContext context, String email, String password, {SetErrorTextC
 
   // check successful login
   if(_res != null){
-    Provider.of<AuthTokenModel>(context, listen: false).setToken(_res.auth_token);
+    Provider.of<AuthTokenModel>(context, listen: false).setToken(_res.authToken);
     Navigator.push(
       context,
       MaterialPageRoute(builder: (context) => HomeScreen()),

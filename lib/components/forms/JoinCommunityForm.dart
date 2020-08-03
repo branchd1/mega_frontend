@@ -25,11 +25,7 @@ class _JoinCommunityFormState extends State<JoinCommunityForm>{
       // check email
       bool _res = await CommunityAPI.joinCommunities(context, _communityKeyController.text, setErrorText);
 
-      if(_res){
-       Navigator.pop(
-         context
-       );
-      }
+      if(_res)Navigator.pop(context);
     }
   }
 
@@ -41,22 +37,22 @@ class _JoinCommunityFormState extends State<JoinCommunityForm>{
       key: _formKey,
       child: Column(
         children: <Widget>[
-        MyTextInput(
-          controller: _communityKeyController,
-          hintText: 'Community key *',
-          validator: validateKey,
-        ),
-        Align(
-          alignment: Alignment.bottomRight,
-          child: MySubmitButton(
-            buttonText: 'Go',
-            submitCallback: submit,
+          MyTextInput(
+            controller: _communityKeyController,
+            hintText: 'Community key *',
+            validator: validateKey,
+          ),
+          Align(
+            alignment: Alignment.bottomRight,
+            child: MySubmitButton(
+              buttonText: 'Go',
+              submitCallback: submit,
+            )
+          ),
+          if(_errorText!=null) Align(
+            alignment: Alignment.bottomLeft,
+            child: ErrorText(_errorText),
           )
-        ),
-        if(_errorText!=null) Align(
-          alignment: Alignment.bottomLeft,
-          child: ErrorText(_errorText),
-        )
         ],
       )
     );

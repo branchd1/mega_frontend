@@ -1,5 +1,3 @@
-import 'package:flutter/material.dart';
-
 class RegisterResponseModel{
   final dynamic username;
   final dynamic email;
@@ -18,17 +16,11 @@ class RegisterResponseModel{
   }
 
   String errorToString() {
-    if (username != null && username is String){
-      return username;
-    } else if (username != null && username is List){
+    if (username != null && username is List<dynamic>){
       return username[0];
-    } else if (email != null && email is String){
-      return email;
-    } else if (email != null && email is List){
+    } else if (email != null && email is List<dynamic>){
       return email[0];
-    } else if(password != null && password is String){
-      return password;
-    } else if (password != null && password is List){
+    } else if (password != null && password is List<dynamic>){
       return password[0];
     } else {
       return null;

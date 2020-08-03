@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 
 class LoginResponseModel{
-  final String auth_token;
+  final String authToken;
 
-  LoginResponseModel({this.auth_token});
+  LoginResponseModel({this.authToken});
 
   factory LoginResponseModel.fromJson(Map<String, dynamic> json) {
     return LoginResponseModel(
-      auth_token: json['auth_token']
+      authToken: json['auth_token']
     );
   }
 }

@@ -16,7 +16,7 @@ class MyCard extends StatelessWidget{
       child: Card(
         child: Stack(
           children: <Widget>[
-            ClipRRect(
+            if(imageUrl != null) ClipRRect(
               borderRadius: BorderRadius.all(Radius.circular(10)),
               child: Image.network(imageUrl),
             ),

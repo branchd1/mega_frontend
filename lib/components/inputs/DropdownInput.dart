@@ -4,7 +4,7 @@ typedef DropDownChangedCallback(String val);
 typedef Validator(String val);
 
 class DropdownInput extends StatelessWidget{
-  final List<String> dropDownList;
+  final List<Map<String,String>> dropDownList;
   final DropDownChangedCallback dropDownChangedCallback;
   final String hintText;
   final Validator validator;
@@ -15,9 +15,9 @@ class DropdownInput extends StatelessWidget{
   Widget build(BuildContext context) {
     return DropdownButtonFormField<String>(
       items: dropDownList.map(
-        (String elem) => DropdownMenuItem<String>(
-          value: elem,
-          child: new Text(elem),
+        (Map<String,String> elem) => DropdownMenuItem<String>(
+          value: elem['value'],
+          child: new Text(elem['text']),
         )
       ).toList(),
       onChanged: dropDownChangedCallback,
