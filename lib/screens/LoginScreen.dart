@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mega/components/texts/BigText.dart';
-import 'package:mega/components/bars/MyAppBar.dart';
+import 'package:mega/components/bars/MyAppBars.dart';
 import 'package:mega/components/forms/LoginForm.dart';
 
 //class LoginScreenArguments {
@@ -21,7 +21,7 @@ class LoginScreen extends StatelessWidget{
 //    final LoginScreenArguments args = ModalRoute.of(context).settings.arguments;
     return(
         Scaffold(
-          appBar: myAppBar1(),
+          appBar: MyAppBars.myAppBar1(),
           body: Padding(
             child: Column(
               children: <Widget>[
@@ -40,7 +40,7 @@ class LoginScreen extends StatelessWidget{
               ],
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             ),
-            padding: EdgeInsets.all(30),
+            padding: EdgeInsets.fromLTRB(30, 0, 30, 0),
           )
         )
     );

@@ -19,7 +19,7 @@ class CardGrid extends StatelessWidget{
         shrinkWrap: true,
         children: List.generate(
           addButtonCallback != null ? list.length + 1 : list.length,
-          (index) => index == list.length && addButtonCallback != null  ? Container(
+          (int index) => index == list.length && addButtonCallback != null  ? Container(
             child: IconButton(
               icon: Icon(Icons.add_circle_outline),
               iconSize: 50,

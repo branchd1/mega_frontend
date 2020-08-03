@@ -10,7 +10,7 @@ class BigText extends StatelessWidget{
     return Align(
       child: Text(
         text,
-        textScaleFactor: 3,
+        textScaleFactor: 2.5,
         textAlign: TextAlign.left,
         style: TextStyle(
             fontWeight: FontWeight.bold

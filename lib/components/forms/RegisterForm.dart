@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:mega/components/forms/LoginForm.dart';
+import 'package:mega/components/texts/ErrorText.dart';
 import 'package:mega/models/AuthTokenModel.dart';
 import 'package:mega/models/response/LoginResponseModel.dart';
 import 'package:mega/models/response/RegisterResponseModel.dart';
@@ -69,13 +70,7 @@ class _RegisterFormState extends State<RegisterForm>{
           ),
           if(_errorText!=null) Align(
             alignment: Alignment.bottomLeft,
-            child: Text(
-              _errorText,
-              textAlign: TextAlign.left,
-              style: TextStyle(
-                color: Colors.red
-              ),
-            ),
+            child: ErrorText(_errorText),
           )
         ],
       )

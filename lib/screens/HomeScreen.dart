@@ -2,10 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:mega/components/bars/MyBottomNav.dart';
 import 'package:mega/components/texts/BigText.dart';
 import 'package:mega/components/cards/CardGrid.dart';
-import 'package:mega/components/bars/MyAppBar.dart';
+import 'package:mega/components/bars/MyAppBars.dart';
 import 'package:mega/components/inputs/SearchInput.dart';
 import 'package:mega/models/CommunityModel.dart';
 import 'package:mega/services/api/CommunityAPI.dart';
+
+import 'AddCommunityScreen.dart';
 
 class HomeScreen extends StatelessWidget{
   static const routeName = '/home';
@@ -14,7 +16,7 @@ class HomeScreen extends StatelessWidget{
   Widget build(BuildContext context){
     final Future<List<CommunityModel>> communities = CommunityAPI.getCommunities(context);
     return Scaffold(
-      appBar: myAppBar2(),
+      appBar: MyAppBars.myAppBar2(),
       body: Padding(
         child: Column(
           children: <Widget>[
@@ -31,10 +33,10 @@ class HomeScreen extends StatelessWidget{
                   _widget = CardGrid(
                     list: snapshot.data,
                     addButtonCallback: (){
-//                      Navigator.push(
-//                        context,
-//                        MaterialPageRoute(builder: (context) => AddCommunityScreen()),
-//                      );
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => AddCommunityScreen()),
+                      );
                     },
                   );
                 } else if (snapshot.hasError){
@@ -47,7 +49,7 @@ class HomeScreen extends StatelessWidget{
             ),
           ],
         ),
-        padding: EdgeInsets.all(30),
+        padding: EdgeInsets.fromLTRB(30, 0, 30, 0),
       ),
       bottomNavigationBar: MyBottomNav()
     );

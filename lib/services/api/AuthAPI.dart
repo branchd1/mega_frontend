@@ -12,9 +12,7 @@ import 'package:mega/models/response/RegisterResponseModel.dart';
 import 'BaseAPI.dart';
 
 class AuthAPI {
-  static Future<EmailExistsResponseModel> checkEmailExists(
-    BuildContext context,
-    String email) async {
+  static Future<EmailExistsResponseModel> checkEmailExists(BuildContext context, String email) async {
 
     Map<String, String> headers = <String, String>{
       'Content-Type': 'application/json',
@@ -107,9 +105,9 @@ class AuthAPI {
 
     try{
       _res = await BaseAPI.post(
-          'auth/users/',
-          additionalHeaders: headers,
-          data: data
+        'auth/users/',
+        additionalHeaders: headers,
+        data: data
       );
     } on SocketException{
       showErrorSnackBar(context);
