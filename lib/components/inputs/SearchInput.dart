@@ -1,18 +1,20 @@
 import 'package:flutter/material.dart';
 
-class SearchInput extends StatelessWidget{
-  final TextEditingController controller;
+typedef void OnChangeCallback(String val);
 
-  SearchInput({@required this.controller});
+class SearchInput extends StatelessWidget{
+  final OnChangeCallback onChangeCallback;
+
+  SearchInput({@required this.onChangeCallback});
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
-      controller: controller,
       decoration: InputDecoration(
           hintText: 'search',
           border: OutlineInputBorder()
       ),
+      onChanged: onChangeCallback,
     );
   }
 }

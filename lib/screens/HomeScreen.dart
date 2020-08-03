@@ -9,12 +9,26 @@ import 'package:mega/services/api/CommunityAPI.dart';
 
 import 'AddCommunityScreen.dart';
 
-class HomeScreen extends StatelessWidget{
+class HomeScreen extends StatefulWidget{
   static const routeName = '/home';
 
   @override
+  _HomeScreenState createState()=> _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen>{
+  Future<List<CommunityModel>> communities;
+  bool isSearch = false;
+
+  void onSearch(String val){
+    setState(() {
+      isSearch = val != null ?  true : false;
+    });
+  }
+
+  @override
   Widget build(BuildContext context){
-    final Future<List<CommunityModel>> communities = CommunityAPI.getCommunities(context);
+    if (!isSearch) communities = CommunityAPI.getCommunities(context);
     return Scaffold(
       appBar: MyAppBars.myAppBar2(),
       body: Padding(
@@ -22,7 +36,9 @@ class HomeScreen extends StatelessWidget{
           children: <Widget>[
             BigText('Your communities'),
             Padding(
-              child: SearchInput(),
+              child: SearchInput(
+                onChangeCallback: onSearch,
+              ),
               padding: EdgeInsets.fromLTRB(0, 30, 0, 30),
             ),
             FutureBuilder<List<CommunityModel>>(
