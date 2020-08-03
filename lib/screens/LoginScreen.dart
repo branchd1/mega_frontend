@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mega/components/texts/BigText.dart';
-import 'package:mega/components/MyAppBar.dart';
+import 'package:mega/components/bars/MyAppBar.dart';
 import 'package:mega/components/forms/LoginForm.dart';
 
 //class LoginScreenArguments {

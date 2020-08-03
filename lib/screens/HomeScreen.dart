@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:mega/components/bars/MyBottomNav.dart';
 import 'package:mega/components/texts/BigText.dart';
 import 'package:mega/components/cards/CardGrid.dart';
-import 'package:mega/components/MyAppBar.dart';
+import 'package:mega/components/bars/MyAppBar.dart';
 import 'package:mega/components/inputs/SearchInput.dart';
 import 'package:mega/models/CommunityModel.dart';
 import 'package:mega/services/api/CommunityAPI.dart';
@@ -41,7 +42,8 @@ class HomeScreen extends StatelessWidget{
           ],
         ),
         padding: EdgeInsets.all(30),
-      )
+      ),
+      bottomNavigationBar: MyBottomNav()
     );
   }
 }

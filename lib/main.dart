@@ -22,11 +22,7 @@ class MegaApp extends StatelessWidget{
         canvasColor: Colors.white,
       ),
       home: WelcomeScreen(),
-//      initialRoute: '/',
       routes: {
-//        WelcomeScreen.routeName: (context) => WelcomeScreen(),
-//        LoginScreen.routeName: (context) => LoginScreen(),
-//        RegisterScreen.routeName: (context) => RegisterScreen(),
         HomeScreen.routeName: (context) => HomeScreen(),
       },
     );

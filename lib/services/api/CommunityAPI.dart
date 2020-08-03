@@ -2,7 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'package:mega/components/ErrorSnackBar.dart';
+import 'package:mega/components/bars/ErrorSnackBar.dart';
 import 'package:mega/models/AuthTokenModel.dart';
 import 'package:mega/models/CommunityModel.dart';
 import 'dart:convert';

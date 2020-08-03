@@ -2,7 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'package:mega/components/ErrorSnackBar.dart';
+import 'package:mega/components/bars/ErrorSnackBar.dart';
 import 'dart:convert';
 
 import 'package:mega/models/response/EmailExistsResponseModel.dart';

@@ -9,7 +9,7 @@ import 'package:mega/services/api/BaseAPI.dart';
 import 'package:mega/services/api/AuthAPI.dart';
 import 'package:provider/provider.dart';
 
-import '../ErrorSnackBar.dart';
+import '../bars/ErrorSnackBar.dart';
 import '../inputs/MyPasswordInput.dart';
 import '../MySubmitButton.dart';
 

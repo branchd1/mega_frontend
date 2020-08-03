@@ -10,6 +10,9 @@ class MainText extends StatelessWidget{
     return Text(
       text,
       textScaleFactor: 1.5,
+      style: TextStyle(
+        fontWeight: FontWeight.bold
+      ),
     );
   }
 }

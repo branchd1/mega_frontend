@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mega/services/Constants.dart';
 
 import '../texts/MainText.dart';
 
@@ -19,23 +20,34 @@ class MyCard extends StatelessWidget{
               borderRadius: BorderRadius.all(Radius.circular(10)),
               child: Image.network(imageUrl),
             ),
-            Container(
-              child: Padding(
-                child: Column(
-                  children: <Widget>[
-                    MainText(text),
-                    Text(subText)
-                  ],
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  crossAxisAlignment: CrossAxisAlignment.center,
+            Align(
+              alignment: Alignment.bottomCenter,
+              child: ClipRRect(
+                borderRadius: BorderRadius.vertical(
+                  bottom: Radius.circular(10)
                 ),
-                padding: EdgeInsets.all(10),
+                child: Container(
+                  child: Padding(
+                    child: Column(
+                      children: <Widget>[
+                        MainText(text),
+                        Text(subText)
+                      ],
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                    ),
+                    padding: EdgeInsets.all(2),
+                  ),
+                  constraints: BoxConstraints.expand(
+                    height: 50
+                  ),
+                  color: Color(Constants.transGrey),
+                )
               ),
-              constraints: BoxConstraints.expand(),
-            )
+            ),
           ],
         ),
-        color: Color(0xFFF1F1F1),
+        color: Color(Constants.grey),
         elevation: 0,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(15.0),
