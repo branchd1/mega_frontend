@@ -42,7 +42,7 @@ class _AddCommunityScreenState extends State<AddCommunityScreen>{
                     padding: EdgeInsets.fromLTRB(0, 30, 0, 0),
                   ),
                   Align(
-                    child: MyButton(buttonText: 'join a community', onPressCallback: changeScreen,),
+                    child: MyButton(buttonText: 'create a community', onPressCallback: changeScreen,),
                     alignment: Alignment.bottomRight,
                   )
                 ],

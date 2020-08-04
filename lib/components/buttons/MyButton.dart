@@ -12,7 +12,7 @@ class MyButton extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
     return FlatButton(
-      child: Text('join a community'),
+      child: Text(buttonText),
       onPressed: onPressCallback
     );
   }
