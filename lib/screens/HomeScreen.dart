@@ -28,7 +28,7 @@ class _HomeScreenState extends State<HomeScreen>{
 
   @override
   Widget build(BuildContext context){
-    if (searchVal != null) communities = CommunityAPI.getCommunities(context);
+    if (searchVal == null) communities = CommunityAPI.getCommunities(context);
     return Scaffold(
       appBar: MyAppBars.myAppBar2(),
       body: Padding(
@@ -69,7 +69,9 @@ class _HomeScreenState extends State<HomeScreen>{
         ),
         padding: EdgeInsets.fromLTRB(30, 0, 30, 0),
       ),
-      bottomNavigationBar: MyBottomNav()
+      bottomNavigationBar: MyBottomNav(
+        bottomNavActivePage: BottomNavActivePage.home
+      )
     );
   }
 }
