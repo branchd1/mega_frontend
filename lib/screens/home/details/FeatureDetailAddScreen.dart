@@ -28,18 +28,27 @@ class FeatureDetailAddScreen extends StatelessWidget{
                 child: Row(
                   children: <Widget>[
                     MyCard(imageUrl: feature.picture),
-                    Column(
-                      children: <Widget>[
-                        MainText(feature.name),
-                        Text(feature.communityType),
-                        MyButton(buttonText: 'add to community', onPressCallback: addFeatureToCommunity),
-                      ],
-                    )
+                    Padding(
+                      padding: EdgeInsets.fromLTRB(5, 0, 0, 0),
+                      child: Column(
+                        children: <Widget>[
+                          MainText(feature.name),
+                          Text(feature.communityType),
+                          MyButton(buttonText: 'add to community', onPressCallback: addFeatureToCommunity),
+                        ],
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                      ),
+                    ),
                   ],
                 ),
                 alignment: Alignment.bottomLeft,
+              ),
+              Padding(
+                padding: EdgeInsets.fromLTRB(0, 15, 0, 0),
+                child: Text(feature.description),
               )
             ],
+            crossAxisAlignment: CrossAxisAlignment.start,
           ),
           padding: EdgeInsets.fromLTRB(30, 0, 30, 0),
         ),
