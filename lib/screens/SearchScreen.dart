@@ -35,36 +35,36 @@ class _SearchScreenState extends State<SearchScreen>{
           child: Column(
             children: <Widget>[
               BigText('Discover communities'),
-              Padding(
-                child: SearchInput(
-                  onChangeCallback: onSearch,
-                ),
-                padding: EdgeInsets.fromLTRB(0, 30, 0, 30),
-              ),
-              FutureBuilder<List<CommunityModel>>(
-                future: communities,
-                builder: (BuildContext context, AsyncSnapshot<List<CommunityModel>> snapshot) {
-                  Widget _widget;
-                  if(snapshot.hasData){
-                    _widget = CardGrid(
-                      list: searchVal == null ?
-                      snapshot.data : snapshot.data.where((element) => element.name.toLowerCase().contains(searchVal)).toList(),
-                      addButtonCallback: (){
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) => AddCommunityScreen()),
-                        );
-                      },
-                      emptyText: 'No communities',
-                    );
-                  } else if (snapshot.hasError){
-                    _widget = Text('Error');
-                  } else {
-                    _widget = CircularProgressIndicator();
-                  }
-                  return _widget;
-                },
-              ),
+//              Padding(
+//                child: SearchInput(
+//                  onChangeCallback: onSearch,
+//                ),
+//                padding: EdgeInsets.fromLTRB(0, 30, 0, 30),
+//              ),
+//              FutureBuilder<List<CommunityModel>>(
+//                future: communities,
+//                builder: (BuildContext context, AsyncSnapshot<List<CommunityModel>> snapshot) {
+//                  Widget _widget;
+//                  if(snapshot.hasData){
+//                    _widget = CardGrid(
+//                      list: searchVal == null ?
+//                      snapshot.data : snapshot.data.where((element) => element.name.toLowerCase().contains(searchVal)).toList(),
+//                      addButtonCallback: (){
+//                        Navigator.push(
+//                          context,
+//                          MaterialPageRoute(builder: (context) => AddCommunityScreen()),
+//                        );
+//                      },
+//                      emptyText: 'No communities',
+//                    );
+//                  } else if (snapshot.hasError){
+//                    _widget = Text('Error');
+//                  } else {
+//                    _widget = CircularProgressIndicator();
+//                  }
+//                  return _widget;
+//                },
+//              ),
             ],
           ),
           padding: EdgeInsets.fromLTRB(30, 0, 30, 0),

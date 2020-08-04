@@ -8,6 +8,7 @@ import 'package:mega/models/CommunityModel.dart';
 import 'package:mega/services/api/CommunityAPI.dart';
 
 import 'AddCommunityScreen.dart';
+import 'CommunityDetailScreen.dart';
 
 class HomeScreen extends StatefulWidget{
   static const routeName = '/home';
@@ -24,6 +25,13 @@ class _HomeScreenState extends State<HomeScreen>{
     setState(() {
       searchVal = val;
     });
+  }
+
+  void tapCardCallback(BuildContext context, dynamic item){
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => CommunityDetailScreen(community: item,)),
+    );
   }
 
   @override
@@ -56,6 +64,7 @@ class _HomeScreenState extends State<HomeScreen>{
                       );
                     },
                     emptyText: 'No communities',
+                    tapCardCallback: tapCardCallback,
                   );
                 } else if (snapshot.hasError){
                   _widget = Text('Error');
