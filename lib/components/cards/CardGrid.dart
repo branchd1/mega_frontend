@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mega/models/CommunityModel.dart';
 import 'package:mega/screens/CommunityDetailScreen.dart';
 
 import 'MyCard.dart';
@@ -13,6 +14,13 @@ class CardGrid extends StatelessWidget{
   final TapCardCallback tapCardCallback;
 
   const CardGrid({Key key, this.list, this.addButtonCallback, this.emptyText, this.tapCardCallback}) : super(key: key);
+
+  String getSubtext(int index){
+    if (list[index] is CommunityModel){
+      return list[index].isAdmin ? 'admin' : 'member';
+    }
+    return null;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -41,7 +49,7 @@ class CardGrid extends StatelessWidget{
                 onTap: tapCardCallback != null ? ()=>tapCardCallback(context, list[index]) : (){},
                 child: MyCard(
                   text: list[index].name,
-                  subText: list[index].isAdmin ? 'admin' : 'member',
+                  subText: getSubtext(index),
                   imageUrl: list[index].picture,
                 )
               )

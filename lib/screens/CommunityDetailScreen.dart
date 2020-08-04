@@ -1,9 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:mega/components/bars/MyAppBars.dart';
 import 'package:mega/components/bars/MyBottomNav.dart';
+import 'package:mega/components/cards/CardGrid.dart';
 import 'package:mega/components/inputs/SearchInput.dart';
 import 'package:mega/components/texts/BigText.dart';
 import 'package:mega/models/CommunityModel.dart';
+import 'package:mega/models/FeatureModel.dart';
+import 'package:mega/screens/AddFeatureScreen.dart';
+import 'package:mega/screens/FeatureDetailScreen.dart';
+import 'package:mega/services/api/FeatureAPI.dart';
 
 class CommunityDetailScreen extends StatefulWidget{
   final CommunityModel community;
@@ -15,7 +20,7 @@ class CommunityDetailScreen extends StatefulWidget{
 }
 
 class _CommunityDetailScreenState extends State<CommunityDetailScreen>{
-//  Future<List<CommunityModel>> communities;
+  Future<List<FeatureModel>> features;
   String searchVal;
 
   void onSearch(String val){
@@ -24,16 +29,16 @@ class _CommunityDetailScreenState extends State<CommunityDetailScreen>{
     });
   }
 
-//  void tapCardCallback(BuildContext context, dynamic item){
-//    Navigator.push(
-//      context,
-//      MaterialPageRoute(builder: (context) => CommunityDetailScreen(community: item,)),
-//    );
-//  }
+  void tapCardCallback(BuildContext context, dynamic item){
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => FeatureDetailScreen()),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
-//    if (searchVal == null) communities = CommunityAPI.getCommunities(context);
+    if (searchVal == null) features = FeatureAPI.getFeatures(context, widget.community.id);
     return Scaffold(
       appBar: MyAppBars.myAppBar3(),
       body: Padding(
@@ -53,31 +58,31 @@ class _CommunityDetailScreenState extends State<CommunityDetailScreen>{
               ),
               padding: EdgeInsets.fromLTRB(0, 30, 0, 30),
             ),
-//            FutureBuilder<List<CommunityModel>>(
-//              future: communities,
-//              builder: (BuildContext context, AsyncSnapshot<List<CommunityModel>> snapshot) {
-//                Widget _widget;
-//                if(snapshot.hasData){
-//                  _widget = CardGrid(
-//                    list: searchVal == null ?
-//                    snapshot.data : snapshot.data.where((element) => element.name.toLowerCase().contains(searchVal)).toList(),
-//                    addButtonCallback: (){
-//                      Navigator.push(
-//                        context,
-//                        MaterialPageRoute(builder: (context) => AddCommunityScreen()),
-//                      );
-//                    },
-//                    emptyText: 'No communities',
-//                    tapCardCallback: tapCardCallback,
-//                  );
-//                } else if (snapshot.hasError){
-//                  _widget = Text('Error');
-//                } else {
-//                  _widget = CircularProgressIndicator();
-//                }
-//                return _widget;
-//              },
-//            ),
+            FutureBuilder<List<FeatureModel>>(
+              future: features,
+              builder: (BuildContext context, AsyncSnapshot<List<FeatureModel>> snapshot) {
+                Widget _widget;
+                if(snapshot.hasData){
+                  _widget = CardGrid(
+                    list: searchVal == null ?
+                    snapshot.data : snapshot.data.where((element) => element.name.toLowerCase().contains(searchVal)).toList(),
+                    addButtonCallback: this.widget.community.isAdmin ? (){
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => AddFeatureScreen()),
+                      );
+                    } : null,
+                    emptyText: 'No features',
+                    tapCardCallback: tapCardCallback,
+                  );
+                } else if (snapshot.hasError){
+                  _widget = Text('Error');
+                } else {
+                  _widget = CircularProgressIndicator();
+                }
+                return _widget;
+              },
+            ),
           ],
         ),
         padding: EdgeInsets.fromLTRB(30, 0, 30, 0),

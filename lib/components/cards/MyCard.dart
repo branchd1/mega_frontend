@@ -31,7 +31,7 @@ class MyCard extends StatelessWidget{
                     child: Column(
                       children: <Widget>[
                         MainText(text),
-                        Text(subText)
+                        if(subText != null) Text(subText),
                       ],
                       mainAxisAlignment: MainAxisAlignment.start,
                       crossAxisAlignment: CrossAxisAlignment.center,
