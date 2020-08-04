@@ -13,19 +13,23 @@ class DropdownInput extends StatelessWidget{
 
   @override
   Widget build(BuildContext context) {
-    return DropdownButtonFormField<String>(
-      items: dropDownList.map(
-        (Map<String,String> elem) => DropdownMenuItem<String>(
-          value: elem['value'],
-          child: new Text(elem['text']),
-        )
-      ).toList(),
-      onChanged: dropDownChangedCallback,
-      decoration: InputDecoration(
-        hintText: hintText,
-        border: OutlineInputBorder()
+    return Container(
+      child: DropdownButtonFormField<String>(
+        items: dropDownList.map(
+          (Map<String,String> elem) => DropdownMenuItem<String>(
+            value: elem['value'],
+            child: new Text(elem['text']),
+          )
+        ).toList(),
+        onChanged: dropDownChangedCallback,
+        decoration: InputDecoration(
+          hintText: hintText,
+          border: OutlineInputBorder(),
+          contentPadding: EdgeInsets.fromLTRB(5, 0, 0, 0),
+        ),
+        validator: validator,
       ),
-      validator: validator,
+      height: 35,
     );
   }
 }

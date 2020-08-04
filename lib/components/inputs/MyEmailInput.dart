@@ -13,15 +13,19 @@ class MyEmailInput extends StatelessWidget{
 
   @override
   Widget build(BuildContext context) {
-    return TextFormField(
-      controller: controller,
-      decoration: InputDecoration(
+    return Container(
+      child: TextFormField(
+        controller: controller,
+        decoration: InputDecoration(
           hintText: 'email *',
-          border: OutlineInputBorder()
+          border: OutlineInputBorder(),
+          contentPadding: EdgeInsets.fromLTRB(5, 0, 0, 0),
+        ),
+        validator: (String value) {
+          return emailRegex.hasMatch(value) ? null : 'Enter a valid email';
+        },
       ),
-      validator: (String value) {
-        return emailRegex.hasMatch(value) ? null : 'Enter a valid email';
-      },
+      height: 35,
     );
   }
 }

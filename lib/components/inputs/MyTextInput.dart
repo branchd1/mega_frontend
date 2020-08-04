@@ -11,13 +11,17 @@ class MyTextInput extends StatelessWidget{
 
   @override
   Widget build(BuildContext context) {
-    return TextFormField(
-      controller: controller,
-      decoration: InputDecoration(
-          hintText: hintText,
-          border: OutlineInputBorder()
+    return Container(
+      child: TextFormField(
+        controller: controller,
+        decoration: InputDecoration(
+            hintText: hintText,
+            border: OutlineInputBorder(),
+            contentPadding: EdgeInsets.fromLTRB(5, 0, 0, 0),
+        ),
+        validator: validator,
       ),
-      validator: validator,
+      height: 35,
     );
   }
 }

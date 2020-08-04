@@ -9,12 +9,16 @@ class SearchInput extends StatelessWidget{
 
   @override
   Widget build(BuildContext context) {
-    return TextFormField(
-      decoration: InputDecoration(
-          hintText: 'search',
-          border: OutlineInputBorder()
+    return Container(
+      child: TextFormField(
+        decoration: InputDecoration(
+            hintText: 'search',
+            border: OutlineInputBorder(),
+            contentPadding: EdgeInsets.fromLTRB(5, 0, 0, 0),
+        ),
+        onChanged: onChangeCallback,
       ),
-      onChanged: onChangeCallback,
+      height: 35,
     );
   }
 }
