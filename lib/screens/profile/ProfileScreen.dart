@@ -7,7 +7,7 @@ import 'package:mega/components/inputs/SearchInput.dart';
 import 'package:mega/models/CommunityModel.dart';
 import 'package:mega/services/api/CommunityAPI.dart';
 
-import 'AddCommunityScreen.dart';
+import '../home/add/AddCommunityScreen.dart';
 
 class ProfileScreen extends StatelessWidget{
   static const routeName = '/profile';

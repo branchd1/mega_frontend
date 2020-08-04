@@ -12,7 +12,7 @@ import 'package:provider/provider.dart';
 
 import '../bars/ErrorSnackBar.dart';
 import '../inputs/MyPasswordInput.dart';
-import '../MySubmitButton.dart';
+import '../buttons/MySubmitButton.dart';
 
 typedef void SetErrorTextCallback(String text);
 

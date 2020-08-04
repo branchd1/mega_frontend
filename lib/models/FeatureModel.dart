@@ -12,7 +12,7 @@ class FeatureModel {
         id: json['id'],
         name: json['name'],
         picture: json['picture'],
-        communityType: json['communityType'],
+        communityType: json['community_type'],
         description: json['description']
     );
   }

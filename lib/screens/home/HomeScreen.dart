@@ -7,8 +7,8 @@ import 'package:mega/components/inputs/SearchInput.dart';
 import 'package:mega/models/CommunityModel.dart';
 import 'package:mega/services/api/CommunityAPI.dart';
 
-import 'AddCommunityScreen.dart';
-import 'CommunityDetailScreen.dart';
+import 'add/AddCommunityScreen.dart';
+import 'details/CommunityDetailScreen.dart';
 
 class HomeScreen extends StatefulWidget{
   static const routeName = '/home';

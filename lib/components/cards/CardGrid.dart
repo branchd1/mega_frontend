@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mega/models/CommunityModel.dart';
-import 'package:mega/screens/CommunityDetailScreen.dart';
+import 'package:mega/screens/home/details/CommunityDetailScreen.dart';
 
 import 'MyCard.dart';
 

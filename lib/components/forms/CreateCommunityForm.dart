@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:mega/components/MySubmitButton.dart';
+import 'package:mega/components/buttons/MySubmitButton.dart';
 import 'package:mega/components/inputs/DropdownInput.dart';
 import 'package:mega/components/inputs/MyTextInput.dart';
 import 'package:mega/components/texts/ErrorText.dart';

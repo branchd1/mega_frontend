@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:mega/models/AuthTokenModel.dart';
 import 'package:mega/models/response/LoginResponseModel.dart';
-import 'package:mega/screens/HomeScreen.dart';
+import 'package:mega/screens/home/HomeScreen.dart';
 import 'package:mega/services/api/AuthAPI.dart';
 import 'package:provider/provider.dart';
 
 import '../inputs/MyPasswordInput.dart';
-import '../MySubmitButton.dart';
+import '../buttons/MySubmitButton.dart';
 
 typedef void SetErrorTextCallback(String text);
 

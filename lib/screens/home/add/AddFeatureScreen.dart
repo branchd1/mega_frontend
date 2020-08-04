@@ -8,6 +8,8 @@ import 'package:mega/models/CommunityModel.dart';
 import 'package:mega/models/FeatureModel.dart';
 import 'package:mega/services/api/FeatureAPI.dart';
 
+import '../details/FeatureDetailAddScreen.dart';
+
 class AddFeatureScreen extends StatefulWidget {
   final CommunityModel community;
 
@@ -28,10 +30,10 @@ class _AddFeatureScreenState extends State<AddFeatureScreen>{
   }
 
   void tapCardCallback(BuildContext context, dynamic item){
-//    Navigator.push(
-//      context,
-//      MaterialPageRoute(builder: (context) => FeatureDetailAddScreen()),
-//    );
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => FeatureDetailAddScreen(feature: item)),
+    );
   }
 
   @override

@@ -6,8 +6,8 @@ import 'package:mega/components/inputs/SearchInput.dart';
 import 'package:mega/components/texts/BigText.dart';
 import 'package:mega/models/CommunityModel.dart';
 import 'package:mega/models/FeatureModel.dart';
-import 'package:mega/screens/AddFeatureScreen.dart';
-import 'package:mega/screens/FeatureDetailScreen.dart';
+import 'package:mega/screens/home/add/AddFeatureScreen.dart';
+import 'package:mega/screens/home/details/FeatureDetailScreen.dart';
 import 'package:mega/services/api/FeatureAPI.dart';
 
 class CommunityDetailScreen extends StatefulWidget{

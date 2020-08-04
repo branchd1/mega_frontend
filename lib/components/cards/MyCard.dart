@@ -20,7 +20,7 @@ class MyCard extends StatelessWidget{
               borderRadius: BorderRadius.all(Radius.circular(10)),
               child: Image.network(imageUrl),
             ),
-            Align(
+            if(text != null) Align(
               alignment: Alignment.bottomCenter,
               child: ClipRRect(
                 borderRadius: BorderRadius.vertical(
