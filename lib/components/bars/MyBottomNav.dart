@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:mega/screens/home/HomeScreen.dart';
 import 'package:mega/screens/profile/ProfileScreen.dart';
 import 'package:mega/screens/search/SearchScreen.dart';
-import 'package:mega/screens/welcome_screens/WelcomeScreen.dart';
+import 'package:mega/screens/welcome/WelcomeScreen.dart';
 import 'package:mega/services/Constants.dart';
 
 enum BottomNavActivePage{

@@ -2,8 +2,8 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:mega/models/response/EmailExistsResponseModel.dart';
-import 'package:mega/screens/welcome_screens/LoginScreen.dart';
-import 'package:mega/screens/welcome_screens/RegisterScreen.dart';
+import 'package:mega/screens/welcome/LoginScreen.dart';
+import 'package:mega/screens/welcome/RegisterScreen.dart';
 import 'package:mega/services/api/AuthAPI.dart';
 
 import '../inputs/MyEmailInput.dart';
