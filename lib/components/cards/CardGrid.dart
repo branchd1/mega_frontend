@@ -7,8 +7,9 @@ typedef void AddButtonCallback();
 class CardGrid extends StatelessWidget{
   final List<dynamic> list;
   final AddButtonCallback addButtonCallback;
+  final String emptyText;
 
-  const CardGrid({Key key, this.list, this.addButtonCallback}) : super(key: key);
+  const CardGrid({Key key, this.list, this.addButtonCallback, this.emptyText}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -20,11 +21,17 @@ class CardGrid extends StatelessWidget{
         children: List.generate(
           addButtonCallback != null ? list.length + 1 : list.length,
           (int index) => index == list.length && addButtonCallback != null  ? Container(
-            child: IconButton(
-              icon: Icon(Icons.add_circle_outline),
-              iconSize: 50,
-              onPressed: addButtonCallback,
-            ),
+            child: Column(
+              children: <Widget>[
+                if(list.length == 0) Text(emptyText),
+                IconButton(
+                  icon: Icon(Icons.add_circle_outline),
+                  iconSize: 50,
+                  onPressed: addButtonCallback,
+                ),
+              ],
+              mainAxisAlignment: MainAxisAlignment.center,
+            )
           ) : Column(
             children: <Widget>[
               MyCard(

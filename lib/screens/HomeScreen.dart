@@ -48,13 +48,14 @@ class _HomeScreenState extends State<HomeScreen>{
                 if(snapshot.hasData){
                   _widget = CardGrid(
                     list: searchVal == null ?
-                    snapshot.data : snapshot.data.where((element) => element.name.toLowerCase().contains(searchVal)).toList(),
+                      snapshot.data : snapshot.data.where((element) => element.name.toLowerCase().contains(searchVal)).toList(),
                     addButtonCallback: (){
                       Navigator.push(
                         context,
                         MaterialPageRoute(builder: (context) => AddCommunityScreen()),
                       );
                     },
+                    emptyText: 'No communities',
                   );
                 } else if (snapshot.hasError){
                   _widget = Text('Error');
