@@ -1,8 +1,15 @@
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:mega/components/bars/MyAppBars.dart';
+import 'package:mega/components/bars/MyBottomNav.dart';
 
 class FeatureDetailScreen extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return Scaffold(
+      appBar: MyAppBars.myAppBar3(),
+      bottomNavigationBar: MyBottomNav(
+          bottomNavActivePage: BottomNavActivePage.home
+      )
+    );
   }
 }
