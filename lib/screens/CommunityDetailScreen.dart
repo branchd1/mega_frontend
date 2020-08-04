@@ -69,7 +69,11 @@ class _CommunityDetailScreenState extends State<CommunityDetailScreen>{
                     addButtonCallback: this.widget.community.isAdmin ? (){
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => AddFeatureScreen()),
+                        MaterialPageRoute(
+                          builder: (context) => AddFeatureScreen(
+                            community: this.widget.community,
+                          )
+                        ),
                       );
                     } : null,
                     emptyText: 'No features',
