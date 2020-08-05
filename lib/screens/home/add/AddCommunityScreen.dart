@@ -43,7 +43,7 @@ class _AddCommunityScreenState extends State<AddCommunityScreen>{
                   ),
                   Align(
                     child: MyButton(buttonText: 'create a community', onPressCallback: changeScreen,),
-                    alignment: Alignment.bottomRight,
+                    alignment: Alignment.bottomLeft,
                   )
                 ],
               ) : Column(
@@ -55,7 +55,7 @@ class _AddCommunityScreenState extends State<AddCommunityScreen>{
                   ),
                   Align(
                     child: MyButton(buttonText: 'join a community', onPressCallback: changeScreen,),
-                    alignment: Alignment.bottomRight,
+                    alignment: Alignment.bottomLeft,
                   )
                 ],
               )

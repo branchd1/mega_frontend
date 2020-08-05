@@ -11,7 +11,7 @@ class MyButton extends StatelessWidget{
 
   @override
   Widget build(BuildContext context) {
-    return FlatButton(
+    return RaisedButton(
       child: Text(buttonText),
       onPressed: onPressCallback
     );
