@@ -7,9 +7,7 @@ class FeatureDetailScreen extends StatelessWidget{
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: MyAppBars.myAppBar3(),
-      bottomNavigationBar: MyBottomNav(
-          bottomNavActivePage: BottomNavActivePage.home
-      )
+      bottomNavigationBar: MyBottomNav()
     );
   }
 }

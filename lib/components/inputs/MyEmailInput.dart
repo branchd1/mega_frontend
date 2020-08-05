@@ -25,7 +25,6 @@ class MyEmailInput extends StatelessWidget{
           return emailRegex.hasMatch(value) ? null : 'Enter a valid email';
         },
       ),
-      height: 35,
     );
   }
 }

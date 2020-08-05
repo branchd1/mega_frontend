@@ -69,9 +69,7 @@ class _SearchScreenState extends State<SearchScreen>{
           ),
           padding: EdgeInsets.fromLTRB(30, 0, 30, 0),
         ),
-        bottomNavigationBar: MyBottomNav(
-            bottomNavActivePage: BottomNavActivePage.search
-        )
+        bottomNavigationBar: MyBottomNav()
     );
   }
 }

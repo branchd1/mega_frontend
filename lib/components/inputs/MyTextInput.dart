@@ -21,7 +21,6 @@ class MyTextInput extends StatelessWidget{
         ),
         validator: validator,
       ),
-      height: 35,
     );
   }
 }

@@ -18,7 +18,6 @@ class SearchInput extends StatelessWidget{
         ),
         onChanged: onChangeCallback,
       ),
-      height: 35,
     );
   }
 }

@@ -5,67 +5,34 @@ import 'package:mega/screens/search/SearchScreen.dart';
 import 'package:mega/screens/welcome/WelcomeScreen.dart';
 import 'package:mega/services/Constants.dart';
 
-enum BottomNavActivePage{
-  home,
-  search,
-  profile
+class MyBottomNav extends StatefulWidget {
+  @override
+  _MyBottomNavState createState() => _MyBottomNavState();
 }
 
-class MyBottomNav extends StatelessWidget{
-  final BottomNavActivePage bottomNavActivePage;
-
-  const MyBottomNav({Key key, this.bottomNavActivePage}) : super(key: key);
-
-  void pushToHome(BuildContext context){
-    Navigator.push(context, MaterialPageRoute(builder: (context) => HomeScreen()),);
-  }
-
-  void pushToSearch(BuildContext context){
-    Navigator.push(context, MaterialPageRoute(builder: (context) => SearchScreen()),);
-  }
-
-  void pushToProfile(BuildContext context){
-    Navigator.push(context, MaterialPageRoute(builder: (context) => ProfileScreen()),);
-  }
+class _MyBottomNavState extends State<MyBottomNav>{
+  int index;
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      child: BottomAppBar(
-        child: new Row(
-          mainAxisSize: MainAxisSize.max,
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: <Widget>[
-            IconButton(
-              icon: Icon(Icons.home),
-              color: bottomNavActivePage == BottomNavActivePage.home ? Colors.blue : Colors.black,
-              onPressed: bottomNavActivePage == BottomNavActivePage.home ?
-                () {} : (){
-                  pushToHome(context);
-                },
-              iconSize: 35,
-            ),
-            IconButton(
+      child: BottomNavigationBar(
+        items: <BottomNavigationBarItem>[
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home),
+            title: Container(),
+          ),
+          BottomNavigationBarItem(
               icon: Icon(Icons.search),
-              color: bottomNavActivePage == BottomNavActivePage.search ? Colors.blue : Colors.black,
-              onPressed: bottomNavActivePage == BottomNavActivePage.search ?
-                  () {} : (){
-                pushToSearch(context);
-              },
-              iconSize: 35,
-            ),
-            IconButton(
+              title: Container()
+          ),
+          BottomNavigationBarItem(
               icon: Icon(Icons.person),
-              color: bottomNavActivePage == BottomNavActivePage.profile ? Colors.blue : Colors.black,
-              onPressed: bottomNavActivePage == BottomNavActivePage.profile ?
-                  () {} : (){
-                pushToProfile(context);
-              },
-              iconSize: 35,
-            ),
-          ],
-        ),
-        color: Color(Constants.grey),
+              title: Container()
+          ),
+        ],
+        currentIndex: index == null ? 0 : index,
+        onTap: (newIndex) => setState(() => index = newIndex),
       ),
       height: 60,
     );

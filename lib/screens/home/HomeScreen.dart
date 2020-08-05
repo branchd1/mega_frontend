@@ -78,9 +78,7 @@ class _HomeScreenState extends State<HomeScreen>{
         ),
         padding: EdgeInsets.fromLTRB(30, 0, 30, 0),
       ),
-      bottomNavigationBar: MyBottomNav(
-        bottomNavActivePage: BottomNavActivePage.home
-      )
+      bottomNavigationBar: MyBottomNav()
     );
   }
 }

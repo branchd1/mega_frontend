@@ -17,9 +17,9 @@ void doLogin(BuildContext context, String email, String password, {SetErrorTextC
   // check successful login
   if(_res != null){
     Provider.of<AuthTokenModel>(context, listen: false).setToken(_res.authToken);
-    Navigator.push(
+    Navigator.pushNamed(
       context,
-      MaterialPageRoute(builder: (context) => HomeScreen()),
+      HomeScreen.routeName,
     );
   }
 }

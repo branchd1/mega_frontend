@@ -29,7 +29,6 @@ class DropdownInput extends StatelessWidget{
         ),
         validator: validator,
       ),
-      height: 35,
     );
   }
 }

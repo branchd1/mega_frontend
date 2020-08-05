@@ -20,7 +20,6 @@ class MyPasswordInput extends StatelessWidget{
         },
         obscureText: true,
       ),
-      height: 35,
     );
   }
 }

@@ -63,9 +63,7 @@ class FeatureDetailAddScreen extends StatelessWidget{
           ),
           padding: EdgeInsets.fromLTRB(30, 0, 30, 0),
         ),
-        bottomNavigationBar: MyBottomNav(
-            bottomNavActivePage: BottomNavActivePage.home
-        )
+        bottomNavigationBar: MyBottomNav()
     );
   }
 }
