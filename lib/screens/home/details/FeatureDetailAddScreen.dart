@@ -6,15 +6,12 @@ import 'package:mega/components/cards/MyCard.dart';
 import 'package:mega/components/texts/BigText.dart';
 import 'package:mega/components/texts/MainText.dart';
 import 'package:mega/models/FeatureModel.dart';
+import 'package:mega/services/api/FeatureAPI.dart';
 
 class FeatureDetailAddScreen extends StatelessWidget{
   final FeatureModel feature;
 
   const FeatureDetailAddScreen({Key key, this.feature}) : super(key: key);
-
-  void addFeatureToCommunity(){
-    // do something
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -34,7 +31,12 @@ class FeatureDetailAddScreen extends StatelessWidget{
                         children: <Widget>[
                           MainText(feature.name),
                           Text(feature.communityType),
-                          MyButton(buttonText: 'add to community', onPressCallback: addFeatureToCommunity),
+                          MyButton(
+                            buttonText: 'add to community',
+                            onPressCallback: () async {
+                              bool _res = await FeatureAPI.addFeatureToCommunity(context, feature.id, 1);
+                              if(_res) Navigator.pop(context);
+                            }),
                         ],
                         crossAxisAlignment: CrossAxisAlignment.start,
                       ),
