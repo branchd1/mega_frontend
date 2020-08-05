@@ -38,8 +38,10 @@ class MyCard extends StatelessWidget{
                     ),
                     padding: EdgeInsets.all(2),
                   ),
-                  constraints: BoxConstraints.expand(
+                  constraints: (subText != null) ? BoxConstraints.expand(
                     height: 50
+                  ) : BoxConstraints.expand(
+                      height: 30
                   ),
                   color: Color(Constants.transGrey),
                 )
