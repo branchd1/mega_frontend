@@ -32,28 +32,20 @@ class CardGrid extends StatelessWidget{
         children: List.generate(
           addButtonCallback != null ? list.length + 1 : list.length,
           (int index) => index == list.length && addButtonCallback != null  ? Container(
-            child: Column(
-              children: <Widget>[
-                if(list.length == 0) Text(emptyText),
-                IconButton(
-                  icon: Icon(Icons.add_circle_outline),
-                  iconSize: 50,
-                  onPressed: addButtonCallback,
-                ),
-              ],
-              mainAxisAlignment: MainAxisAlignment.center,
-            )
-          ) : Column(
-            children: <Widget>[
-              GestureDetector(
+            child: IconButton(
+              icon: Icon(Icons.add_circle_outline),
+              iconSize: 50,
+              onPressed: addButtonCallback,
+            ),
+          ) : Container(
+            child: GestureDetector(
                 onTap: tapCardCallback != null ? ()=>tapCardCallback(context, list[index]) : (){},
                 child: MyCard(
                   text: list[index].name,
                   subText: getSubtext(index),
                   imageUrl: list[index].picture,
                 )
-              )
-            ]
+            ),
           ),
         ),
       )
