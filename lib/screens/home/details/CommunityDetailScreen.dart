@@ -91,7 +91,6 @@ class _CommunityDetailScreenState extends State<CommunityDetailScreen>{
         ),
         padding: EdgeInsets.fromLTRB(30, 0, 30, 0),
       ),
-      bottomNavigationBar: MyBottomNav()
     );
   }
 }

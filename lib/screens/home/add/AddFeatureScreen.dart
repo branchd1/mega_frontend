@@ -81,7 +81,6 @@ class _AddFeatureScreenState extends State<AddFeatureScreen>{
           ),
           padding: EdgeInsets.fromLTRB(30, 0, 30, 0),
         ),
-        bottomNavigationBar: MyBottomNav()
     );
   }
 }
