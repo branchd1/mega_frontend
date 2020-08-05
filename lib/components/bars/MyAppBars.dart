@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mega/screens/home/HomeScreen.dart';
 
 class MyAppBars{
   static AppBar myAppBar1() => AppBar(
@@ -30,5 +31,22 @@ class MyAppBars{
       Image.asset('assets/img/logo/small/logo.png')
     ],
     elevation: 0.0,
+  );
+
+  static AppBar myAppBar4(BuildContext context) => AppBar(
+    backgroundColor: Colors.white,
+    iconTheme: IconThemeData(
+      color: Colors.black,
+    ),
+    actions: <Widget>[
+      Image.asset('assets/img/logo/small/logo.png')
+    ],
+    elevation: 0.0,
+    leading: new IconButton(
+        icon: new Icon(Icons.arrow_back_ios),
+        onPressed: (){
+          Navigator.popUntil(context, ModalRoute.withName(HomeScreen.routeName));
+        }
+    ),
   );
 }
