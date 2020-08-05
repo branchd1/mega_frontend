@@ -32,7 +32,7 @@ class _AddFeatureScreenState extends State<AddFeatureScreen>{
   void tapCardCallback(BuildContext context, dynamic item){
     Navigator.push(
       context,
-      MaterialPageRoute(builder: (context) => FeatureDetailAddScreen(feature: item)),
+      MaterialPageRoute(builder: (context) => FeatureDetailAddScreen(feature: item, community: this.widget.community)),
     );
   }
 
