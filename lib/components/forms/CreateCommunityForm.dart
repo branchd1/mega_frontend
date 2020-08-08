@@ -4,6 +4,7 @@ import 'package:mega/components/inputs/DropdownInput.dart';
 import 'package:mega/components/inputs/MyTextInput.dart';
 import 'package:mega/components/texts/ErrorText.dart';
 import 'package:mega/models/response/CreateCommunityResponseModel.dart';
+import 'package:mega/screens/home/HomeScreen.dart';
 import 'package:mega/services/api/CommunityAPI.dart';
 
 class CreateCommunityForm extends StatefulWidget{
@@ -28,7 +29,10 @@ class _CreateCommunityFormState extends State<CreateCommunityForm>{
       CreateCommunityResponseModel _res = await CommunityAPI.createCommunity(context, _communityNameController.text, _communityTypeControllerSimulator, setErrorText);
 
       // check successful
-      if(_res != null) Navigator.pop(context);
+      if(_res != null) Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => HomeScreen())
+      );
     }
   }
 

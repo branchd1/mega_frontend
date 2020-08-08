@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:mega/components/buttons/MySubmitButton.dart';
 import 'package:mega/components/inputs/MyTextInput.dart';
 import 'package:mega/components/texts/ErrorText.dart';
+import 'package:mega/screens/home/HomeScreen.dart';
 import 'package:mega/services/api/CommunityAPI.dart';
 
 
@@ -25,7 +26,10 @@ class _JoinCommunityFormState extends State<JoinCommunityForm>{
       // check email
       bool _res = await CommunityAPI.joinCommunities(context, _communityKeyController.text, setErrorText);
 
-      if(_res)Navigator.pop(context);
+      if(_res) Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => HomeScreen())
+      );
     }
   }
 
