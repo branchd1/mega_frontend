@@ -32,7 +32,7 @@ class _CommunityDetailScreenState extends State<CommunityDetailScreen>{
   void tapCardCallback(BuildContext context, dynamic item){
     Navigator.push(
       context,
-      MaterialPageRoute(builder: (context) => FeatureDetailScreen()),
+      MaterialPageRoute(builder: (context) => FeatureDetailScreen(feature: item,)),
     );
   }
 

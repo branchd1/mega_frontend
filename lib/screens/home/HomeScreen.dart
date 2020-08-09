@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:mega/components/bars/MyBottomNav.dart';
 import 'package:mega/components/texts/BigText.dart';
 import 'package:mega/components/cards/CardGrid.dart';
 import 'package:mega/components/bars/MyAppBars.dart';
