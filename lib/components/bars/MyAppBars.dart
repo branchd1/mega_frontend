@@ -49,4 +49,21 @@ class MyAppBars{
         }
     ),
   );
+
+  static AppBar myAppBar5(BuildContext context) => AppBar(
+    backgroundColor: Colors.white,
+    iconTheme: IconThemeData(
+      color: Colors.black,
+    ),
+    actions: <Widget>[
+      Image.asset('assets/img/logo/small/logo.png')
+    ],
+    elevation: 0.0,
+    leading: new IconButton(
+      icon: new Icon(Icons.close),
+      onPressed: (){
+        Navigator.pop(context);
+      }
+    ),
+  );
 }

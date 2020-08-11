@@ -10,7 +10,7 @@ void main()=>runApp(
       Provider(create: (context) => AuthTokenModel()),
     ],
     child: MegaApp(),
-  ),
+  )
 );
 
 class MegaApp extends StatelessWidget{
