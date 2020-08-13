@@ -1,3 +1,5 @@
+import 'dart:collection';
+
 import 'package:flutter/material.dart';
 import 'package:mega/components/bars/my_app_bars.dart';
 import 'package:mega/components/buttons/my_button.dart';
@@ -9,6 +11,8 @@ import 'package:mega/components/inputs/my_text_input.dart';
 import 'package:mega/components/texts/big_text.dart';
 import 'package:mega/components/texts/error_text.dart';
 import 'package:mega/models/feature_model.dart';
+import 'package:mega/models/feature_screen_back_button_model.dart';
+import 'package:provider/provider.dart';
 
 const Map<String, dynamic> configurationMap = {
   'text': CreatableText.createText,
@@ -167,22 +171,25 @@ class CreatableButton extends StatelessWidget{
   Widget build(BuildContext context) {
     assert(data['value'] != null);
 
-    if(submitCallback != null)
+    if(submitCallback != null) {
       return Align(
           alignment: Alignment.bottomRight,
-          child:  MySubmitButton(
-            buttonText: data['value'],
-            submitCallback: (){
-              submitCallback();
-              if(data['action'] != null) buttonAction(data['action']);
-            }
+          child: MySubmitButton(
+              buttonText: data['value'],
+              submitCallback: () {
+                submitCallback();
+                if (data['action'] != null) buttonAction(data['action']);
+              }
           )
       );
-    else
+    }
+    else {
       return MyButton(
           buttonText: data['value'],
-          onPressCallback: data['action'] != null ? ()=>buttonAction(data['action']) : null
+          onPressCallback: data['action'] != null ? () =>
+              buttonAction(data['action']) : null
       );
+    }
   }
 }
 
@@ -191,8 +198,11 @@ class FeatureDetailScreen extends StatefulWidget{
 
   FeatureDetailScreen({Key key, this.feature}) : super(key: key);
 
-  Map<String, dynamic> json = {
+  final Map<String, dynamic> json = {
     'home': {
+      'metadata': {
+        'show_back_button': 'false'
+      },
       'text': {
         'value': 'hello',
       },
@@ -220,9 +230,6 @@ class FeatureDetailScreen extends StatefulWidget{
       }
     },
     'third': {
-      'stuffing': {
-        'height': '30'
-      },
       'form': {
         'action': {
           'action_type': 'api',
@@ -247,7 +254,9 @@ class FeatureDetailScreen extends StatefulWidget{
 
 class _FeatureDetailScreenState extends State<FeatureDetailScreen>{
 
-  String currentFeatureScreen = 'home';
+  final String _firstFeatureScreen = 'home';
+
+  ListQueue<String> screenStack = ListQueue<String>();
 
   MapEntry<String, dynamic> replaceMapValues(String key, dynamic value){
     // recursively replace map values
@@ -257,7 +266,7 @@ class _FeatureDetailScreenState extends State<FeatureDetailScreen>{
 
     // do replacement
     if(key == 'new_page' && value is String){
-      return MapEntry(key, ()=>setState(()=>{currentFeatureScreen=value})); // function passes change screen callback to components
+      return MapEntry(key, ()=>setState(()=>{screenStack.add(value)})); // function passes change screen callback to components
     } else {
       return MapEntry(key, value);
     }
@@ -268,14 +277,27 @@ class _FeatureDetailScreenState extends State<FeatureDetailScreen>{
     // replace special values and data in configuration data
     final Map<String, dynamic> _replacedJson = widget.json.map(replaceMapValues);
 
+    // if stack is empty, add the first screen
+    if (screenStack.isEmpty) screenStack.add(_firstFeatureScreen);
+
     // load the current screen data
-    Map<String, dynamic> _screenData = _replacedJson[currentFeatureScreen];
+    Map<String, dynamic> _screenData = _replacedJson[screenStack.last];
+
+    final isFirstScreen = screenStack.length == 1;
+    if(_screenData['metadata'] != null) {
+      // set show back button
+      if (!isFirstScreen && _screenData['metadata']['show_back_button'] == 'false') Provider.of<FeatureScreenBackButtonModel>(context).setShowBackButton(false);
+
+      // remove metadata from the data
+      _screenData.removeWhere((key, value) => key == 'metadata');
+    }
 
     // create list of widgets from configuration data
     List<Widget> list = _screenData.keys.map<Widget>((i){
       try{
         return configurationMap[i](_screenData[i]);
       } on NoSuchMethodError{
+        // inform user of error
         String err = 'A component (' + i + ') used does not exist';
         print(err);
         return ErrorText(err);
@@ -283,18 +305,18 @@ class _FeatureDetailScreenState extends State<FeatureDetailScreen>{
     }).toList();
 
     return Scaffold(
-      appBar: MyAppBars.myAppBar5(context),
-      body: Padding(
-        child: Column(
-          children: <Widget>[
-            BigText(this.widget.feature.name),
-            Column(
-              children: list
-            )
-          ],
-        ),
-        padding: EdgeInsets.fromLTRB(30, 0, 30, 0),
-      )
+        appBar: MyAppBars.myAppBar5(context, onPop: ()=>setState(()=>{screenStack.removeLast()}), isFirstScreen: isFirstScreen),
+        body: Padding(
+          child: Column(
+            children: <Widget>[
+              BigText(this.widget.feature.name),
+              Column(
+                  children: list
+              )
+            ],
+          ),
+          padding: EdgeInsets.fromLTRB(30, 0, 30, 0),
+        )
     );
   }
 }

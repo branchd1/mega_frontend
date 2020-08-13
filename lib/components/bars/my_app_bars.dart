@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:mega/models/feature_screen_back_button_model.dart';
 import 'package:mega/screens/home/home_screen.dart';
+import 'package:provider/provider.dart';
+
+typedef void PopScreenStack();
 
 class MyAppBars{
   static AppBar myAppBar1() => AppBar(
@@ -50,7 +54,7 @@ class MyAppBars{
     ),
   );
 
-  static AppBar myAppBar5(BuildContext context) => AppBar(
+  static AppBar myAppBar5(BuildContext context, {PopScreenStack onPop, bool isFirstScreen}) => AppBar(
     backgroundColor: Colors.white,
     iconTheme: IconThemeData(
       color: Colors.black,
@@ -65,13 +69,12 @@ class MyAppBars{
     ],
     elevation: 0.0,
 
-    // only show when some data is fed through consumer
-    leading: new IconButton(
-      icon: new Icon(Icons.arrow_back_ios),
-      onPressed: (){
-        // feed some data through consumer
-      }
-    ),
+    // only show if set
+    leading: !isFirstScreen || Provider.of<FeatureScreenBackButtonModel>(context).showBackButton ?
+      new IconButton(
+        icon: new Icon(Icons.arrow_back_ios),
+        onPressed: onPop
+      ) : Container()
   );
 
   static AppBar myAppBar6(BuildContext context, {String logoUrl}) => AppBar(
