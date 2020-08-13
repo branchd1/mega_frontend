@@ -70,7 +70,7 @@ class MyAppBars{
     elevation: 0.0,
 
     // only show if set
-    leading: !isFirstScreen || Provider.of<FeatureScreenBackButtonModel>(context).showBackButton ?
+    leading: !isFirstScreen && Provider.of<FeatureScreenBackButtonModel>(context).showBackButton ?
       new IconButton(
         icon: new Icon(Icons.arrow_back_ios),
         onPressed: onPop

@@ -195,57 +195,60 @@ class CreatableButton extends StatelessWidget{
 
 class FeatureDetailScreen extends StatefulWidget{
   final FeatureModel feature;
+  final bool isAdmin;
 
-  FeatureDetailScreen({Key key, this.feature}) : super(key: key);
+  FeatureDetailScreen({Key key, this.feature, this.isAdmin}) : super(key: key);
 
   final Map<String, dynamic> json = {
-    'home': {
-      'metadata': {
-        'show_back_button': 'false'
-      },
-      'text': {
-        'value': 'hello',
-      },
-      'button': {
-        'value': 'hey',
-        'action': {
-          'action_type': 'change_page',
-          'new_page': 'second',
-          'page_params': {
-            'name': 'from_second', // param "name" value can be gotten from element of id 1
-          }
-        }
-      }
-    },
-    'second': {
-      'text': {
-        'value': 'second',
-      },
-      'button': {
-        'value': 'second_button',
-        'action': {
-          'action_type': 'change_page',
-          'new_page': 'third', // specify name of new page
-        }
-      }
-    },
-    'third': {
-      'form': {
-        'action': {
-          'action_type': 'api',
-          'method': 'get',
-          'url': '/data_store',
+    'admin': {
+      'home': {
+        'metadata': {
+          'show_back_button': 'false'
         },
-        'body': {
-          'input': {
-            'type': 'email',
-          },
-          'submit_button': {
-            'value': 'submit',
+        'text': {
+          'value': 'hello',
+        },
+        'button': {
+          'value': 'hey',
+          'action': {
+            'action_type': 'change_page',
+            'new_page': 'second',
+            'page_params': {
+              'name': 'from_second', // param "name" value can be gotten from element of id 1
+            }
           }
         }
-      }
-    },
+      },
+      'second': {
+        'text': {
+          'value': 'second',
+        },
+        'button': {
+          'value': 'second_button',
+          'action': {
+            'action_type': 'change_page',
+            'new_page': 'third', // specify name of new page
+          }
+        }
+      },
+      'third': {
+        'form': {
+          'action': {
+            'action_type': 'api',
+            'method': 'get',
+            'url': '/data_store',
+          },
+          'body': {
+            'input': {
+              'type': 'email',
+            },
+            'submit_button': {
+              'value': 'submit',
+            }
+          }
+        }
+      },
+    }
   };
 
   @override
@@ -274,8 +277,11 @@ class _FeatureDetailScreenState extends State<FeatureDetailScreen>{
 
   @override
   Widget build(BuildContext context) {
+    // get admin or member data
+    final Map<String, dynamic> _newJson = widget.isAdmin ? widget.json['admin'] : widget.json['member'];
+
     // replace special values and data in configuration data
-    final Map<String, dynamic> _replacedJson = widget.json.map(replaceMapValues);
+    final Map<String, dynamic> _replacedJson = _newJson.map(replaceMapValues);
 
     // if stack is empty, add the first screen
     if (screenStack.isEmpty) screenStack.add(_firstFeatureScreen);
