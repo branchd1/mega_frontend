@@ -248,6 +248,13 @@ class FeatureDetailScreen extends StatefulWidget{
           }
         }
       },
+    },
+    'member': {
+      'home': {
+        'text': {
+          'value': 'hi'
+        }
+      }
     }
   };
 
@@ -278,9 +285,14 @@ class _FeatureDetailScreenState extends State<FeatureDetailScreen>{
   @override
   Widget build(BuildContext context) {
     // get admin or member data
+    assert(widget.json != null);
+    assert(widget.json.containsKey('admin') || widget.json.containsKey('member'));
     final Map<String, dynamic> _newJson = widget.isAdmin ? widget.json['admin'] : widget.json['member'];
 
     // replace special values and data in configuration data
+    assert(_newJson != null);
+    assert(_newJson.containsKey('home'));
+    assert(_newJson['home'].keys.length > 0);
     final Map<String, dynamic> _replacedJson = _newJson.map(replaceMapValues);
 
     // if stack is empty, add the first screen
