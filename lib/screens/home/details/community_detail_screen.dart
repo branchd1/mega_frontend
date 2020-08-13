@@ -40,7 +40,7 @@ class _CommunityDetailScreenState extends State<CommunityDetailScreen>{
   Widget build(BuildContext context) {
     if (searchVal == null) features = FeatureAPI.getFeatures(context, widget.community.id);
     return Scaffold(
-      appBar: MyAppBars.myAppBar4(context),
+      appBar: MyAppBars.myAppBar6(context, logoUrl: this.widget.community.picture),
       body: Padding(
         child: Column(
           children: <Widget>[

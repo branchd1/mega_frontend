@@ -2,7 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:mega/components/bars/my_app_bars.dart';
 import 'package:mega/components/buttons/my_button.dart';
 import 'package:mega/components/buttons/my_submit_button.dart';
+import 'package:mega/components/inputs/dropdown_input.dart';
 import 'package:mega/components/inputs/my_email_input.dart';
+import 'package:mega/components/inputs/my_password_input.dart';
+import 'package:mega/components/inputs/my_text_input.dart';
 import 'package:mega/components/texts/big_text.dart';
 import 'package:mega/components/texts/error_text.dart';
 import 'package:mega/models/feature_model.dart';
@@ -10,12 +13,34 @@ import 'package:mega/models/feature_model.dart';
 const Map<String, dynamic> configurationMap = {
   'text': CreatableText.createText,
   'button': CreatableButton.createButton,
-  'submit_button': CreatableSubmitButton.createSubmitButton,
+  'submit_button': CreatableButton.createButton,
   'form': CreatableForm.createForm,
   'input': CreatableInput.createInput,
+  'stuffing': CreatableStuffing.createStuffing,
 };
 
 final Map<String, Widget> idToWidgetMap = {};
+
+class CreatableStuffing extends StatelessWidget{
+  final Map data;
+
+  const CreatableStuffing({Key key, this.data}) : super(key: key);
+
+  static Widget createStuffing(Map _data){
+    return CreatableStuffing(data: _data);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    assert(data['height'] != null);
+
+    final double _height = double.tryParse(data['height']) ;
+
+    return Container(
+      height: _height != null ? _height : 10,
+    );
+  }
+}
 
 class CreatableText extends StatelessWidget{
   final Map data;
@@ -57,6 +82,11 @@ class CreatableInput extends StatelessWidget{
 
     if(data['type'] == 'email') return MyEmailInput();
 
+//    not yet implemented
+//    if(data['type'] == 'text') return MyTextInput();
+//    if(data['type'] == 'password') return MyPasswordInput();
+//    if(data['type'] == 'dropdown') return DropdownInput();
+
     return Container();
   }
 }
@@ -93,7 +123,7 @@ class _CreatableFormState extends State<CreatableForm>{
     List<Widget> list = _formBody.keys.map<Widget>((i){
       try{
         if(i=='submit_button')
-          return configurationMap[i](_formBody[i], submit);
+          return configurationMap[i](_formBody[i], submitCallback: submit);
         return configurationMap[i](_formBody[i]);
       } on NoSuchMethodError{
         String err = 'A component (' + i + ') used does not exist';
@@ -111,67 +141,48 @@ class _CreatableFormState extends State<CreatableForm>{
   }
 }
 
-class CreatableSubmitButton extends StatelessWidget{
-  static const String CHANGE_PAGE='change_page', GET_DATA='get_data';
+class CreatableButton extends StatelessWidget{
+  static const String changePage='change_page', getData='get_data';
 
   final Map data;
   final FormSubmitCallback submitCallback;
 
-  const CreatableSubmitButton({Key key, this.data, this.submitCallback}) : super(key: key);
+  const CreatableButton({Key key, this.data, this.submitCallback}) : super(key: key);
 
-  static void setButtonAction(Map<String, dynamic> action){
+  static void buttonAction(Map<String, dynamic> action){
     String actionType = action['action_type'];
 
-    if (actionType == CHANGE_PAGE){
+    if (actionType == changePage){
       assert(action.containsKey('new_page')); // delegate to a function that checks components structured correctly
       action['new_page']();
-    } else if (actionType == GET_DATA){
+    } else if (actionType == getData){
 
     }
   }
 
-  static Widget createSubmitButton(Map _data, FormSubmitCallback submitCallback) =>
-      CreatableSubmitButton(data: _data, submitCallback: submitCallback);
+  static Widget createButton(Map _data, {FormSubmitCallback submitCallback}) =>
+      CreatableButton(data: _data, submitCallback: submitCallback);
 
   @override
   Widget build(BuildContext context) {
     assert(data['value'] != null);
 
-    return MySubmitButton(
-        buttonText: data['value'],
-        submitCallback: submitCallback
-    );
-  }
-}
-
-class CreatableButton extends StatelessWidget{
-  static const String CHANGE_PAGE='change_page', GET_DATA='get_data';
-
-  final Map data;
-
-  const CreatableButton({Key key, this.data}) : super(key: key);
-
-  static void setButtonAction(Map<String, dynamic> action){
-    String actionType = action['action_type'];
-
-    if (actionType == CHANGE_PAGE){
-      assert(action.containsKey('new_page')); // delegate to a function that checks components structured correctly
-      action['new_page']();
-    } else if (actionType == GET_DATA){
-
-    }
-  }
-
-  static Widget createButton(Map _data) => CreatableButton(data: _data);
-
-  @override
-  Widget build(BuildContext context) {
-    assert(data['value'] != null);
-
-    return MyButton(
-        buttonText: data['value'],
-        onPressCallback: data['action'] != null ? ()=>setButtonAction(data['action']) : null
-    );
+    if(submitCallback != null)
+      return Align(
+          alignment: Alignment.bottomRight,
+          child:  MySubmitButton(
+            buttonText: data['value'],
+            submitCallback: (){
+              submitCallback();
+              if(data['action'] != null) buttonAction(data['action']);
+            }
+          )
+      );
+    else
+      return MyButton(
+          buttonText: data['value'],
+          onPressCallback: data['action'] != null ? ()=>buttonAction(data['action']) : null
+      );
   }
 }
 
@@ -179,14 +190,6 @@ class FeatureDetailScreen extends StatefulWidget{
   final FeatureModel feature;
 
   FeatureDetailScreen({Key key, this.feature}) : super(key: key);
-
-  @override
-  _FeatureDetailScreenState createState()=> _FeatureDetailScreenState();
-}
-
-class _FeatureDetailScreenState extends State<FeatureDetailScreen>{
-
-  String currentFeatureScreen = 'home';
 
   Map<String, dynamic> json = {
     'home': {
@@ -217,6 +220,9 @@ class _FeatureDetailScreenState extends State<FeatureDetailScreen>{
       }
     },
     'third': {
+      'stuffing': {
+        'height': '30'
+      },
       'form': {
         'action': {
           'action_type': 'api',
@@ -235,6 +241,14 @@ class _FeatureDetailScreenState extends State<FeatureDetailScreen>{
     },
   };
 
+  @override
+  _FeatureDetailScreenState createState()=> _FeatureDetailScreenState();
+}
+
+class _FeatureDetailScreenState extends State<FeatureDetailScreen>{
+
+  String currentFeatureScreen = 'home';
+
   MapEntry<String, dynamic> replaceMapValues(String key, dynamic value){
     // recursively replace map values
     if(value is Map){
@@ -243,7 +257,7 @@ class _FeatureDetailScreenState extends State<FeatureDetailScreen>{
 
     // do replacement
     if(key == 'new_page' && value is String){
-      return MapEntry(key, ()=>setState(()=>{currentFeatureScreen=value}));
+      return MapEntry(key, ()=>setState(()=>{currentFeatureScreen=value})); // function passes change screen callback to components
     } else {
       return MapEntry(key, value);
     }
@@ -252,7 +266,7 @@ class _FeatureDetailScreenState extends State<FeatureDetailScreen>{
   @override
   Widget build(BuildContext context) {
     // replace special values and data in configuration data
-    final Map<String, dynamic> _replacedJson = json.map(replaceMapValues);
+    final Map<String, dynamic> _replacedJson = widget.json.map(replaceMapValues);
 
     // load the current screen data
     Map<String, dynamic> _screenData = _replacedJson[currentFeatureScreen];
