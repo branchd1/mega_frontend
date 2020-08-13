@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:mega/components/bars/MyAppBars.dart';
 import 'package:mega/components/buttons/MyButton.dart';
+import 'package:mega/components/buttons/MySubmitButton.dart';
+import 'package:mega/components/inputs/MyEmailInput.dart';
 import 'package:mega/components/texts/BigText.dart';
 import 'package:mega/components/texts/ErrorText.dart';
 import 'package:mega/models/FeatureModel.dart';
@@ -8,9 +10,12 @@ import 'package:mega/models/FeatureModel.dart';
 const Map<String, dynamic> configurationMap = {
   'text': CreatableText.createText,
   'button': CreatableButton.createButton,
+  'submit_button': CreatableSubmitButton.createSubmitButton,
+  'form': CreatableForm.createForm,
+  'input': CreatableInput.createInput,
 };
 
-//final Map<String, Widget> widgetMap = {};
+final Map<String, Widget> idToWidgetMap = {};
 
 class CreatableText extends StatelessWidget{
   final Map data;
@@ -32,6 +37,110 @@ class CreatableText extends StatelessWidget{
 
 //    if(data['id'] != null) widgetMap.addAll({data['id']: _text});
     return _text;
+  }
+}
+
+class CreatableInput extends StatelessWidget{
+  final List<String> inputTypes = ['email', 'text'];
+  final Map data;
+
+  CreatableInput({Key key, this.data}) : super(key: key);
+
+  static Widget createInput(Map _data){
+    return CreatableInput(data: _data);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    assert(data['type'] != null);
+    assert(inputTypes.contains(data['type']));
+
+    if(data['type'] == 'email') return MyEmailInput();
+
+    return Container();
+  }
+}
+
+class CreatableForm extends StatefulWidget{
+  final Map data;
+
+  const CreatableForm({Key key, this.data}) : super(key: key);
+
+  static Widget createForm(Map _data) => CreatableForm(data: _data);
+
+  _CreatableFormState createState() => _CreatableFormState();
+}
+
+class _CreatableFormState extends State<CreatableForm>{
+
+  List<TextEditingController> controllers;
+  final _formKey = GlobalKey<FormState>();
+
+  void submit() async {
+    if (_formKey.currentState.validate()){
+
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    assert(widget.data['body'] != null);
+    assert(widget.data['action'] != null);
+
+    Map<String, dynamic> _formBody = widget.data['body'];
+
+    // this is repeated somewhere else, put in one method?
+    List<Widget> list = _formBody.keys.map<Widget>((i){
+      try{
+        if(i=='submit_button')
+          return configurationMap[i](_formBody[i], submit);
+        return configurationMap[i](_formBody[i]);
+      } on NoSuchMethodError{
+        String err = 'A component (' + i + ') used does not exist';
+        print(err);
+        return ErrorText(err);
+      }
+    }).toList();
+
+    return Form(
+      key: _formKey,
+      child: Column(
+        children: list,
+      ),
+    );
+  }
+}
+
+class CreatableSubmitButton extends StatelessWidget{
+  static const String CHANGE_PAGE='change_page', GET_DATA='get_data';
+
+  final Map data;
+  final FormSubmitCallback submitCallback;
+
+  const CreatableSubmitButton({Key key, this.data, this.submitCallback}) : super(key: key);
+
+  static void setButtonAction(Map<String, dynamic> action){
+    String actionType = action['action_type'];
+
+    if (actionType == CHANGE_PAGE){
+      assert(action.containsKey('new_page')); // delegate to a function that checks components structured correctly
+      action['new_page']();
+    } else if (actionType == GET_DATA){
+
+    }
+  }
+
+  static Widget createSubmitButton(Map _data, FormSubmitCallback submitCallback) =>
+      CreatableSubmitButton(data: _data, submitCallback: submitCallback);
+
+  @override
+  Widget build(BuildContext context) {
+    assert(data['value'] != null);
+
+    return MySubmitButton(
+        buttonText: data['value'],
+        submitCallback: submitCallback
+    );
   }
 }
 
@@ -109,15 +218,17 @@ class _FeatureDetailScreenState extends State<FeatureDetailScreen>{
     },
     'third': {
       'form': {
-        'method': 'get',
         'action': {
-          'type': 'api',
+          'action_type': 'api',
+          'method': 'get',
           'url': '/data_store',
         },
         'body': {
           'input': {
-            'name': 'name',
-            'default_value': 'John'
+            'type': 'email',
+          },
+          'submit_button': {
+            'value': 'submit',
           }
         }
       }
@@ -151,7 +262,7 @@ class _FeatureDetailScreenState extends State<FeatureDetailScreen>{
       try{
         return configurationMap[i](_screenData[i]);
       } on NoSuchMethodError{
-        String err = 'A component used (' + i + ') does not exist';
+        String err = 'A component (' + i + ') used does not exist';
         print(err);
         return ErrorText(err);
       }
