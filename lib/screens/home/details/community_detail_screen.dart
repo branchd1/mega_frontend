@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:mega/components/bars/MyAppBars.dart';
-import 'package:mega/components/bars/MyBottomNav.dart';
-import 'package:mega/components/cards/CardGrid.dart';
-import 'package:mega/components/inputs/SearchInput.dart';
-import 'package:mega/components/texts/BigText.dart';
-import 'package:mega/models/CommunityModel.dart';
-import 'package:mega/models/FeatureModel.dart';
-import 'package:mega/screens/home/add/AddFeatureScreen.dart';
-import 'package:mega/screens/home/details/FeatureDetailScreen.dart';
-import 'package:mega/services/api/FeatureAPI.dart';
+import 'package:mega/components/bars/my_app_bars.dart';
+import 'package:mega/components/bars/my_bottom_nav.dart';
+import 'package:mega/components/cards/card_grid.dart';
+import 'package:mega/components/inputs/search_input.dart';
+import 'package:mega/components/texts/big_text.dart';
+import 'package:mega/models/community_model.dart';
+import 'package:mega/models/feature_model.dart';
+import 'package:mega/screens/home/add/add_feature_screen.dart';
+import 'package:mega/screens/home/details/feature_detail_screen.dart';
+import 'package:mega/services/api/feature_api.dart';
 
 class CommunityDetailScreen extends StatefulWidget{
   final CommunityModel community;

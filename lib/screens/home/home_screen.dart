@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:mega/components/texts/BigText.dart';
-import 'package:mega/components/cards/CardGrid.dart';
-import 'package:mega/components/bars/MyAppBars.dart';
-import 'package:mega/components/inputs/SearchInput.dart';
-import 'package:mega/models/CommunityModel.dart';
-import 'package:mega/services/api/CommunityAPI.dart';
+import 'package:mega/components/texts/big_text.dart';
+import 'package:mega/components/cards/card_grid.dart';
+import 'package:mega/components/bars/my_app_bars.dart';
+import 'package:mega/components/inputs/search_input.dart';
+import 'package:mega/models/community_model.dart';
+import 'package:mega/services/api/community_api.dart';
 
-import 'add/AddCommunityScreen.dart';
-import 'details/CommunityDetailScreen.dart';
+import 'add/add_community_screen.dart';
+import 'details/community_detail_screen.dart';
 
 class HomeScreen extends StatefulWidget{
   static const routeName = '/home';

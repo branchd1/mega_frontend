@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:mega/services/Constants.dart';
+import 'package:mega/services/constants.dart';
 
-import '../texts/MainText.dart';
+import '../texts/main_text.dart';
 
 class MyCard extends StatelessWidget{
   final String text;

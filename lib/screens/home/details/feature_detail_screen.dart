@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:mega/components/bars/MyAppBars.dart';
-import 'package:mega/components/buttons/MyButton.dart';
-import 'package:mega/components/buttons/MySubmitButton.dart';
-import 'package:mega/components/inputs/MyEmailInput.dart';
-import 'package:mega/components/texts/BigText.dart';
-import 'package:mega/components/texts/ErrorText.dart';
-import 'package:mega/models/FeatureModel.dart';
+import 'package:mega/components/bars/my_app_bars.dart';
+import 'package:mega/components/buttons/my_button.dart';
+import 'package:mega/components/buttons/my_submit_button.dart';
+import 'package:mega/components/inputs/my_email_input.dart';
+import 'package:mega/components/texts/big_text.dart';
+import 'package:mega/components/texts/error_text.dart';
+import 'package:mega/models/feature_model.dart';
 
 const Map<String, dynamic> configurationMap = {
   'text': CreatableText.createText,

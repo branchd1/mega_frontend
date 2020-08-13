@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:mega/models/CommunityModel.dart';
-import 'package:mega/screens/home/details/CommunityDetailScreen.dart';
+import 'package:mega/models/community_model.dart';
+import 'package:mega/screens/home/details/community_detail_screen.dart';
 
-import 'MyCard.dart';
+import 'my_card.dart';
 
 typedef void AddButtonCallback();
 typedef void TapCardCallback(BuildContext context, dynamic item);

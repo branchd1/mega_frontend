@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:mega/components/bars/MyBottomNav.dart';
-import 'package:mega/components/texts/BigText.dart';
-import 'package:mega/components/cards/CardGrid.dart';
-import 'package:mega/components/bars/MyAppBars.dart';
-import 'package:mega/components/inputs/SearchInput.dart';
-import 'package:mega/models/CommunityModel.dart';
-import 'package:mega/services/api/CommunityAPI.dart';
+import 'package:mega/components/bars/my_bottom_nav.dart';
+import 'package:mega/components/texts/big_text.dart';
+import 'package:mega/components/cards/card_grid.dart';
+import 'package:mega/components/bars/my_app_bars.dart';
+import 'package:mega/components/inputs/search_input.dart';
+import 'package:mega/models/community_model.dart';
+import 'package:mega/services/api/community_api.dart';
 
-import '../home/add/AddCommunityScreen.dart';
+import '../home/add/add_community_screen.dart';
 
 class SearchScreen extends StatefulWidget{
   static const routeName = '/search';

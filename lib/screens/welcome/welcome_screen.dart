@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:mega/components/texts/BigText.dart';
-import 'package:mega/components/bars/MyAppBars.dart';
-import 'package:mega/components/forms/WelcomeForm.dart';
+import 'package:mega/components/texts/big_text.dart';
+import 'package:mega/components/bars/my_app_bars.dart';
+import 'package:mega/components/forms/welcome_form.dart';
 
 class WelcomeScreen extends StatelessWidget{
   static const routeName = '/';

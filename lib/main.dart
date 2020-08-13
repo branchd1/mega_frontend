@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:mega/models/AuthTokenModel.dart';
-import 'package:mega/screens/home/HomeScreen.dart';
-import 'package:mega/screens/welcome/WelcomeScreen.dart';
+import 'package:mega/models/auth_token_model.dart';
+import 'package:mega/screens/home/home_screen.dart';
+import 'package:mega/screens/welcome/welcome_screen.dart';
 import 'package:provider/provider.dart';
 
 void main()=>runApp(

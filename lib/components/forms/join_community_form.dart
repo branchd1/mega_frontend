@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:mega/components/buttons/MySubmitButton.dart';
-import 'package:mega/components/inputs/MyTextInput.dart';
-import 'package:mega/components/texts/ErrorText.dart';
-import 'package:mega/screens/home/HomeScreen.dart';
-import 'package:mega/services/api/CommunityAPI.dart';
+import 'package:mega/components/buttons/my_submit_button.dart';
+import 'package:mega/components/inputs/my_text_input.dart';
+import 'package:mega/components/texts/error_text.dart';
+import 'package:mega/screens/home/home_screen.dart';
+import 'package:mega/services/api/community_api.dart';
 
 
 class JoinCommunityForm extends StatefulWidget{

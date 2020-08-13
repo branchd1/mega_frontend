@@ -2,16 +2,16 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'package:mega/components/bars/ErrorSnackBar.dart';
-import 'package:mega/models/AuthTokenModel.dart';
-import 'package:mega/models/CommunityModel.dart';
-import 'package:mega/models/response/CreateCommunityResponseModel.dart';
-import 'package:mega/models/response/JoinCommunityResponseModel.dart';
+import 'package:mega/components/bars/error_snack_bar.dart';
+import 'package:mega/models/auth_token_model.dart';
+import 'package:mega/models/community_model.dart';
+import 'package:mega/models/response/create_community_response_model.dart';
+import 'package:mega/models/response/join_community_response_model.dart';
 import 'dart:convert';
 
 import 'package:provider/provider.dart';
 
-import 'BaseAPI.dart';
+import 'base_api.dart';
 
 class CommunityAPI {
   static Future<List<CommunityModel>> getCommunities(BuildContext context) async {

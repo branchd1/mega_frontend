@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:mega/screens/home/HomeScreen.dart';
+import 'package:mega/screens/home/home_screen.dart';
 
 class MyAppBars{
   static AppBar myAppBar1() => AppBar(

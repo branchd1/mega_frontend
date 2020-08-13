@@ -1,18 +1,18 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:mega/components/forms/LoginForm.dart';
-import 'package:mega/components/texts/ErrorText.dart';
-import 'package:mega/models/AuthTokenModel.dart';
-import 'package:mega/models/response/LoginResponseModel.dart';
-import 'package:mega/models/response/RegisterResponseModel.dart';
-import 'package:mega/services/api/BaseAPI.dart';
-import 'package:mega/services/api/AuthAPI.dart';
+import 'package:mega/components/forms/login_form.dart';
+import 'package:mega/components/texts/error_text.dart';
+import 'package:mega/models/auth_token_model.dart';
+import 'package:mega/models/response/login_response_model.dart';
+import 'package:mega/models/response/register_response_model.dart';
+import 'package:mega/services/api/base_api.dart';
+import 'package:mega/services/api/auth_api.dart';
 import 'package:provider/provider.dart';
 
-import '../bars/ErrorSnackBar.dart';
-import '../inputs/MyPasswordInput.dart';
-import '../buttons/MySubmitButton.dart';
+import '../bars/error_snack_bar.dart';
+import '../inputs/my_password_input.dart';
+import '../buttons/my_submit_button.dart';
 
 typedef void SetErrorTextCallback(String text);
 
