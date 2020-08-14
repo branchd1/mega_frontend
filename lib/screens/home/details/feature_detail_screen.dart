@@ -10,6 +10,7 @@ import 'package:mega/components/inputs/my_password_input.dart';
 import 'package:mega/components/inputs/my_text_input.dart';
 import 'package:mega/components/texts/big_text.dart';
 import 'package:mega/components/texts/error_text.dart';
+import 'package:mega/models/community_model.dart';
 import 'package:mega/models/feature_model.dart';
 import 'package:mega/models/feature_screen_back_button_model.dart';
 import 'package:provider/provider.dart';
@@ -195,9 +196,9 @@ class CreatableButton extends StatelessWidget{
 
 class FeatureDetailScreen extends StatefulWidget{
   final FeatureModel feature;
-  final bool isAdmin;
+  final CommunityModel community;
 
-  FeatureDetailScreen({Key key, this.feature, this.isAdmin}) : super(key: key);
+  FeatureDetailScreen({Key key, this.feature, this.community}) : super(key: key);
 
   final Map<String, dynamic> json = {
     'admin': {
@@ -295,7 +296,7 @@ class _FeatureDetailScreenState extends State<FeatureDetailScreen>{
     // get admin or member data
     assert(widget.json != null);
     assert(widget.json.containsKey('admin') || widget.json.containsKey('member'));
-    final Map<String, dynamic> _newJson = widget.isAdmin ? widget.json['admin'] : widget.json['member'];
+    final Map<String, dynamic> _newJson = widget.community.isAdmin ? widget.json['admin'] : widget.json['member'];
 
     // replace special values and data in configuration data
     assert(_newJson != null);
