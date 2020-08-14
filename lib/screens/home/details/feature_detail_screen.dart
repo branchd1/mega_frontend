@@ -205,45 +205,51 @@ class FeatureDetailScreen extends StatefulWidget{
         'metadata': {
           'show_back_button': 'false'
         },
-        'text': {
-          'value': 'hello',
-        },
-        'button': {
-          'value': 'hey',
-          'action': {
-            'action_type': 'change_page',
-            'new_page': 'second',
-            'page_params': {
-              'name': 'from_second', // param "name" value can be gotten from element of id 1
+        'components': {
+          'text': {
+            'value': 'hello',
+          },
+          'button': {
+            'value': 'hey',
+            'action': {
+              'action_type': 'change_page',
+              'new_page': 'second',
+              'page_params': {
+                'name': 'from_second', // param "name" value can be gotten from element of id 1
+              }
             }
           }
         }
       },
       'second': {
-        'text': {
-          'value': 'second',
-        },
-        'button': {
-          'value': 'second_button',
-          'action': {
-            'action_type': 'change_page',
-            'new_page': 'third', // specify name of new page
+        'components': {
+          'text': {
+            'value': 'second',
+          },
+          'button': {
+            'value': 'second_button',
+            'action': {
+              'action_type': 'change_page',
+              'new_page': 'third', // specify name of new page
+            }
           }
         }
       },
       'third': {
-        'form': {
-          'action': {
-            'action_type': 'api',
-            'method': 'get',
-            'url': '/data_store',
-          },
-          'body': {
-            'input': {
-              'type': 'email',
+        'components': {
+          'form': {
+            'action': {
+              'action_type': 'api',
+              'method': 'get',
+              'url': '/data_store',
             },
-            'submit_button': {
-              'value': 'submit',
+            'body': {
+              'input': {
+                'type': 'email',
+              },
+              'submit_button': {
+                'value': 'submit',
+              }
             }
           }
         }
@@ -251,8 +257,10 @@ class FeatureDetailScreen extends StatefulWidget{
     },
     'member': {
       'home': {
-        'text': {
-          'value': 'hi'
+        'components': {
+          'text': {
+            'value': 'hi'
+          }
         }
       }
     }
@@ -301,19 +309,21 @@ class _FeatureDetailScreenState extends State<FeatureDetailScreen>{
     // load the current screen data
     Map<String, dynamic> _screenData = _replacedJson[screenStack.last];
 
+    // check if its first screen
     final isFirstScreen = screenStack.length == 1;
-    if(_screenData['metadata'] != null) {
-      // set show back button
-      if (!isFirstScreen && _screenData['metadata']['show_back_button'] == 'false') Provider.of<FeatureScreenBackButtonModel>(context).setShowBackButton(false);
 
-      // remove metadata from the data
-      _screenData.removeWhere((key, value) => key == 'metadata');
+    // configure screen with metadata
+    Map<String, dynamic> _screenMetadata = _screenData['metadata'];
+    if(_screenMetadata != null) {
+      // set show back button
+      if (!isFirstScreen && _screenMetadata['show_back_button'] == 'false') Provider.of<FeatureScreenBackButtonModel>(context).setShowBackButton(false);
     }
 
     // create list of widgets from configuration data
-    List<Widget> list = _screenData.keys.map<Widget>((i){
+    Map<String, dynamic> _screenComponents = _screenData['components'];
+    List<Widget> widgetList = _screenComponents.keys.map<Widget>((i){
       try{
-        return configurationMap[i](_screenData[i]);
+        return configurationMap[i](_screenComponents[i]);
       } on NoSuchMethodError{
         // inform user of error
         String err = 'A component (' + i + ') used does not exist';
@@ -329,7 +339,7 @@ class _FeatureDetailScreenState extends State<FeatureDetailScreen>{
             children: <Widget>[
               BigText(this.widget.feature.name),
               Column(
-                  children: list
+                  children: widgetList
               )
             ],
           ),
