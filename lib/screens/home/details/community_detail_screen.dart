@@ -37,9 +37,7 @@ class _CommunityDetailScreenState extends State<CommunityDetailScreen>{
   }
 
   Future<void> forceRefresh() async{
-    setState(() {
-
-    });
+    setState((){});
   }
 
   @override
