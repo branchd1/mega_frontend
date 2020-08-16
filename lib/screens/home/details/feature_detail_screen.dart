@@ -73,11 +73,12 @@ class CreatableText extends StatelessWidget{
 class CreatableInput extends StatelessWidget{
   final List<String> inputTypes = ['email', 'text'];
   final Map data;
+  final TextEditingController controller;
 
-  CreatableInput({Key key, this.data}) : super(key: key);
+  CreatableInput({Key key, this.data, this.controller}) : super(key: key);
 
-  static Widget createInput(Map _data){
-    return CreatableInput(data: _data);
+  static Widget createInput(Map _data, {TextEditingController controller}){
+    return CreatableInput(data: _data, controller: controller,);
   }
 
   @override
@@ -85,7 +86,7 @@ class CreatableInput extends StatelessWidget{
     assert(data['type'] != null);
     assert(inputTypes.contains(data['type']));
 
-    if(data['type'] == 'email') return MyEmailInput();
+    if(data['type'] == 'email') return MyEmailInput(controller: controller,);
 
 //    not yet implemented
 //    if(data['type'] == 'text') return MyTextInput();
@@ -108,12 +109,16 @@ class CreatableForm extends StatefulWidget{
 
 class _CreatableFormState extends State<CreatableForm>{
 
-  List<TextEditingController> controllers;
+  Map<TextEditingController, String> _controllersMap = Map<TextEditingController, String>();
   final _formKey = GlobalKey<FormState>();
 
   void submit() async {
     if (_formKey.currentState.validate()){
+      // create map from data
+      Map<String, String> formDataMap = Map<String, String>.from(_controllersMap.map((key, value) => MapEntry(value, key.text)));
 
+      // send map for storage in server
+      
     }
   }
 
@@ -127,10 +132,18 @@ class _CreatableFormState extends State<CreatableForm>{
     // this is repeated somewhere else, put in one method?
     List<Widget> list = _formBody.keys.map<Widget>((i){
       try{
-        if(i=='submit_button')
+        if(i=='submit_button') {
           return configurationMap[i](_formBody[i], submitCallback: submit);
-        return configurationMap[i](_formBody[i]);
-      } on NoSuchMethodError{
+        } else if (i=='input'){
+          // store the controller
+          TextEditingController inputController = TextEditingController();
+          _controllersMap.putIfAbsent(inputController, () => _formBody[i]['name']);
+
+          return configurationMap[i](_formBody[i], controller: inputController);
+        }
+        return null;
+      }
+      on NoSuchMethodError{
         String err = 'A component (' + i + ') used does not exist';
         print(err);
         return ErrorText(err);
@@ -154,19 +167,16 @@ class CreatableButton extends StatelessWidget{
 
   const CreatableButton({Key key, this.data, this.submitCallback}) : super(key: key);
 
-  static void buttonAction(Map<String, dynamic> action){
+  void buttonAction(Map<String, dynamic> action){
     String actionType = action['action_type'];
 
     if (actionType == changePage){
       assert(action.containsKey('new_page')); // delegate to a function that checks components structured correctly
       action['new_page']();
-    } else if (actionType == getData){
-
     }
   }
 
-  static Widget createButton(Map _data, {FormSubmitCallback submitCallback}) =>
-      CreatableButton(data: _data, submitCallback: submitCallback);
+  static Widget createButton(Map _data, {FormSubmitCallback submitCallback}) => CreatableButton(data: _data, submitCallback: submitCallback);
 
   @override
   Widget build(BuildContext context) {
@@ -174,21 +184,21 @@ class CreatableButton extends StatelessWidget{
 
     if(submitCallback != null) {
       return Align(
-          alignment: Alignment.bottomRight,
-          child: MySubmitButton(
-              buttonText: data['value'],
-              submitCallback: () {
-                submitCallback();
-                if (data['action'] != null) buttonAction(data['action']);
-              }
-          )
-      );
-    }
-    else {
-      return MyButton(
+        alignment: Alignment.bottomRight,
+        child: MySubmitButton(
           buttonText: data['value'],
-          onPressCallback: data['action'] != null ? () =>
-              buttonAction(data['action']) : null
+          submitCallback: () {
+            submitCallback();
+            if (data['action'] != null) buttonAction(data['action']);
+          }
+        )
+      );
+    } else {
+      return MyButton(
+        buttonText: data['value'],
+        onPressCallback: () {
+          if (data['action'] != null) buttonAction(data['action']);
+        }
       );
     }
   }
@@ -247,6 +257,7 @@ class FeatureDetailScreen extends StatefulWidget{
             'body': {
               'input': {
                 'type': 'email',
+                'name': 'email',
               },
               'submit_button': {
                 'value': 'submit',
