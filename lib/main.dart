@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:mega/models/auth_token_model.dart';
+import 'package:mega/models/auth_token_state_model.dart';
+import 'package:mega/models/current_community_state_model.dart';
 import 'package:mega/models/feature_screen_back_button_model.dart';
 import 'package:mega/screens/home/home_screen.dart';
 import 'package:mega/screens/welcome/welcome_screen.dart';
@@ -12,7 +13,8 @@ class MegaApp extends StatelessWidget{
   Widget build(BuildContext context){
     return MultiProvider(
       providers: [
-        Provider(create: (context) => AuthTokenModel()),
+        Provider(create: (context) => AuthTokenStateModel()),
+        Provider(create: (context) => CurrentCommunityStateModel()),
         ChangeNotifierProvider(create: (context) => FeatureScreenBackButtonModel()),
       ],
       child: MaterialApp(

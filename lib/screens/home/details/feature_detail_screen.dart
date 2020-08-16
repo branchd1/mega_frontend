@@ -11,6 +11,7 @@ import 'package:mega/components/inputs/my_text_input.dart';
 import 'package:mega/components/texts/big_text.dart';
 import 'package:mega/components/texts/error_text.dart';
 import 'package:mega/models/community_model.dart';
+import 'package:mega/models/current_community_state_model.dart';
 import 'package:mega/models/feature_model.dart';
 import 'package:mega/models/feature_screen_back_button_model.dart';
 import 'package:mega/services/api/base_api.dart';
@@ -155,11 +156,15 @@ class _CreatableFormState extends State<CreatableForm>{
 
           // incomplete - do something with return data above
         } else if (_formActionMap['method'] == 'post'){
+          // get tag
+          assert(_formActionMap.containsKey('tag') && _formActionMap['tag'] != null);
+          String tag = _formActionMap['tag'];
+
           // get access level
           String access = formValuesMap.containsKey('access') ? formValuesMap['access'] : null;
 
           // send map for storage in server
-          FeatureDevAPI.saveToDataStore(context, data: formValuesMap, access: access);
+          FeatureDevAPI.saveToDataStore(context, data: formValuesMap, access: access, tag: tag);
 
           // incomplete - do something with return data above
         } else {
@@ -310,7 +315,8 @@ class FeatureDetailScreen extends StatefulWidget{
               'action': {
                 'action_type': 'save',
                 'method': 'post',
-                'access': 'user'
+                'access': 'user',
+                'tag': 'users_email'
               },
               'body': [
                 {

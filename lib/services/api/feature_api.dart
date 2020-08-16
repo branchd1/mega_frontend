@@ -3,7 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:mega/components/bars/error_snack_bar.dart';
-import 'package:mega/models/auth_token_model.dart';
+import 'package:mega/models/auth_token_state_model.dart';
 import 'package:mega/models/feature_model.dart';
 import 'dart:convert';
 
@@ -15,7 +15,7 @@ class FeatureAPI {
   static Future<List<FeatureModel>> getFeatures(BuildContext context, int communityId) async {
 
     Map<String, String> headers = <String, String>{
-      'Authorization': 'Token ' + Provider.of<AuthTokenModel>(context, listen: false).token
+      'Authorization': 'Token ' + Provider.of<AuthTokenStateModel>(context, listen: false).token
     };
 
     Map<String, String> params = {
@@ -54,7 +54,7 @@ class FeatureAPI {
   static Future<List<FeatureModel>> getAllFeatures(BuildContext context, String communityType, int communityId) async {
 
     Map<String, String> headers = <String, String>{
-      'Authorization': 'Token ' + Provider.of<AuthTokenModel>(context, listen: false).token
+      'Authorization': 'Token ' + Provider.of<AuthTokenStateModel>(context, listen: false).token
     };
 
     Map<String, String> params = {
@@ -94,7 +94,7 @@ class FeatureAPI {
   static Future<bool> addFeatureToCommunity(BuildContext context, int featureId, int communityId) async {
 
     Map<String, String> headers = <String, String>{
-      'Authorization': 'Token ' + Provider.of<AuthTokenModel>(context, listen: false).token
+      'Authorization': 'Token ' + Provider.of<AuthTokenStateModel>(context, listen: false).token
     };
 
     Map<String, String> data = {

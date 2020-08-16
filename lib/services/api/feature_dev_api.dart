@@ -5,24 +5,33 @@ import 'package:http/http.dart' as http;
 import 'package:mega/components/bars/error_snack_bar.dart';
 import 'dart:convert';
 
-import 'package:mega/models/auth_token_model.dart';
+import 'package:mega/models/auth_token_state_model.dart';
+import 'package:mega/models/current_community_state_model.dart';
 import 'package:mega/services/api/base_api.dart';
 import 'package:provider/provider.dart';
 
 class FeatureDevAPI {
   static Future<http.Response> saveToDataStore(
       BuildContext context,
-      {Map<String, String> data, String access}
+      {
+        Map<String, String> data,
+        String access,
+        String tag
+      }
       ) async {
 
     Map<String, String> headers = <String, String>{
-      'Authorization': 'Token ' + Provider.of<AuthTokenModel>(context, listen: false).token
+      'Authorization': 'Token ' + Provider.of<AuthTokenStateModel>(context, listen: false).token
     };
 
     http.Response _res;
 
-    // default access is user
-    data.addAll({'access': access != null ? access : 'user'});
+    data = {
+      ...data,
+      'mega\$tag': tag,
+      'mega\$access': access != null ? access : 'user',
+      'mega\$community': Provider.of<CurrentCommunityStateModel>(context, listen: false).currentCommunity.id.toString(),
+    };
 
     try{
       _res = await BaseAPI.post(
@@ -53,7 +62,7 @@ class FeatureDevAPI {
       ) async {
 
     Map<String, String> headers = <String, String>{
-      'Authorization': 'Token ' + Provider.of<AuthTokenModel>(context, listen: false).token
+      'Authorization': 'Token ' + Provider.of<AuthTokenStateModel>(context, listen: false).token
     };
 
     http.Response _res;
@@ -91,13 +100,14 @@ class FeatureDevAPI {
 
     Map<String, String> headers = <String, String>{
       'Content-Type': 'application/json; charset=UTF-8',
-      'Authorization': 'Token ' + Provider.of<AuthTokenModel>(context, listen: false).token
+      'Authorization': 'Token ' + Provider.of<AuthTokenStateModel>(context, listen: false).token
     };
 
     headers = {
       ...headers,
     };
 
+    // add a trailing slash
     if(!endpoint.endsWith('/')) endpoint += '/';
 
     final Uri uri = Uri.http(url, endpoint);
@@ -119,13 +129,14 @@ class FeatureDevAPI {
 
     Map<String, String> headers = <String, String>{
       'Content-Type': 'application/json; charset=UTF-8',
-      'Authorization': 'Token ' + Provider.of<AuthTokenModel>(context, listen: false).token
+      'Authorization': 'Token ' + Provider.of<AuthTokenStateModel>(context, listen: false).token
     };
 
     headers = {
       ...headers,
     };
 
+    // add a trailing slash
     if(!endpoint.endsWith('/')) endpoint += '/';
 
     final Uri uri = Uri.http(url, endpoint, params);

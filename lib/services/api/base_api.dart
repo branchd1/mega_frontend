@@ -1,8 +1,6 @@
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
-typedef void SetErrorTextCallback(String text);
-
 class BaseAPI {
   static const String url = '0.0.0.0:9000';
 
@@ -19,7 +17,7 @@ class BaseAPI {
 
     headers = {
       ...headers,
-      ...additionalHeaders
+      if(additionalHeaders != null) ...additionalHeaders
     };
 
     final Uri uri = Uri.http(url, endpoint);
@@ -44,7 +42,7 @@ class BaseAPI {
 
     headers = {
       ...headers,
-      ...additionalHeaders
+      if(additionalHeaders != null) ...additionalHeaders
     };
 
     final Uri uri = Uri.http(url, endpoint, params);

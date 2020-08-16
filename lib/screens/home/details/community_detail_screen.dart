@@ -5,10 +5,12 @@ import 'package:mega/components/cards/card_grid.dart';
 import 'package:mega/components/inputs/search_input.dart';
 import 'package:mega/components/texts/big_text.dart';
 import 'package:mega/models/community_model.dart';
+import 'package:mega/models/current_community_state_model.dart';
 import 'package:mega/models/feature_model.dart';
 import 'package:mega/screens/home/add/add_feature_screen.dart';
 import 'package:mega/screens/home/details/feature_detail_screen.dart';
 import 'package:mega/services/api/feature_api.dart';
+import 'package:provider/provider.dart';
 
 class CommunityDetailScreen extends StatefulWidget{
   final CommunityModel community;
@@ -42,6 +44,9 @@ class _CommunityDetailScreenState extends State<CommunityDetailScreen>{
 
   @override
   Widget build(BuildContext context) {
+    // set the current community
+    Provider.of<CurrentCommunityStateModel>(context, listen: false).setCurrentCommunity(widget.community);
+
     if (searchVal == null) features = FeatureAPI.getFeatures(context, widget.community.id);
     return Scaffold(
       appBar: MyAppBars.myAppBar6(context, logoUrl: this.widget.community.picture),

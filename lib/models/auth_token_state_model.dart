@@ -1,6 +1,6 @@
 import 'package:flutter/foundation.dart';
 
-class AuthTokenModel {
+class AuthTokenStateModel {
   String _token;
 
   String get token => _token;

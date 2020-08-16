@@ -8,6 +8,7 @@ import 'dart:convert';
 import 'package:mega/models/response/email_exists_response_model.dart';
 import 'package:mega/models/response/login_response_model.dart';
 import 'package:mega/models/response/register_response_model.dart';
+import 'package:mega/services/custom_types.dart';
 
 import 'base_api.dart';
 
@@ -22,8 +23,8 @@ class AuthAPI {
 
     try{
       _res = await BaseAPI.post(
-          'api/check_email/',
-          data: data
+        'api/check_email/',
+        data: data
       );
     } on SocketException{
       showErrorSnackBar(context);
