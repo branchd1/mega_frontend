@@ -17,7 +17,6 @@ class CommunityAPI {
   static Future<List<CommunityModel>> getCommunities(BuildContext context) async {
 
     Map<String, String> headers = <String, String>{
-      'Content-Type': 'application/json',
       'Authorization': 'Token ' + Provider.of<AuthTokenModel>(context, listen: false).token
     };
 
@@ -53,7 +52,6 @@ class CommunityAPI {
       SetErrorTextCallback setErrorText) async {
 
     Map<String, String> headers = <String, String>{
-      'Content-Type': 'application/json',
       'Authorization': 'Token ' + Provider.of<AuthTokenModel>(context, listen: false).token
     };
 
@@ -91,7 +89,6 @@ class CommunityAPI {
   static Future<CreateCommunityResponseModel> createCommunity(BuildContext context, String communityName, String communityType, SetErrorTextCallback setErrorText) async {
 
     Map<String, String> headers = <String, String>{
-      'Content-Type': 'application/json',
       'Authorization': 'Token ' + Provider.of<AuthTokenModel>(context, listen: false).token
     };
 

@@ -14,10 +14,6 @@ import 'base_api.dart';
 class AuthAPI {
   static Future<EmailExistsResponseModel> checkEmailExists(BuildContext context, String email) async {
 
-    Map<String, String> headers = <String, String>{
-      'Content-Type': 'application/json',
-    };
-
     Map<String, String> data = <String, String>{
       'email': email,
     };
@@ -27,7 +23,6 @@ class AuthAPI {
     try{
       _res = await BaseAPI.post(
           'api/check_email/',
-          additionalHeaders: headers,
           data: data
       );
     } on SocketException{
@@ -50,10 +45,6 @@ class AuthAPI {
     String password,
     {SetErrorTextCallback setErrorText}) async {
 
-    Map<String, String> headers = <String, String>{
-      'Content-Type': 'application/json',
-    };
-
     Map<String, String> data = <String, String>{
       'username': email,
       'password': password
@@ -64,7 +55,6 @@ class AuthAPI {
     try{
       _res = await BaseAPI.post(
           'auth/token/login/',
-          additionalHeaders: headers,
           data: data
       );
     } on SocketException{
@@ -90,10 +80,6 @@ class AuthAPI {
     String password,
     SetErrorTextCallback setErrorText) async {
 
-    Map<String, String> headers = <String, String>{
-      'Content-Type': 'application/json',
-    };
-
     Map<String, String> data = <String, String>{
       'email': email,
       'username': email,
@@ -106,7 +92,6 @@ class AuthAPI {
     try{
       _res = await BaseAPI.post(
         'auth/users/',
-        additionalHeaders: headers,
         data: data
       );
     } on SocketException{

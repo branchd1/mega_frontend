@@ -13,6 +13,8 @@ import 'package:mega/components/texts/error_text.dart';
 import 'package:mega/models/community_model.dart';
 import 'package:mega/models/feature_model.dart';
 import 'package:mega/models/feature_screen_back_button_model.dart';
+import 'package:mega/services/api/base_api.dart';
+import 'package:mega/services/api/feature_dev_api.dart';
 import 'package:provider/provider.dart';
 
 const Map<String, dynamic> configurationMap = {
@@ -114,11 +116,52 @@ class _CreatableFormState extends State<CreatableForm>{
 
   void submit() async {
     if (_formKey.currentState.validate()){
-      // create map from data
-      Map<String, String> formDataMap = Map<String, String>.from(_controllersMap.map((key, value) => MapEntry(value, key.text)));
+      // get form action map
+      Map<String, dynamic> _formActionMap = widget.data['action'];
 
-      // send map for storage in server
-      
+      // create map from data
+      Map<String, String> formValuesMap = Map<String, String>.from(_controllersMap.map((key, value) => MapEntry(value, key.text)));
+
+      // calling external api
+      if (_formActionMap['action_type'] == 'external_api'){
+        assert(_formActionMap['method']!=null);
+
+        // send data to api and do something with it
+        if(_formActionMap['method'] == 'get') {
+          // send map for storage in server
+          FeatureDevAPI.getExternal(context,
+            _formActionMap['url'],
+            _formActionMap['endpoint'],
+            params: formValuesMap
+          );
+          // incomplete
+        } else if (_formActionMap['method'] == 'post'){
+          // send map for storage in server
+          FeatureDevAPI.postExternal(context,
+            _formActionMap['url'],
+            _formActionMap['endpoint'], data: formValuesMap
+          );
+          // incomplete
+        } else {
+          throw ('action method must be get or post');
+        }
+      }
+      // saving to data store
+      else if (_formActionMap['action_type'] == 'save'){
+        // send data to api and do something with it
+        if(_formActionMap['method'] == 'get') {
+          // send map for storage in server
+          FeatureDevAPI.getToDataStore(context, params: formValuesMap);
+          // incomplete
+        } else if (_formActionMap['method'] == 'post'){
+          // send map for storage in server
+          FeatureDevAPI.saveToDataStore(context, data: formValuesMap);
+          // incomplete
+        } else {
+          throw ('action method must be get or post');
+        }
+      }
+
     }
   }
 
@@ -127,24 +170,25 @@ class _CreatableFormState extends State<CreatableForm>{
     assert(widget.data['body'] != null);
     assert(widget.data['action'] != null);
 
-    Map<String, dynamic> _formBody = widget.data['body'];
+    List<Map<String, dynamic>> _formBody = widget.data['body'];
 
     // this is repeated somewhere else, put in one method?
-    List<Widget> list = _formBody.keys.map<Widget>((i){
+    List<Widget> list = _formBody.map<Widget>((component){
+      final String _componentName = component.keys.toList()[0];
       try{
-        if(i=='submit_button') {
-          return configurationMap[i](_formBody[i], submitCallback: submit);
-        } else if (i=='input'){
+        if(_componentName=='submit_button') {
+          return configurationMap[_componentName](component[_componentName], submitCallback: submit);
+        } else if (_componentName=='input'){
           // store the controller
           TextEditingController inputController = TextEditingController();
-          _controllersMap.putIfAbsent(inputController, () => _formBody[i]['name']);
+          _controllersMap.putIfAbsent(inputController, () => component[_componentName]['name']);
 
-          return configurationMap[i](_formBody[i], controller: inputController);
+          return configurationMap[_componentName](component[_componentName], controller: inputController);
         }
         return null;
       }
       on NoSuchMethodError{
-        String err = 'A component (' + i + ') used does not exist';
+        String err = 'A component (' + _componentName + ') used does not exist';
         print(err);
         return ErrorText(err);
       }
@@ -216,64 +260,100 @@ class FeatureDetailScreen extends StatefulWidget{
         'metadata': {
           'show_back_button': 'false'
         },
-        'components': {
-          'text': {
-            'value': 'hello',
+        'components': [
+          {
+            'text': {
+              'value': 'hello',
+            },
           },
-          'button': {
-            'value': 'hey',
-            'action': {
-              'action_type': 'change_page',
-              'new_page': 'second',
-              'page_params': {
-                'name': 'from_second', // param "name" value can be gotten from element of id 1
+          {
+            'button': {
+              'value': 'hey',
+              'action': {
+                'action_type': 'change_page',
+                'new_page': 'second',
+                'page_params': {
+                  'name': 'from_second', // param "name" value can be gotten from element of id 1
+                }
               }
             }
           }
-        }
+        ]
       },
       'second': {
-        'components': {
-          'text': {
-            'value': 'second',
-          },
-          'button': {
-            'value': 'second_button',
-            'action': {
-              'action_type': 'change_page',
-              'new_page': 'third', // specify name of new page
-            }
-          }
-        }
-      },
-      'third': {
-        'components': {
-          'form': {
-            'action': {
-              'action_type': 'api',
-              'method': 'get',
-              'url': '/data_store',
+        'components': [
+          {
+            'text': {
+              'value': 'second',
             },
-            'body': {
-              'input': {
-                'type': 'email',
-                'name': 'email',
-              },
-              'submit_button': {
-                'value': 'submit',
+          },
+          {
+            'button': {
+              'value': 'second_button',
+              'action': {
+                'action_type': 'change_page',
+                'new_page': 'third', // specify name of new page
               }
             }
           }
-        }
+        ]
+      },
+      'third': {
+        'components': [
+          {
+            'form': {
+              'action': {
+                'action_type': 'save',
+                'method': 'get',
+              },
+              'body': [
+                {
+                  'input': {
+                    'type': 'email',
+                    'name': 'email',
+                  },
+                },
+                {
+                  'submit_button': {
+                    'value': 'submit',
+                  }
+                }
+              ]
+            }
+          },
+          {
+            'form': {
+              'action': {
+                'action_type': 'save',
+                'method': 'get',
+              },
+              'body': [
+                {
+                  'input': {
+                    'type': 'email',
+                    'name': 'email',
+                  }
+                },
+                {
+                  'submit_button': {
+                    'value': 'submit',
+                  }
+                }
+              ]
+            }
+          }
+        ]
       },
     },
     'member': {
       'home': {
-        'components': {
-          'text': {
-            'value': 'hi'
+        'components': [
+          {
+            'text': {
+              'value': 'hi'
+            }
           }
-        }
+        ]
       }
     }
   };
@@ -292,6 +372,14 @@ class _FeatureDetailScreenState extends State<FeatureDetailScreen>{
     // recursively replace map values
     if(value is Map){
       value = Map<String, dynamic>.from(value.map(replaceMapValues));
+    } else if(value is List){
+      // create new list from
+      List<dynamic> newList = value.map((Map<String, dynamic> map)=>
+        Map<String, dynamic>.from(map.map(replaceMapValues))
+      ).toList();
+
+      // update value
+      value = List<Map<String, dynamic>>.from(newList);
     }
 
     // do replacement
@@ -332,13 +420,14 @@ class _FeatureDetailScreenState extends State<FeatureDetailScreen>{
     }
 
     // create list of widgets from configuration data
-    Map<String, dynamic> _screenComponents = _screenData['components'];
-    List<Widget> widgetList = _screenComponents.keys.map<Widget>((i){
+    List<Map<String, dynamic>> _screenComponents = _screenData['components'];
+    List<Widget> widgetList = _screenComponents.map<Widget>((component){
+      final String _componentName = component.keys.toList()[0];
       try{
-        return configurationMap[i](_screenComponents[i]);
+        return configurationMap[_componentName](component[_componentName]);
       } on NoSuchMethodError{
         // inform user of error
-        String err = 'A component (' + i + ') used does not exist';
+        String err = 'A component (' + _componentName + ') used does not exist';
         print(err);
         return ErrorText(err);
       }

@@ -15,7 +15,6 @@ class FeatureAPI {
   static Future<List<FeatureModel>> getFeatures(BuildContext context, int communityId) async {
 
     Map<String, String> headers = <String, String>{
-      'Content-Type': 'application/json',
       'Authorization': 'Token ' + Provider.of<AuthTokenModel>(context, listen: false).token
     };
 
@@ -55,7 +54,6 @@ class FeatureAPI {
   static Future<List<FeatureModel>> getAllFeatures(BuildContext context, String communityType, int communityId) async {
 
     Map<String, String> headers = <String, String>{
-      'Content-Type': 'application/json',
       'Authorization': 'Token ' + Provider.of<AuthTokenModel>(context, listen: false).token
     };
 
@@ -96,7 +94,6 @@ class FeatureAPI {
   static Future<bool> addFeatureToCommunity(BuildContext context, int featureId, int communityId) async {
 
     Map<String, String> headers = <String, String>{
-      'Content-Type': 'application/json',
       'Authorization': 'Token ' + Provider.of<AuthTokenModel>(context, listen: false).token
     };
 
@@ -109,9 +106,9 @@ class FeatureAPI {
 
     try{
       _res = await BaseAPI.post(
-        'api/features/add_to_community/',
-        additionalHeaders: headers,
-        data: data
+          'api/features/add_to_community/',
+          additionalHeaders: headers,
+          data: data
       );
     } on SocketException{
       showErrorSnackBar(context);
