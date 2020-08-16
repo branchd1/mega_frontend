@@ -152,11 +152,16 @@ class _CreatableFormState extends State<CreatableForm>{
         if(_formActionMap['method'] == 'get') {
           // send map for storage in server
           FeatureDevAPI.getToDataStore(context, params: formValuesMap);
-          // incomplete
+
+          // incomplete - do something with return data above
         } else if (_formActionMap['method'] == 'post'){
+          // get access level
+          String access = formValuesMap.containsKey('access') ? formValuesMap['access'] : null;
+
           // send map for storage in server
-          FeatureDevAPI.saveToDataStore(context, data: formValuesMap);
-          // incomplete
+          FeatureDevAPI.saveToDataStore(context, data: formValuesMap, access: access);
+
+          // incomplete - do something with return data above
         } else {
           throw ('action method must be get or post');
         }
@@ -304,28 +309,8 @@ class FeatureDetailScreen extends StatefulWidget{
             'form': {
               'action': {
                 'action_type': 'save',
-                'method': 'get',
-              },
-              'body': [
-                {
-                  'input': {
-                    'type': 'email',
-                    'name': 'email',
-                  },
-                },
-                {
-                  'submit_button': {
-                    'value': 'submit',
-                  }
-                }
-              ]
-            }
-          },
-          {
-            'form': {
-              'action': {
-                'action_type': 'save',
-                'method': 'get',
+                'method': 'post',
+                'access': 'user'
               },
               'body': [
                 {

@@ -12,7 +12,7 @@ import 'package:provider/provider.dart';
 class FeatureDevAPI {
   static Future<http.Response> saveToDataStore(
       BuildContext context,
-      {Map<String, String> data}
+      {Map<String, String> data, String access}
       ) async {
 
     Map<String, String> headers = <String, String>{
@@ -21,9 +21,12 @@ class FeatureDevAPI {
 
     http.Response _res;
 
+    // default access is user
+    data.addAll({'access': access != null ? access : 'user'});
+
     try{
       _res = await BaseAPI.post(
-          'api/data_store',
+          'api/data_store/',
           additionalHeaders: headers,
           data: data
       );
@@ -57,7 +60,7 @@ class FeatureDevAPI {
 
     try{
       _res = await BaseAPI.get(
-          'api/data_store',
+          'api/data_store/',
           additionalHeaders: headers,
           params: params
       );
@@ -95,6 +98,8 @@ class FeatureDevAPI {
       ...headers,
     };
 
+    if(!endpoint.endsWith('/')) endpoint += '/';
+
     final Uri uri = Uri.http(url, endpoint);
 
     return http.post(
@@ -120,6 +125,8 @@ class FeatureDevAPI {
     headers = {
       ...headers,
     };
+
+    if(!endpoint.endsWith('/')) endpoint += '/';
 
     final Uri uri = Uri.http(url, endpoint, params);
 
