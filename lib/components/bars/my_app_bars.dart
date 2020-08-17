@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:mega/models/feature_screen_back_button_model.dart';
+import 'package:mega/models/state_models/feature_screen_back_button_state_model.dart';
 import 'package:mega/screens/home/home_screen.dart';
 import 'package:provider/provider.dart';
 
@@ -70,7 +70,7 @@ class MyAppBars{
     elevation: 0.0,
 
     // only show if set
-    leading: !isFirstScreen && Provider.of<FeatureScreenBackButtonModel>(context).showBackButton ?
+    leading: !isFirstScreen && Provider.of<FeatureScreenBackButtonStateModel>(context).showBackButton ?
       new IconButton(
         icon: new Icon(Icons.arrow_back_ios),
         onPressed: onPop

@@ -5,9 +5,9 @@ import 'package:http/http.dart' as http;
 import 'package:mega/components/bars/error_snack_bar.dart';
 import 'dart:convert';
 
-import 'package:mega/models/response/email_exists_response_model.dart';
-import 'package:mega/models/response/login_response_model.dart';
-import 'package:mega/models/response/register_response_model.dart';
+import 'package:mega/models/response_models/email_exists_response_model.dart';
+import 'package:mega/models/response_models/login_response_model.dart';
+import 'package:mega/models/response_models/register_response_model.dart';
 import 'package:mega/services/custom_types.dart';
 
 import 'base_api.dart';

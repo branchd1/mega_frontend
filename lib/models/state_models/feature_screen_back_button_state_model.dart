@@ -1,7 +1,7 @@
 
 import 'package:flutter/material.dart';
 
-class FeatureScreenBackButtonModel extends ChangeNotifier {
+class FeatureScreenBackButtonStateModel extends ChangeNotifier {
   bool _showBackButton = true;
 
   bool get showBackButton => _showBackButton;

@@ -3,7 +3,7 @@ import 'package:mega/components/buttons/my_submit_button.dart';
 import 'package:mega/components/inputs/dropdown_input.dart';
 import 'package:mega/components/inputs/my_text_input.dart';
 import 'package:mega/components/texts/error_text.dart';
-import 'package:mega/models/response/create_community_response_model.dart';
+import 'package:mega/models/response_models/create_community_response_model.dart';
 import 'package:mega/screens/home/home_screen.dart';
 import 'package:mega/services/api/community_api.dart';
 import 'package:mega/services/validators.dart';

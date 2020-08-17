@@ -1,7 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:mega/models/response/email_exists_response_model.dart';
+import 'package:mega/models/response_models/email_exists_response_model.dart';
 import 'package:mega/screens/welcome/login_screen.dart';
 import 'package:mega/screens/welcome/register_screen.dart';
 import 'package:mega/services/api/auth_api.dart';

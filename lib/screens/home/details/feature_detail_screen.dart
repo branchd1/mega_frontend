@@ -2,25 +2,15 @@ import 'dart:collection';
 
 import 'package:flutter/material.dart';
 import 'package:mega/components/bars/my_app_bars.dart';
-import 'package:mega/components/buttons/my_button.dart';
-import 'package:mega/components/buttons/my_submit_button.dart';
-import 'package:mega/components/inputs/dropdown_input.dart';
-import 'package:mega/components/inputs/my_email_input.dart';
-import 'package:mega/components/inputs/my_password_input.dart';
-import 'package:mega/components/inputs/my_text_input.dart';
 import 'package:mega/components/texts/big_text.dart';
 import 'package:mega/components/texts/error_text.dart';
 import 'package:mega/models/community_model.dart';
-import 'package:mega/models/state_models/current_community_state_model.dart';
 import 'package:mega/models/state_models/current_feature_state_model.dart';
 import 'package:mega/models/feature_model.dart';
-import 'package:mega/models/feature_screen_back_button_model.dart';
-import 'package:mega/services/api/base_api.dart';
-import 'package:mega/services/api/feature_dev_api.dart';
+import 'package:mega/models/state_models/feature_screen_back_button_state_model.dart';
+import 'package:mega/screens/home/details/dont_forget_to_move.dart';
 import 'package:mega/services/constants.dart';
 import 'package:provider/provider.dart';
-
-final Map<String, Widget> idToWidgetMap = {};
 
 class FeatureDetailScreen extends StatefulWidget{
   final FeatureModel feature;
@@ -28,102 +18,7 @@ class FeatureDetailScreen extends StatefulWidget{
 
   FeatureDetailScreen({Key key, this.feature, this.community}) : super(key: key);
 
-  final Map<String, dynamic> json = {
-    'admin': {
-      'home': {
-        'metadata': {
-          'show_back_button': 'false'
-        },
-        'components': [
-          {
-            'text': {
-              'value': 'hello',
-            },
-          },
-          {
-            'button': {
-              'value': 'hey',
-              'action': {
-                'action_type': 'change_page',
-                'new_page': 'second',
-                'page_params': {
-                  'name': 'from_second', // param "name" value can be gotten from element of id 1
-                }
-              }
-            }
-          }
-        ]
-      },
-      'second': {
-        'components': [
-          {
-            'text': {
-              'value': 'second',
-            },
-          },
-          {
-            'button': {
-              'value': 'second_button',
-              'action': {
-                'action_type': 'change_page',
-                'new_page': 'third', // specify name of new page
-              }
-            }
-          }
-        ]
-      },
-      'third': {
-        'components': [
-          {
-            'form': {
-              'action': {
-                'action_type': 'save',
-                'method': 'post',
-                'access': 'user',
-                'tag': 'users_email'
-              },
-              'body': [
-                {
-                  'input': {
-                    'type': 'email',
-                    'name': 'email',
-                  }
-                },
-                {
-                  'input': {
-                    'type': 'text',
-                    'name': 'first_name',
-                    'hint': 'first name *',
-                    'validators': {
-                      'required':'',
-                      'min_2':'',
-                      'max_10':''
-                    }
-                  }
-                },
-                {
-                  'submit_button': {
-                    'value': 'submit',
-                  }
-                }
-              ]
-            }
-          }
-        ]
-      },
-    },
-    'member': {
-      'home': {
-        'components': [
-          {
-            'text': {
-              'value': 'hi'
-            }
-          }
-        ]
-      }
-    }
-  };
+  final Map<String, dynamic> json = jsonDataDelete;
 
   @override
   _FeatureDetailScreenState createState()=> _FeatureDetailScreenState();
@@ -185,7 +80,7 @@ class _FeatureDetailScreenState extends State<FeatureDetailScreen>{
     Map<String, dynamic> _screenMetadata = _screenData['metadata'];
     if(_screenMetadata != null) {
       // set show back button
-      if (!isFirstScreen && _screenMetadata['show_back_button'] == 'false') Provider.of<FeatureScreenBackButtonModel>(context).setShowBackButton(false);
+      if (!isFirstScreen && _screenMetadata['show_back_button'] == 'false') Provider.of<FeatureScreenBackButtonStateModel>(context).setShowBackButton(false);
     }
 
     // create list of widgets from configuration data

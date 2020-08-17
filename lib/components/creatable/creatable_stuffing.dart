@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 
 class CreatableStuffing extends StatelessWidget{
-  final Map data;
+  final Map<String, dynamic> data;
 
   const CreatableStuffing({Key key, this.data}) : super(key: key);
 
-  static Widget createStuffing(Map _data){
+  static Widget createStuffing(Map<String, dynamic> _data){
     return CreatableStuffing(data: _data);
   }
 

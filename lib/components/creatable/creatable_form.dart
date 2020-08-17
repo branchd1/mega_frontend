@@ -102,8 +102,9 @@ class _CreatableFormState extends State<CreatableForm>{
           _controllersMap.putIfAbsent(inputController, () => component[_componentName]['name']);
 
           return configurationMap[_componentName](component[_componentName], controller: inputController);
+        } else {
+          return configurationMap[_componentName](component[_componentName]);
         }
-        return null;
       }
       on NoSuchMethodError{
         String err = 'A component (' + _componentName + ') used does not exist';
