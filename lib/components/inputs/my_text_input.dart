@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-
-typedef String Validator(String text);
+import 'package:mega/services/custom_types.dart';
 
 class MyTextInput extends StatelessWidget{
   final TextEditingController controller;

@@ -4,6 +4,7 @@ import 'package:mega/components/inputs/my_text_input.dart';
 import 'package:mega/components/texts/error_text.dart';
 import 'package:mega/screens/home/home_screen.dart';
 import 'package:mega/services/api/community_api.dart';
+import 'package:mega/services/validators.dart';
 
 
 class JoinCommunityForm extends StatefulWidget{
@@ -33,8 +34,6 @@ class _JoinCommunityFormState extends State<JoinCommunityForm>{
     }
   }
 
-  String validateKey(String text)=> text.length != 10 ?  'Key should be exactly 10 characters' : null;
-
   @override
   Widget build(BuildContext context) {
     return Form(
@@ -44,7 +43,7 @@ class _JoinCommunityFormState extends State<JoinCommunityForm>{
           MyTextInput(
             controller: _communityKeyController,
             hintText: 'Community key *',
-            validator: validateKey,
+            validator: (val)=>Validators.exactLengthValidator(val, 10),
           ),
           Align(
             alignment: Alignment.bottomRight,

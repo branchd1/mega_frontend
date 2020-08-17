@@ -6,6 +6,7 @@ import 'package:mega/components/texts/error_text.dart';
 import 'package:mega/models/response/create_community_response_model.dart';
 import 'package:mega/screens/home/home_screen.dart';
 import 'package:mega/services/api/community_api.dart';
+import 'package:mega/services/validators.dart';
 
 class CreateCommunityForm extends StatefulWidget{
   _CreateCommunityFormState createState() => _CreateCommunityFormState();
@@ -36,9 +37,6 @@ class _CreateCommunityFormState extends State<CreateCommunityForm>{
     }
   }
 
-  String validateName(String text)=> text == null ? 'Name cannot be empty' : null;
-  String validateType(String text)=> text == null ? 'A type must be chosen' : null;
-
   void changeTypeValue(String val){
     _communityTypeControllerSimulator = val;
   }
@@ -52,14 +50,14 @@ class _CreateCommunityFormState extends State<CreateCommunityForm>{
           MyTextInput(
             controller: _communityNameController,
             hintText: 'Community name *',
-            validator: validateName,
+            validator: Validators.requiredValidator,
           ),
           Container(
             child: DropdownInput(
               dropDownList: <Map<String,String>>[{'value':'EST', 'text':'Estate'}],
               dropDownChangedCallback: changeTypeValue,
               hintText: 'Community type *',
-              validator: validateType,
+              validator: Validators.requiredValidator,
             ),
             margin: EdgeInsets.fromLTRB(0, 10, 0, 0),
           ),

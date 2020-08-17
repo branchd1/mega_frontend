@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-
-typedef DropDownChangedCallback(String val);
-typedef Validator(String val);
+import 'package:mega/services/custom_types.dart';
 
 class DropdownInput extends StatelessWidget{
   final List<Map<String,String>> dropDownList;

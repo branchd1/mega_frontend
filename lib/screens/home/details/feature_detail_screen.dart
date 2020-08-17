@@ -90,6 +90,18 @@ class FeatureDetailScreen extends StatefulWidget{
                   }
                 },
                 {
+                  'input': {
+                    'type': 'text',
+                    'name': 'first_name',
+                    'hint': 'first name *',
+                    'validators': {
+                      'required':'',
+                      'min_2':'',
+                      'max_10':''
+                    }
+                  }
+                },
+                {
                   'submit_button': {
                     'value': 'submit',
                   }
@@ -128,12 +140,12 @@ class _FeatureDetailScreenState extends State<FeatureDetailScreen>{
     if(value is Map){
       value = Map<String, dynamic>.from(value.map(replaceMapValues));
     } else if(value is List){
-      // create new list from
+      // create new list from old one. Replace inner maps
       List<dynamic> newList = value.map((Map<String, dynamic> map)=>
         Map<String, dynamic>.from(map.map(replaceMapValues))
       ).toList();
 
-      // update value
+      // update value to new list
       value = List<Map<String, dynamic>>.from(newList);
     }
 

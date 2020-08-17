@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mega/services/validators.dart';
 
 class MyPasswordInput extends StatelessWidget{
   final TextEditingController controller;
@@ -15,9 +16,7 @@ class MyPasswordInput extends StatelessWidget{
           border: OutlineInputBorder(),
           contentPadding: EdgeInsets.fromLTRB(5, 0, 0, 0),
         ),
-        validator: (String value) {
-          return (value.length>8) ? null : 'Password must be more than 8 characters';
-        },
+        validator: (val)=>Validators.minLengthValidator(val, 8),
         obscureText: true,
       ),
     );
