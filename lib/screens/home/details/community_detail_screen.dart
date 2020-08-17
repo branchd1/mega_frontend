@@ -5,7 +5,7 @@ import 'package:mega/components/cards/card_grid.dart';
 import 'package:mega/components/inputs/search_input.dart';
 import 'package:mega/components/texts/big_text.dart';
 import 'package:mega/models/community_model.dart';
-import 'package:mega/models/current_community_state_model.dart';
+import 'package:mega/models/state_models/current_community_state_model.dart';
 import 'package:mega/models/feature_model.dart';
 import 'package:mega/screens/home/add/add_feature_screen.dart';
 import 'package:mega/screens/home/details/feature_detail_screen.dart';

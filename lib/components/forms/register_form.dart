@@ -3,7 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:mega/components/forms/login_form.dart';
 import 'package:mega/components/texts/error_text.dart';
-import 'package:mega/models/auth_token_state_model.dart';
+import 'package:mega/models/state_models/auth_token_state_model.dart';
 import 'package:mega/models/response/login_response_model.dart';
 import 'package:mega/models/response/register_response_model.dart';
 import 'package:mega/services/api/base_api.dart';

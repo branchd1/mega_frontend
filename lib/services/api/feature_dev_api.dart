@@ -5,8 +5,9 @@ import 'package:http/http.dart' as http;
 import 'package:mega/components/bars/error_snack_bar.dart';
 import 'dart:convert';
 
-import 'package:mega/models/auth_token_state_model.dart';
-import 'package:mega/models/current_community_state_model.dart';
+import 'package:mega/models/state_models/auth_token_state_model.dart';
+import 'package:mega/models/state_models/current_community_state_model.dart';
+import 'package:mega/models/state_models/current_feature_state_model.dart';
 import 'package:mega/services/api/base_api.dart';
 import 'package:provider/provider.dart';
 
@@ -16,9 +17,10 @@ class FeatureDevAPI {
       {
         Map<String, String> data,
         String access,
-        String tag
+        String tag,
+        String featureKey
       }
-      ) async {
+    ) async {
 
     Map<String, String> headers = <String, String>{
       'Authorization': 'Token ' + Provider.of<AuthTokenStateModel>(context, listen: false).token
@@ -31,6 +33,7 @@ class FeatureDevAPI {
       'mega\$tag': tag,
       'mega\$access': access != null ? access : 'user',
       'mega\$community': Provider.of<CurrentCommunityStateModel>(context, listen: false).currentCommunity.id.toString(),
+      'mega\$feature': Provider.of<CurrentFeatureStateModel>(context, listen: false).currentFeature.key
     };
 
     try{

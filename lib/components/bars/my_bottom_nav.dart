@@ -33,7 +33,7 @@ class _MyBottomNavState extends State<MyBottomNav>{
         ],
         currentIndex: index == null ? 0 : index,
         onTap: (newIndex) => setState(() => index = newIndex),
-        backgroundColor: Color(Constants.grey),
+        backgroundColor: Color(grey),
       ),
       height: 60,
     );

@@ -43,13 +43,13 @@ class MyCard extends StatelessWidget{
                   ) : BoxConstraints.expand(
                       height: 30
                   ),
-                  color: Color(Constants.transGrey),
+                  color: Color(transGrey),
                 )
               ),
             ),
           ],
         ),
-        color: Color(Constants.grey),
+        color: Color(grey),
         elevation: 0,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(15.0),

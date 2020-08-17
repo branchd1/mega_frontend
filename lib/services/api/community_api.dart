@@ -3,7 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:mega/components/bars/error_snack_bar.dart';
-import 'package:mega/models/auth_token_state_model.dart';
+import 'package:mega/models/state_models/auth_token_state_model.dart';
 import 'package:mega/models/community_model.dart';
 import 'package:mega/models/response/create_community_response_model.dart';
 import 'package:mega/models/response/join_community_response_model.dart';
