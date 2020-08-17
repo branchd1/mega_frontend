@@ -4,11 +4,11 @@ import 'package:mega/services/constants.dart';
 import '../texts/main_text.dart';
 
 class MyCard extends StatelessWidget{
-  final String text;
-  final String subText;
+  final List<String> texts;
+  final List<String> subTexts;
   final String imageUrl;
 
-  const MyCard({Key key, this.text, this.subText, this.imageUrl}) : super(key: key);
+  const MyCard({Key key, @required this.texts, this.subTexts, this.imageUrl}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +20,7 @@ class MyCard extends StatelessWidget{
               borderRadius: BorderRadius.all(Radius.circular(10)),
               child: Image.network(imageUrl),
             ),
-            if(text != null) Align(
+            Align(
               alignment: Alignment.bottomCenter,
               child: ClipRRect(
                 borderRadius: BorderRadius.vertical(
@@ -30,19 +30,16 @@ class MyCard extends StatelessWidget{
                   child: Padding(
                     child: Column(
                       children: <Widget>[
-                        MainText(text),
-                        if(subText != null) Text(subText),
+                        ...texts.map((text) => MainText(text)).toList(),
+                        if(subTexts != null) ...subTexts.map((text) => Text(text)).toList(),
                       ],
-                      mainAxisAlignment: MainAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.end,
                       crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisSize: MainAxisSize.min,
                     ),
                     padding: EdgeInsets.all(2),
                   ),
-                  constraints: (subText != null) ? BoxConstraints.expand(
-                    height: 50
-                  ) : BoxConstraints.expand(
-                      height: 30
-                  ),
+                  width: double.infinity,
                   color: Color(transGrey),
                 )
               ),

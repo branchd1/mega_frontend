@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mega/models/community_model.dart';
-import 'package:mega/screens/home/details/community_detail_screen.dart';
+import 'package:mega/models/feature_model.dart';
 
 import 'my_card.dart';
 
@@ -15,11 +15,20 @@ class CardGrid extends StatelessWidget{
 
   const CardGrid({Key key, this.list, this.addButtonCallback, this.emptyText, this.tapCardCallback}) : super(key: key);
 
-  String getSubtext(int index){
+  List<String> getSubtexts(int index){
+    List<String> res = List<String>();
     if (list[index] is CommunityModel){
-      return list[index].isAdmin ? 'admin' : 'member';
+      res.add(list[index].isAdmin ? 'admin' : 'member');
     }
-    return null;
+    return res.length > 0 ? res : null;
+  }
+
+  List<String> getTexts(int index){
+    List<String> res = List<String>();
+    if (list[index] is CommunityModel || list[index] is FeatureModel){
+      res.add(list[index].name);
+    }
+    return res.length > 0 ? res : null;
   }
 
   @override
@@ -41,8 +50,8 @@ class CardGrid extends StatelessWidget{
             child: GestureDetector(
                 onTap: tapCardCallback != null ? ()=>tapCardCallback(context, list[index]) : (){},
                 child: MyCard(
-                  text: list[index].name,
-                  subText: getSubtext(index),
+                  texts: getTexts(index),
+                  subTexts: getSubtexts(index),
                   imageUrl: list[index].picture,
                 )
             ),

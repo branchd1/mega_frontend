@@ -15,7 +15,7 @@ class CreatableText extends StatelessWidget{
     assert(data['value'] != null);
 
     Widget _text = Text(
-        data['value']
+      data['value']
     );
 
 //    if(data['id'] != null) widgetMap.addAll({data['id']: _text});

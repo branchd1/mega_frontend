@@ -79,9 +79,22 @@ final Map<String, dynamic> jsonDataDelete = {
               {
                 'submit_button': {
                   'value': 'submit',
+                  'action': {
+                    'action_type': 'change_page',
+                    'new_page': 'fourth', // specify name of new page
+                  }
                 }
-              }
+              },
             ]
+          }
+        }
+      ]
+    },
+    'fourth': {
+      'components': [
+        {
+          'list': {
+
           }
         }
       ]
