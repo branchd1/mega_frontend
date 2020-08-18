@@ -76,7 +76,7 @@ class _CreatableFormState extends State<CreatableForm>{
 
           // incomplete - do something with return data above
         } else {
-          throw ('action method must be get or post');
+          throw ('action method must be get, post, put, or delete');
         }
       }
 

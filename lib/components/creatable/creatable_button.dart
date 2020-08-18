@@ -23,6 +23,8 @@ class CreatableButton extends StatelessWidget{
 
   @override
   Widget build(BuildContext context) {
+    print(data);
+
     assert(data['value'] != null);
 
     if(submitCallback != null) {

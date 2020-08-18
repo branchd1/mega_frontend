@@ -8,7 +8,6 @@ import 'package:mega/models/community_model.dart';
 import 'package:mega/models/state_models/current_feature_state_model.dart';
 import 'package:mega/models/feature_model.dart';
 import 'package:mega/models/state_models/feature_screen_back_button_state_model.dart';
-import 'package:mega/screens/home/details/dont_forget_to_move.dart';
 import 'package:mega/services/constants.dart';
 import 'package:provider/provider.dart';
 
@@ -18,7 +17,120 @@ class FeatureDetailScreen extends StatefulWidget{
 
   FeatureDetailScreen({Key key, this.feature, this.community}) : super(key: key);
 
-  final Map<String, dynamic> json = jsonDataDelete;
+  final Map<String, dynamic> json = {
+    'admin': {
+      'home': {
+        'metadata': {
+          'show_back_button': 'false'
+        },
+        'components': [
+          {
+            'text': {
+              'value': 'hello',
+            },
+          },
+          {
+            'button': {
+              'value': 'hey',
+              'action': {
+                'action_type': 'change_page',
+                'new_page': 'second',
+                'page_params': {
+                  'name': 'from_second', // param "name" value can be gotten from element of id 1
+                }
+              }
+            }
+          }
+        ]
+      },
+      'second': {
+        'components': [
+          {
+            'text': {
+              'value': 'second',
+            },
+          },
+          {
+            'button': {
+              'value': 'second_button',
+              'action': {
+                'action_type': 'change_page',
+                'new_page': 'third', // specify name of new page
+              }
+            }
+          }
+        ]
+      },
+      'third': {
+        'components': [
+          {
+            'form': {
+              'action': {
+                'action_type': 'save',
+                'method': 'post',
+                'access': 'user',
+                'tag': 'users_email'
+              },
+              'body': [
+                {
+                  'input': {
+                    'type': 'email',
+                    'name': 'email',
+                  }
+                },
+                {
+                  'stuffing': {
+                    'height': '20',
+                  }
+                },
+                {
+                  'input': {
+                    'type': 'text',
+                    'name': 'first_name',
+                    'hint': 'first name *',
+                    'validators': {
+                      'required':'',
+                      'min_2':'',
+                      'max_10':''
+                    }
+                  }
+                },
+                {
+                  'submit_button': {
+                    'value': 'submit',
+                    'action': {
+                      'action_type': 'change_page',
+                      'new_page': 'fourth', // specify name of new page
+                    }
+                  }
+                },
+              ]
+            }
+          }
+        ]
+      },
+      'fourth': {
+        'components': [
+          {
+            'list': {
+              'a': 'a'
+            }
+          }
+        ]
+      },
+    },
+    'member': {
+      'home': {
+        'components': [
+          {
+            'text': {
+              'value': 'hi'
+            }
+          }
+        ]
+      }
+    }
+  };
 
   @override
   _FeatureDetailScreenState createState()=> _FeatureDetailScreenState();
@@ -33,8 +145,14 @@ class _FeatureDetailScreenState extends State<FeatureDetailScreen>{
   MapEntry<String, dynamic> replaceMapValues(String key, dynamic value){
     // recursively replace map values
     if(value is Map){
+      // throw error for empty maps
+      if((value as Map).isEmpty) throw ('Configuration data not well formed. Remove empty maps.');
+
       value = Map<String, dynamic>.from(value.map(replaceMapValues));
     } else if(value is List){
+      // throw error for empty lists
+      if((value as List).isEmpty) throw ('Configuration data not well formed. Remove empty lists.');
+
       // create new list from old one. Replace inner maps
       List<dynamic> newList = value.map((Map<String, dynamic> map)=>
         Map<String, dynamic>.from(map.map(replaceMapValues))
@@ -73,11 +191,15 @@ class _FeatureDetailScreenState extends State<FeatureDetailScreen>{
     // load the current screen data
     Map<String, dynamic> _screenData = _replacedJson[screenStack.last];
 
+    if(_screenData == null){
+      throw 'A screen that does not exist was loaded';
+    }
+
     // check if its first screen
     final isFirstScreen = screenStack.length == 1;
 
     // configure screen with metadata
-    Map<String, dynamic> _screenMetadata = _screenData['metadata'];
+    Map<String, dynamic> _screenMetadata = _screenData.containsKey('metadata') ? _screenData['metadata'] : null;
     if(_screenMetadata != null) {
       // set show back button
       if (!isFirstScreen && _screenMetadata['show_back_button'] == 'false') Provider.of<FeatureScreenBackButtonStateModel>(context).setShowBackButton(false);
