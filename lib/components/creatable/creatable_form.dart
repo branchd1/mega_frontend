@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mega/components/texts/error_text.dart';
 import 'package:mega/services/api/feature_dev_api.dart';
+import 'package:mega/services/callback_types.dart';
 import 'package:mega/services/constants.dart';
 
 class CreatableForm extends StatefulWidget{
@@ -18,7 +19,7 @@ class _CreatableFormState extends State<CreatableForm>{
   Map<TextEditingController, String> _controllersMap = Map<TextEditingController, String>();
   final _formKey = GlobalKey<FormState>();
 
-  void submit() async {
+  void submit({NoArgNoReturnCallback doAfter}) async {
     if (_formKey.currentState.validate()){
       // get form action map
       Map<String, dynamic> _formActionMap = widget.data['action'];
@@ -80,6 +81,8 @@ class _CreatableFormState extends State<CreatableForm>{
         }
       }
 
+      // do something after
+      if (doAfter != null) doAfter();
     }
   }
 

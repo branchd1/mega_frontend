@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
-
-typedef void FormSubmitCallback();
+import 'package:mega/services/callback_types.dart';
 
 class MySubmitButton extends StatelessWidget{
   final String buttonText;
 
-  final FormSubmitCallback submitCallback;
+  final NoArgNoReturnCallback submitCallback;
 
   MySubmitButton({Key key, @required this.buttonText, this.submitCallback}) : super(key: key);
 

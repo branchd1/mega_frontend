@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:mega/services/custom_types.dart';
+import 'package:mega/services/callback_types.dart';
 
 class MyTextInput extends StatelessWidget{
   final TextEditingController controller;
   final String hintText;
-  final Validator validator;
+  final ValidatorCallback validator;
 
   MyTextInput({@required this.controller, this.hintText, this.validator});
 

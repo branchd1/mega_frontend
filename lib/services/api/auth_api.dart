@@ -8,7 +8,7 @@ import 'dart:convert';
 import 'package:mega/models/response_models/email_exists_response_model.dart';
 import 'package:mega/models/response_models/login_response_model.dart';
 import 'package:mega/models/response_models/register_response_model.dart';
-import 'package:mega/services/custom_types.dart';
+import 'package:mega/services/callback_types.dart';
 
 import 'base_api.dart';
 

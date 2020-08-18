@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:mega/services/custom_types.dart';
+import 'package:mega/services/callback_types.dart';
 
 class DropdownInput extends StatelessWidget{
   final List<Map<String,String>> dropDownList;
   final DropDownChangedCallback dropDownChangedCallback;
   final String hintText;
-  final Validator validator;
+  final ValidatorCallback validator;
 
   const DropdownInput({Key key, this.dropDownList, this.dropDownChangedCallback, this.hintText, this.validator}) : super(key: key);
 
