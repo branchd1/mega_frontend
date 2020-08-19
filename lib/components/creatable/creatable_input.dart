@@ -5,13 +5,13 @@ import 'package:mega/services/validators.dart';
 
 class CreatableInput extends StatelessWidget{
   final List<String> inputTypes = ['email', 'text'];
-  final Map data;
+  final Map<String, dynamic> data;
   final TextEditingController controller;
 
   CreatableInput({Key key, this.data, this.controller}) : super(key: key);
 
-  static Widget createInput(Map _data, {TextEditingController controller}){
-    return CreatableInput(data: _data, controller: controller,);
+  static Widget createInput(Map<String, dynamic> data, {TextEditingController controller}){
+    return CreatableInput(data: data, controller: controller,);
   }
 
   String validator(String val) {

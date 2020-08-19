@@ -1,6 +1,7 @@
 import 'package:mega/components/creatable/creatable_button.dart';
 import 'package:mega/components/creatable/creatable_form.dart';
 import 'package:mega/components/creatable/creatable_input.dart';
+import 'package:mega/components/creatable/creatable_list.dart';
 import 'package:mega/components/creatable/creatable_stuffing.dart';
 import 'package:mega/components/creatable/creatable_text.dart';
 
@@ -13,5 +14,7 @@ const Map<String, dynamic> configurationMap = {
   'submit_button': CreatableButton.createButton,
   'form': CreatableForm.createForm,
   'input': CreatableInput.createInput,
+  'list': CreatableList.createList,
+
   'stuffing': CreatableStuffing.createStuffing,
 };

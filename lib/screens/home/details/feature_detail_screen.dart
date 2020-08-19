@@ -113,7 +113,16 @@ class FeatureDetailScreen extends StatefulWidget{
         'components': [
           {
             'list': {
-              'a': 'a'
+              'action': {
+                'action_type': 'get',
+                'tag': 'users_email'
+              },
+              'title': {
+                'value': 'mega\$action\$value.email'
+              },
+              'subtitle': {
+                'value': 'mega\$action\$value.first_name'
+              }
             }
           }
         ]
@@ -225,8 +234,10 @@ class _FeatureDetailScreenState extends State<FeatureDetailScreen>{
           child: Column(
             children: <Widget>[
               BigText(this.widget.feature.name),
-              Column(
+              Expanded(
+                child: Column(
                   children: widgetList
+                ),
               )
             ],
           ),

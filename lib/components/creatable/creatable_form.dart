@@ -24,7 +24,7 @@ class _CreatableFormState extends State<CreatableForm>{
       // get form action map
       Map<String, dynamic> _formActionMap = widget.data['action'];
 
-      // create map from data
+      // create map from form values using controllers
       Map<String, String> formValuesMap = Map<String, String>.from(_controllersMap.map((key, value) => MapEntry(value, key.text)));
 
       // calling external api

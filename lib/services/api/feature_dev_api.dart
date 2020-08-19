@@ -12,13 +12,12 @@ import 'package:mega/services/api/base_api.dart';
 import 'package:provider/provider.dart';
 
 class FeatureDevAPI {
-  static Future<http.Response> saveToDataStore(
+  static Future<Map<String, dynamic>> saveToDataStore(
       BuildContext context,
       {
         Map<String, String> data,
         String access,
-        String tag,
-        String featureKey
+        String tag
       }
     ) async {
 
@@ -29,7 +28,7 @@ class FeatureDevAPI {
     http.Response _res;
 
     data = {
-      ...data,
+      if (data != null) ...data,
       'mega\$tag': tag,
       'mega\$access': access != null ? access : 'user',
       'mega\$community': Provider.of<CurrentCommunityStateModel>(context, listen: false).currentCommunity.id.toString(),
@@ -48,20 +47,24 @@ class FeatureDevAPI {
       print(e);
     }
 
-    if(_res.statusCode==200){
-      return _res;
+    if(_res.statusCode==201){
+      Map<String, dynamic> _finalRes = jsonDecode(_res.body);
+      return _finalRes;
     } else if(_res.statusCode == 400) {
       showErrorSnackBar(context);
-      return _res;
+      return null;
     } else {
       showErrorSnackBar(context);
-      return _res;
+      return null;
     }
   }
 
-  static Future<http.Response> getToDataStore(
+  static Future<List<dynamic>> getToDataStore(
       BuildContext context,
-      {Map<String, String> params}
+      {
+        Map<String, String> params,
+        String tag
+      }
       ) async {
 
     Map<String, String> headers = <String, String>{
@@ -69,6 +72,13 @@ class FeatureDevAPI {
     };
 
     http.Response _res;
+
+    params = {
+      if (params != null) ...params,
+      'mega\$tag': tag,
+      'mega\$community': Provider.of<CurrentCommunityStateModel>(context, listen: false).currentCommunity.id.toString(),
+      'mega\$feature': Provider.of<CurrentFeatureStateModel>(context, listen: false).currentFeature.key
+    };
 
     try{
       _res = await BaseAPI.get(
@@ -83,13 +93,14 @@ class FeatureDevAPI {
     }
 
     if(_res.statusCode==200){
-      return _res;
+      List<dynamic> _finalRes = jsonDecode(_res.body);
+      return _finalRes;
     } else if(_res.statusCode == 400) {
       showErrorSnackBar(context);
-      return _res;
+      return null;
     } else {
       showErrorSnackBar(context);
-      return _res;
+      return null;
     }
   }
 

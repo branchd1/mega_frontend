@@ -1,15 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:mega/models/community_model.dart';
 import 'package:mega/models/feature_model.dart';
+import 'package:mega/services/callback_types.dart';
 
 import 'my_card.dart';
 
-typedef void AddButtonCallback();
-typedef void TapCardCallback(BuildContext context, dynamic item);
-
 class CardGrid extends StatelessWidget{
   final List<dynamic> list;
-  final AddButtonCallback addButtonCallback;
+  final NoArgNoReturnCallback addButtonCallback;
   final String emptyText;
   final TapCardCallback tapCardCallback;
 
