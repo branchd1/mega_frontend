@@ -112,7 +112,7 @@ class FeatureDetailScreen extends StatefulWidget{
       'fourth': {
         'components': [
           {
-            'list': {
+            'grid': {
               'action': {
                 'action_type': 'get',
                 'tag': 'users_email'
