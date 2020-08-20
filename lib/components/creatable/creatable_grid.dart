@@ -2,9 +2,11 @@
 import 'package:http/http.dart' as http;
 
 import 'package:flutter/material.dart';
+import 'package:mega/components/cards/card_grid.dart';
 import 'package:mega/components/cards/my_card.dart';
 import 'package:mega/components/texts/error_text.dart';
 import 'package:mega/services/api/feature_dev_api.dart';
+import 'package:mega/services/callback_types.dart';
 
 class CreatableGrid extends StatelessWidget{
 
@@ -41,10 +43,17 @@ class CreatableGrid extends StatelessWidget{
     // get list action map
     Map<String, dynamic> _formActionMap = data.containsKey('action') ? data['action'] : null;
 
+    NoArgNoReturnCallback _addButtonCallback;
+
     if(_formActionMap!=null){
       if (_formActionMap['action_type'] == 'get'){
         String _tag = _formActionMap['tag'];
         _getData = FeatureDevAPI.getToDataStore(context, tag: _tag);
+      }
+
+      if(_formActionMap.containsKey('add_page')){
+        assert((_formActionMap['add_page'] as Map).containsKey('new_page'));
+        _addButtonCallback = _formActionMap['add_page']['new_page'];
       }
     }
 
@@ -74,21 +83,21 @@ class CreatableGrid extends StatelessWidget{
             String _titleValue = data['title']['value'];
             String _subtitleValue = data.containsKey('subtitle') ? data['subtitle']['value'] : null;
 
-            _widget = GridView.count(
-              crossAxisCount: 2,
-              scrollDirection: Axis.vertical,
-              shrinkWrap: true,
-              children: List.generate(
-                snapshot.data.length,
-                (int index){
-                  return Container(
-                    child: MyCard(
-                      texts: [convertSpecialStrings(_titleValue, snapshot.data[index]), ],
-                      subTexts: [_subtitleValue != null ? convertSpecialStrings(_subtitleValue, snapshot.data[index]) : null, ],
-                    ),
-                  );
-                },
-              ),
+            List<String> _titles = List<String>();
+            for(int i=0; i<snapshot.data.length; i++){
+              _titles.add(convertSpecialStrings(_titleValue, snapshot.data[i]));
+            }
+
+            List<String> _subtitles = List<String>();
+            for(int i=0; i<snapshot.data.length; i++){
+              _subtitles.add(convertSpecialStrings(_subtitleValue, snapshot.data[i]));
+            }
+
+            _widget = CardGrid(
+              list: snapshot.data,
+              gridTexts: _titles,
+              gridSubTexts: _subtitles,
+              addButtonCallback: _addButtonCallback,
             );
           } else if (snapshot.hasError){
             print(snapshot.error);

@@ -48,24 +48,24 @@ class CreatableList extends StatelessWidget{
     }
 
     if(_getData == null){
-      return Expanded(
-        child: ListView.separated(
-          shrinkWrap: true,
-          itemBuilder: (context, index){
-            return ListTile(
-//              leading: Text(),
-              title: Text(data['title']['value']),
-              subtitle: data.containsKey('subtitle') ? Text(data['subtitle']['value']) : null,
-//              trailing: Text('d'),
-            );
-          },
-          separatorBuilder: (context, index){
-            return Divider();
-          },
-          itemCount: 100,
-        ),
-      );
-    } else {
+//      return Expanded(
+//        child: ListView.separated(
+//          shrinkWrap: true,
+//          itemBuilder: (context, index){
+//            return ListTile(
+////              leading: Text(),
+//              title: Text(data['title']['value']),
+//              subtitle: data.containsKey('subtitle') ? Text(data['subtitle']['value']) : null,
+////              trailing: Text('d'),
+//            );
+//          },
+//          separatorBuilder: (context, index){
+//            return Divider();
+//          },
+//          itemCount: 100,
+//        ),
+//      );
+//    } else {
       return FutureBuilder<List<dynamic>>(
         future: _getData,
         builder: (BuildContext context, AsyncSnapshot<List<dynamic>> snapshot) {

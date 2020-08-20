@@ -11,14 +11,21 @@ class CardGrid extends StatelessWidget{
   final String emptyText;
   final TapCardCallback tapCardCallback;
 
-  const CardGrid({Key key, this.list, this.addButtonCallback, this.emptyText, this.tapCardCallback}) : super(key: key);
+  final List<String> gridTexts;
+  final List<String> gridSubTexts;
+  final List<String> gridPicturesUrls;
+
+  const CardGrid({Key key, this.list, this.addButtonCallback, this.emptyText, this.tapCardCallback, this.gridTexts, this.gridSubTexts, this.gridPicturesUrls}) : super(key: key);
 
   List<String> getSubtexts(int index){
     List<String> res = List<String>();
     if (list[index] is CommunityModel){
       res.add(list[index].isAdmin ? 'admin' : 'member');
     }
-    return res.length > 0 ? res : null;
+
+    if(res.length > 0) return res;
+    if (gridSubTexts != null) return [gridSubTexts[index],];
+    return null;
   }
 
   List<String> getTexts(int index){
@@ -26,7 +33,19 @@ class CardGrid extends StatelessWidget{
     if (list[index] is CommunityModel || list[index] is FeatureModel){
       res.add(list[index].name);
     }
-    return res.length > 0 ? res : null;
+
+    if(res.length > 0) return res;
+    if (gridTexts != null) return [gridTexts[index],];
+    return null;
+  }
+
+  String getPictureUrl(int index){
+    if (list[index] is CommunityModel || list[index] is FeatureModel){
+      return list[index].picture;
+    }
+
+    if (gridPicturesUrls != null) return gridPicturesUrls[index];
+    return null;
   }
 
   @override
@@ -50,7 +69,7 @@ class CardGrid extends StatelessWidget{
                 child: MyCard(
                   texts: getTexts(index),
                   subTexts: getSubtexts(index),
-                  imageUrl: list[index].picture,
+                  imageUrl: getPictureUrl(index),
                 )
             ),
           ),

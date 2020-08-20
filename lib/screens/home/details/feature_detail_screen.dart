@@ -25,57 +25,48 @@ class FeatureDetailScreen extends StatefulWidget{
         },
         'components': [
           {
-            'text': {
-              'value': 'hello',
-            },
-          },
-          {
-            'button': {
-              'value': 'hey',
+            'grid': {
               'action': {
-                'action_type': 'change_page',
-                'new_page': 'second',
-                'page_params': {
-                  'name': 'from_second', // param "name" value can be gotten from element of id 1
+                'action_type': 'get',
+                'tag': 'menu',
+                'add_page': {
+                  'new_page': 'add_menu'
                 }
+              },
+              'title': {
+                'value': 'mega\$action\$value.item_name'
+              },
+              'subtitle': {
+                'value': 'mega\$action\$value.item_price'
               }
             }
-          }
-        ]
-      },
-      'second': {
-        'components': [
-          {
-            'text': {
-              'value': 'second',
-            },
           },
-          {
-            'button': {
-              'value': 'second_button',
-              'action': {
-                'action_type': 'change_page',
-                'new_page': 'third', // specify name of new page
-              }
-            }
-          }
         ]
       },
-      'third': {
+      'add_menu': {
         'components': [
           {
             'form': {
               'action': {
                 'action_type': 'save',
                 'method': 'post',
-                'access': 'user',
-                'tag': 'users_email'
+                'access': 'community',
+                'tag': 'menu'
               },
               'body': [
                 {
+                  'stuffing': {
+                    'height': '20',
+                  }
+                },
+                {
                   'input': {
-                    'type': 'email',
-                    'name': 'email',
+                    'type': 'text',
+                    'name': 'item_name',
+                    'hint': 'item name *',
+                    'validators': {
+                      'required':'',
+                    }
                   }
                 },
                 {
@@ -86,12 +77,10 @@ class FeatureDetailScreen extends StatefulWidget{
                 {
                   'input': {
                     'type': 'text',
-                    'name': 'first_name',
-                    'hint': 'first name *',
+                    'name': 'item_price',
+                    'hint': 'item price *',
                     'validators': {
                       'required':'',
-                      'min_2':'',
-                      'max_10':''
                     }
                   }
                 },
@@ -100,31 +89,13 @@ class FeatureDetailScreen extends StatefulWidget{
                     'value': 'submit',
                     'action': {
                       'action_type': 'change_page',
-                      'new_page': 'fourth', // specify name of new page
+                      'new_page': 'home', // specify name of new page
                     }
                   }
                 },
               ]
             }
-          }
-        ]
-      },
-      'fourth': {
-        'components': [
-          {
-            'grid': {
-              'action': {
-                'action_type': 'get',
-                'tag': 'users_email'
-              },
-              'title': {
-                'value': 'mega\$action\$value.email'
-              },
-              'subtitle': {
-                'value': 'mega\$action\$value.first_name'
-              }
-            }
-          }
+          },
         ]
       },
     },
@@ -132,10 +103,19 @@ class FeatureDetailScreen extends StatefulWidget{
       'home': {
         'components': [
           {
-            'text': {
-              'value': 'hi'
+            'grid': {
+              'action': {
+                'action_type': 'get',
+                'tag': 'menu',
+              },
+              'title': {
+                'value': 'mega\$action\$value.item_name'
+              },
+              'subtitle': {
+                'value': 'mega\$action\$value.item_price'
+              }
             }
-          }
+          },
         ]
       }
     }
