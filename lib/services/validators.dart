@@ -6,6 +6,12 @@ class Validators{
     multiLine: false,
   );
 
+  static final RegExp numberRegex = RegExp(
+    r"^[0-9]+$",
+    caseSensitive: false,
+    multiLine: false,
+  );
+
   static String requiredValidator(String val){
     return val.length == 0 ? 'required' : null;
   }
@@ -26,7 +32,11 @@ class Validators{
     return Validators.emailRegex.hasMatch(value) ? null : 'Enter a valid email';
   }
 
+  static String numberValidator(String value){
+    return Validators.numberRegex.hasMatch(value) ? null : 'Enter a number';
+  }
+
   static String passwordValidator(String value) {
-    return Validators.emailRegex.hasMatch(value) ? null : 'Enter a valid email';
+    return Validators.emailRegex.hasMatch(value) ? null : 'Enter a valid password';
   }
 }

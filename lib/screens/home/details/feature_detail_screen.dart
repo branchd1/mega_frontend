@@ -81,6 +81,22 @@ class FeatureDetailScreen extends StatefulWidget{
                     'hint': 'item price *',
                     'validators': {
                       'required':'',
+                      'number': ''
+                    }
+                  }
+                },
+                {
+                  'stuffing': {
+                    'height': '20',
+                  }
+                },
+                {
+                  'input': {
+                    'type': 'file',
+                    'name': 'item_picture',
+                    'hint': 'item picture *',
+                    'validators': {
+                      'required':'',
                     }
                   }
                 },
@@ -191,7 +207,9 @@ class _FeatureDetailScreenState extends State<FeatureDetailScreen>{
     Map<String, dynamic> _screenMetadata = _screenData.containsKey('metadata') ? _screenData['metadata'] : null;
     if(_screenMetadata != null) {
       // set show back button
-      if (!isFirstScreen && _screenMetadata['show_back_button'] == 'false') Provider.of<FeatureScreenBackButtonStateModel>(context).setShowBackButton(false);
+      !isFirstScreen && _screenMetadata['show_back_button'] == 'false' ?
+        Provider.of<FeatureScreenBackButtonStateModel>(context).setShowBackButton(false):
+        Provider.of<FeatureScreenBackButtonStateModel>(context).setShowBackButton(true);
     }
 
     // create list of widgets from configuration data
