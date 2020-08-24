@@ -1,5 +1,8 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:mega/components/texts/error_text.dart';
+import 'package:mega/services/api/base_api.dart';
 import 'package:mega/services/api/feature_dev_api.dart';
 import 'package:mega/services/callback_types.dart';
 import 'package:mega/services/constants.dart';
@@ -68,12 +71,29 @@ class _CreatableFormState extends State<CreatableForm>{
           String access = formValuesMap.containsKey('access') ? formValuesMap['access'] : null;
 
           // send map for storage in server
-          FeatureDevAPI.saveToDataStore(
+          if(_formActionMap.containsKey('multipart') &&  (_formActionMap['multipart'] as List).isNotEmpty){
+
+            List<Map<String, dynamic>> listOfFileFields = List<Map<String, dynamic>>.from(_formActionMap['multipart']);
+
+            for(Map<String, dynamic> fileFieldList in listOfFileFields){
+              formValuesMap[fileFieldList['field']] = await BaseAPI.uploadImageToDatastore(context, File(formValuesMap[fileFieldList['field']]));
+              print(formValuesMap[fileFieldList['field']]);
+            }
+
+            FeatureDevAPI.saveToDataStore(
               context,
               data: formValuesMap,
               access: access,
               tag: tag
-          );
+            );
+          } else {
+            FeatureDevAPI.saveToDataStore(
+              context,
+              data: formValuesMap,
+              access: access,
+              tag: tag
+            );
+          }
 
           // incomplete - do something with return data above
         } else {

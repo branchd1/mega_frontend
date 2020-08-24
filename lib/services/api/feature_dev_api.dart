@@ -12,6 +12,7 @@ import 'package:mega/services/api/base_api.dart';
 import 'package:provider/provider.dart';
 
 class FeatureDevAPI {
+
   static Future<Map<String, dynamic>> saveToDataStore(
       BuildContext context,
       {
@@ -26,8 +27,6 @@ class FeatureDevAPI {
     };
 
     http.Response _res;
-
-    print(data);
 
     data = {
       if (data != null) ...data,

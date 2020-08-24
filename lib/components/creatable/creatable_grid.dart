@@ -82,6 +82,7 @@ class CreatableGrid extends StatelessWidget{
           if(snapshot.hasData){
             String _titleValue = data['title']['value'];
             String _subtitleValue = data.containsKey('subtitle') ? data['subtitle']['value'] : null;
+            String _imageUrlValue = data.containsKey('image') ? data['image']['value'] : null;
 
             List<String> _titles = List<String>();
             for(int i=0; i<snapshot.data.length; i++){
@@ -93,10 +94,16 @@ class CreatableGrid extends StatelessWidget{
               _subtitles.add(convertSpecialStrings(_subtitleValue, snapshot.data[i]));
             }
 
+            List<String> _imgUrls = List<String>();
+            for(int i=0; i<snapshot.data.length; i++){
+              _imgUrls.add(convertSpecialStrings(_imageUrlValue, snapshot.data[i]));
+            }
+
             _widget = CardGrid(
               list: snapshot.data,
               gridTexts: _titles,
               gridSubTexts: _subtitles,
+              gridPicturesUrls: _imgUrls,
               addButtonCallback: _addButtonCallback,
             );
           } else if (snapshot.hasError){

@@ -7,7 +7,6 @@ import 'package:mega/components/texts/error_text.dart';
 import 'package:mega/models/community_model.dart';
 import 'package:mega/models/state_models/current_feature_state_model.dart';
 import 'package:mega/models/feature_model.dart';
-import 'package:mega/models/state_models/feature_screen_back_button_state_model.dart';
 import 'package:mega/services/constants.dart';
 import 'package:provider/provider.dart';
 
@@ -38,6 +37,9 @@ class FeatureDetailScreen extends StatefulWidget{
               },
               'subtitle': {
                 'value': 'mega\$action\$value.item_price'
+              },
+              'image': {
+                'value': 'mega\$action\$value.item_picture'
               }
             }
           },
@@ -49,6 +51,11 @@ class FeatureDetailScreen extends StatefulWidget{
             'form': {
               'action': {
                 'action_type': 'save',
+                'multipart': [
+                  {
+                    'field': 'item_picture'
+                  }
+                ],
                 'method': 'post',
                 'access': 'community',
                 'tag': 'menu'
@@ -97,6 +104,7 @@ class FeatureDetailScreen extends StatefulWidget{
                     'hint': 'item picture *',
                     'validators': {
                       'required':'',
+                      'max_file_size': 2.0
                     }
                   }
                 },
@@ -129,6 +137,9 @@ class FeatureDetailScreen extends StatefulWidget{
               },
               'subtitle': {
                 'value': 'mega\$action\$value.item_price'
+              },
+              'image': {
+                'value': 'mega\$action\$value.item_picture'
               }
             }
           },
@@ -203,14 +214,16 @@ class _FeatureDetailScreenState extends State<FeatureDetailScreen>{
     // check if its first screen
     final isFirstScreen = screenStack.length == 1;
 
-    // configure screen with metadata
-    Map<String, dynamic> _screenMetadata = _screenData.containsKey('metadata') ? _screenData['metadata'] : null;
-    if(_screenMetadata != null) {
-      // set show back button
-      !isFirstScreen && _screenMetadata['show_back_button'] == 'false' ?
-        Provider.of<FeatureScreenBackButtonStateModel>(context).setShowBackButton(false):
-        Provider.of<FeatureScreenBackButtonStateModel>(context).setShowBackButton(true);
-    }
+//    // configure screen with metadata
+//    Map<String, dynamic> _screenMetadata = _screenData.containsKey('metadata') ? _screenData['metadata'] : null;
+//    if(_screenMetadata != null) {
+//      // set show back button
+//      if(!isFirstScreen && _screenMetadata['show_back_button'] == 'false') {
+//        Provider.of<FeatureScreenBackButtonStateModel>(context).setShowBackButton(false);
+//      } else {
+//        Provider.of<FeatureScreenBackButtonStateModel>(context).setShowBackButton(true);
+//      }
+//    }
 
     // create list of widgets from configuration data
     List<Map<String, dynamic>> _screenComponents = _screenData['components'];

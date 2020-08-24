@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:mega/components/inputs/my_email_input.dart';
 import 'package:mega/components/inputs/my_file_input.dart';
@@ -21,30 +23,29 @@ class CreatableInput extends StatelessWidget{
     Map<String, dynamic> _validators = data['validators'];
     String res;
 
-    if(data['type'] == 'file') assert(_validators.keys.isEmpty || _validators.keys.length == 1 && _validators.containsKey('required'));
-
     _validators.keys.takeWhile((value) => res == null).forEach((validator){
-      if(validator.contains('required')) {
+      if(validator == 'required') {
         res = Validators.requiredValidator(val);
       }
 
-      if(validator.contains('min')) {
-        int length = int.parse(validator.split('_')[1]);
-        res = Validators.minLengthValidator(val, length);
+      if(validator == 'min') {
+        res = Validators.minLengthValidator(val, _validators['min']);
       }
 
-      if(validator.contains('max')) {
-        int length = int.parse(validator.split('_')[1]);
-        res = Validators.maxLengthValidator(val, length);
+      if(validator == 'max') {
+        res = Validators.maxLengthValidator(val, _validators['max']);
       }
 
-      if(validator.contains('exact')) {
-        int length = int.parse(validator.split('_')[1]);
-        res = Validators.exactLengthValidator(val, length);
+      if(validator == 'exact') {
+        res = Validators.exactLengthValidator(val, _validators['max']);
       }
 
-      if(validator.contains('number')) {
+      if(validator == 'number') {
         res = Validators.numberValidator(val);
+      }
+      
+      if(validator == 'max_file_size'){
+        res = Validators.fileSizeValidator(File(val), val: _validators['max_file_size']);
       }
     });
 

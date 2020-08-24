@@ -44,7 +44,13 @@ class CardGrid extends StatelessWidget{
       return list[index].picture;
     }
 
-    if (gridPicturesUrls != null) return gridPicturesUrls[index];
+    if (gridPicturesUrls != null) {
+      try {
+        return gridPicturesUrls[index];
+      } on RangeError {
+        return null;
+      }
+    }
     return null;
   }
 
