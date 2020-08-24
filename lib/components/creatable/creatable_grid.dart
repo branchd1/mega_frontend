@@ -86,12 +86,20 @@ class CreatableGrid extends StatelessWidget{
 
             List<String> _titles = List<String>();
             for(int i=0; i<snapshot.data.length; i++){
-              _titles.add(convertSpecialStrings(_titleValue, snapshot.data[i]));
+              String _title = convertSpecialStrings(_titleValue, snapshot.data[i]);
+
+              _title = data['title'].containsKey('prefix') ? data['title']['prefix']+_title : _title;
+
+              _titles.add(_title);
             }
 
             List<String> _subtitles = List<String>();
             for(int i=0; i<snapshot.data.length; i++){
-              _subtitles.add(convertSpecialStrings(_subtitleValue, snapshot.data[i]));
+              String _subtitle = convertSpecialStrings(_subtitleValue, snapshot.data[i]);
+
+              _subtitle = data['subtitle'].containsKey('prefix') ? data['subtitle']['prefix']+_subtitle : _subtitle;
+
+              _subtitles.add(_subtitle);
             }
 
             List<String> _imgUrls = List<String>();

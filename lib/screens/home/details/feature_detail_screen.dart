@@ -23,8 +23,28 @@ class FeatureDetailScreen extends StatefulWidget{
           'show_back_button': 'false'
         },
         'components': [
+//          {
+//            'grid': {
+//              'action': {
+//                'action_type': 'get',
+//                'tag': 'menu',
+//                'add_page': {
+//                  'new_page': 'add_menu'
+//                }
+//              },
+//              'title': {
+//                'value': 'mega\$action\$value.item_name'
+//              },
+//              'subtitle': {
+//                'value': 'mega\$action\$value.item_price'
+//              },
+//              'image': {
+//                'value': 'mega\$action\$value.item_picture'
+//              }
+//            }
+//          },
           {
-            'grid': {
+            'list': {
               'action': {
                 'action_type': 'get',
                 'tag': 'menu',
@@ -33,14 +53,13 @@ class FeatureDetailScreen extends StatefulWidget{
                 }
               },
               'title': {
-                'value': 'mega\$action\$value.item_name'
+                'value': 'mega\$action\$value.item_name',
+                'prefix': 'item: '
               },
               'subtitle': {
-                'value': 'mega\$action\$value.item_price'
+                'value': 'mega\$action\$value.item_price',
+                'prefix': 'price: \$'
               },
-              'image': {
-                'value': 'mega\$action\$value.item_picture'
-              }
             }
           },
         ]
@@ -136,7 +155,8 @@ class FeatureDetailScreen extends StatefulWidget{
                 'value': 'mega\$action\$value.item_name'
               },
               'subtitle': {
-                'value': 'mega\$action\$value.item_price'
+                'value': 'mega\$action\$value.item_price',
+                'prefix': 'price: \$'
               },
               'image': {
                 'value': 'mega\$action\$value.item_picture'

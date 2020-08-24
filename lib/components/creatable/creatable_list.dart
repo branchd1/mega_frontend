@@ -48,24 +48,24 @@ class CreatableList extends StatelessWidget{
     }
 
     if(_getData == null){
-//      return Expanded(
-//        child: ListView.separated(
-//          shrinkWrap: true,
-//          itemBuilder: (context, index){
-//            return ListTile(
-////              leading: Text(),
-//              title: Text(data['title']['value']),
-//              subtitle: data.containsKey('subtitle') ? Text(data['subtitle']['value']) : null,
-////              trailing: Text('d'),
-//            );
-//          },
-//          separatorBuilder: (context, index){
-//            return Divider();
-//          },
-//          itemCount: 100,
-//        ),
-//      );
-//    } else {
+      return Expanded(
+        child: ListView.separated(
+          shrinkWrap: true,
+          itemBuilder: (context, index){
+            return ListTile(
+//              leading: Text(),
+              title: Text(data['title']['value']),
+              subtitle: data.containsKey('subtitle') ? Text(data['subtitle']['value']) : null,
+//              trailing: Text('d'),
+            );
+          },
+          separatorBuilder: (context, index){
+            return Divider();
+          },
+          itemCount: 100,
+        ),
+      );
+    } else {
       return FutureBuilder<List<dynamic>>(
         future: _getData,
         builder: (BuildContext context, AsyncSnapshot<List<dynamic>> snapshot) {
@@ -80,8 +80,16 @@ class CreatableList extends StatelessWidget{
                 itemBuilder: (context, index){
                   return ListTile(
 //              leading: Text(),
-                    title: Text(convertSpecialStrings(_titleValue, snapshot.data[index])),
-                    subtitle: _subtitleValue != null ? Text(convertSpecialStrings(_subtitleValue, snapshot.data[index])) : null,
+                    title: (data['title'] as Map).containsKey('prefix') ?
+                    Text(data['title']['prefix'] + convertSpecialStrings(_titleValue, snapshot.data[index])) :
+                    Text(convertSpecialStrings(_titleValue, snapshot.data[index])),
+
+
+                    subtitle: _subtitleValue != null ?
+                    ((data['subtitle'] as Map).containsKey('prefix') ?
+                    Text(data['subtitle']['prefix'] + convertSpecialStrings(_subtitleValue, snapshot.data[index])) :
+                    Text(convertSpecialStrings(_subtitleValue, snapshot.data[index]))) :
+                    null,
 //              trailing: Text('d'),
                   );
                 },

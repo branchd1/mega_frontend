@@ -61,8 +61,7 @@ class BaseAPI {
     );
   }
 
-  // adapted from https://stackoverflow.com/a/49645074
-  static Future<String> uploadImageToDatastore(BuildContext fileContext, File image) async {
+  static Future<String> uploadImageToDataStore(BuildContext fileContext, File image) async {
 
     final String endpoint = 'api/upload_img/';
 
@@ -75,7 +74,7 @@ class BaseAPI {
 
     Map<String, String> headers = <String, String>{
       'Content-Type': 'application/json; charset=UTF-8',
-//      'Authorization': 'Token ' + Provider.of<AuthTokenStateModel>(fileContext, listen: false).token
+      'Authorization': 'Token ' + Provider.of<AuthTokenStateModel>(fileContext, listen: false).token
     };
 
     request.headers.addAll(headers);
