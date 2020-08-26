@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mega/components/menu.dart';
 import 'package:mega/components/texts/big_text.dart';
 import 'package:mega/components/cards/card_grid.dart';
 import 'package:mega/components/bars/my_app_bars.dart';
@@ -38,6 +39,7 @@ class _HomeScreenState extends State<HomeScreen>{
     if (searchVal == null) communities = CommunityAPI.getCommunities(context);
     return Scaffold(
       appBar: MyAppBars.myAppBar2(),
+      drawer: Menu(),
       body: Padding(
         child: Column(
           children: <Widget>[

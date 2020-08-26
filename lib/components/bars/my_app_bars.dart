@@ -15,7 +15,6 @@ class MyAppBars{
   );
 
   static AppBar myAppBar2() => AppBar(
-    automaticallyImplyLeading: false,
     backgroundColor: Colors.white,
     iconTheme: IconThemeData(
       color: Colors.black,
