@@ -12,13 +12,17 @@ class WelcomeScreen extends StatelessWidget{
   @override
   Widget build(BuildContext context){
 
-    if (Provider.of<AuthTokenStateModel>(context, listen: false).checkAndGetToken() != null)
-      WidgetsBinding.instance.addPostFrameCallback((_){
-        Navigator.pushReplacementNamed(
-          context,
-          HomeScreen.routeName,
-        );
-      });
+    Provider.of<AuthTokenStateModel>(context, listen: false).checkAndGetToken().then((value){
+      if (value != null){
+        WidgetsBinding.instance.addPostFrameCallback((_){
+          Navigator.pushReplacementNamed(
+            context,
+            HomeScreen.routeName,
+          );
+        });
+        return Container();
+      }
+    });
 
     return(
       Scaffold(

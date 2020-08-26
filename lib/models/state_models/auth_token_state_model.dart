@@ -19,6 +19,13 @@ class AuthTokenStateModel {
     return _token;
   }
 
+  void clearToken() async {
+    _token = null;
+
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.remove('auth_token');
+  }
+
   void setToken(String token) async {
     _token = token;
 
