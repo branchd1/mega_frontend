@@ -1,9 +1,10 @@
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:mega/components/bars/error_snack_bar.dart';
-import 'dart:convert';
+import 'package:path/path.dart';
 
 import 'package:mega/models/state_models/auth_token_state_model.dart';
 import 'package:mega/models/state_models/current_community_state_model.dart';
@@ -160,5 +161,34 @@ class FeatureDevAPI {
       uri,
       headers: headers,
     );
+  }
+
+  static Future<String> uploadImageToDataStore(BuildContext fileContext, File image) async {
+
+    final String endpoint = 'api/upload_img/';
+
+    final stream = new http.ByteStream(image.openRead());
+    final length = await image.length();
+
+    final Uri uri = Uri.http(BaseAPI.url, endpoint);
+
+    var request = new http.MultipartRequest("POST", uri);
+
+    Map<String, String> headers = <String, String>{
+      'Content-Type': 'multipart/form-data',
+      'Authorization': 'Token ' + Provider.of<AuthTokenStateModel>(fileContext, listen: false).token
+    };
+
+    request.headers.addAll(headers);
+
+    var multipartFile = new http.MultipartFile('file', stream.cast(), length, filename: basename(image.path));
+
+    request.files.add(multipartFile);
+
+    http.StreamedResponse _res = await request.send();
+
+    final String _resStr = await _res.stream.bytesToString();
+
+    return jsonDecode(_resStr)['url'];
   }
 }

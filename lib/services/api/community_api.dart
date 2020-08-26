@@ -87,7 +87,7 @@ class CommunityAPI {
     }
   }
 
-  static Future<CreateCommunityResponseModel> createCommunity(BuildContext context, String communityName, String communityType, SetErrorTextCallback setErrorText) async {
+  static Future<CreateCommunityResponseModel> createCommunity(BuildContext context, String communityName, String communityType, String communityPicturePath, SetErrorTextCallback setErrorText) async {
 
     Map<String, String> headers = <String, String>{
       'Authorization': 'Token ' + Provider.of<AuthTokenStateModel>(context, listen: false).token
@@ -95,14 +95,16 @@ class CommunityAPI {
 
     Map<String, String> data = <String, String>{
       'name': communityName,
-      'type': communityType
+      'type': communityType,
+      'picture': communityPicturePath
     };
 
-    http.Response _res;
+    http.StreamedResponse _res;
 
     try{
-      _res = await BaseAPI.post(
+      _res = await BaseAPI.multipartPost(
         'api/communities/',
+        mediaKeys: ['picture'],
         additionalHeaders: headers,
         data: data
       );
@@ -113,11 +115,9 @@ class CommunityAPI {
     }
 
     if(_res.statusCode==201){
-      return CreateCommunityResponseModel.fromJson(jsonDecode(_res.body));
+      return CreateCommunityResponseModel.fromJson(jsonDecode(await _res.stream.bytesToString()));
     } else if(_res.statusCode == 400) {
-      setErrorText(
-          CreateCommunityResponseModel.fromJson(jsonDecode(_res.body)).errorToString()
-      );
+      setErrorText(CreateCommunityResponseModel.fromJson(jsonDecode(await _res.stream.bytesToString())).errorToString());
       return null;
     } else {
       showErrorSnackBar(context);

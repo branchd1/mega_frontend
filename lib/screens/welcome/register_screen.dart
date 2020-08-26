@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:mega/components/texts/big_text.dart';
 import 'package:mega/components/bars/my_app_bars.dart';
-import 'package:mega/components/forms/login_form.dart';
-import 'package:mega/components/forms/register_form.dart';
+import 'package:mega/forms/login_form.dart';
+import 'package:mega/forms/register_form.dart';
 
 //class RegisterScreenArguments {
 //  final String email;

@@ -1,7 +1,9 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:mega/components/forms/login_form.dart';
+import 'package:mega/components/buttons/my_submit_button.dart';
+import 'package:mega/components/inputs/my_password_input.dart';
+import 'package:mega/forms/login_form.dart';
 import 'package:mega/components/texts/error_text.dart';
 import 'package:mega/models/state_models/auth_token_state_model.dart';
 import 'package:mega/models/response_models/login_response_model.dart';
@@ -10,10 +12,6 @@ import 'package:mega/services/api/base_api.dart';
 import 'package:mega/services/api/auth_api.dart';
 import 'package:mega/services/login.dart';
 import 'package:provider/provider.dart';
-
-import '../bars/error_snack_bar.dart';
-import '../inputs/my_password_input.dart';
-import '../buttons/my_submit_button.dart';
 
 class RegisterForm extends StatefulWidget{
   final String email;

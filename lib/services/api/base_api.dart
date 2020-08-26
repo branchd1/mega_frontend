@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
@@ -5,7 +6,6 @@ import 'package:mega/models/state_models/auth_token_state_model.dart';
 import 'package:path/path.dart';
 import 'package:async/async.dart';
 import 'package:http/http.dart' as http;
-import 'dart:convert';
 
 import 'package:provider/provider.dart';
 
@@ -61,32 +61,41 @@ class BaseAPI {
     );
   }
 
-  static Future<String> uploadImageToDataStore(BuildContext fileContext, File image) async {
+  static Future<http.StreamedResponse> multipartPost (String endpoint,
+    {
+      @required List<String> mediaKeys,
+      @required Map<String, String> data,
+      Map<String, String> additionalHeaders
+    }) async {
 
-    final String endpoint = 'api/upload_img/';
-
-    final stream = new http.ByteStream(image.openRead());
-    final length = await image.length();
-
-    final Uri uri = Uri.http(url, endpoint);
+    final Uri uri = Uri.http(BaseAPI.url, endpoint);
 
     var request = new http.MultipartRequest("POST", uri);
 
     Map<String, String> headers = <String, String>{
-      'Content-Type': 'application/json; charset=UTF-8',
-      'Authorization': 'Token ' + Provider.of<AuthTokenStateModel>(fileContext, listen: false).token
+      'Content-Type': 'multipart/form-data',
+      ...additionalHeaders
     };
 
     request.headers.addAll(headers);
 
-    var multipartFile = new http.MultipartFile('file', stream.cast(), length, filename: basename(image.path));
+    List<String> _keys = data.keys.toList();
 
-    request.files.add(multipartFile);
+    for(String _key in _keys){
+      if(mediaKeys.contains(_key)){
+        String _imagePath = data[_key];
+        final http.MultipartFile _multipartFile = await http.MultipartFile.fromPath(
+            _key,
+            _imagePath
+        );
+        request.files.add(_multipartFile);
+      } else {
+        request.fields[_key] = data[_key];
+      }
+    }
 
     http.StreamedResponse _res = await request.send();
 
-    final String _resStr = await _res.stream.bytesToString();
-
-    return jsonDecode(_resStr)['url'];
+    return _res;
   }
 }

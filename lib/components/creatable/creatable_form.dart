@@ -76,7 +76,7 @@ class _CreatableFormState extends State<CreatableForm>{
             List<Map<String, dynamic>> listOfFileFields = List<Map<String, dynamic>>.from(_formActionMap['multipart']);
 
             for(Map<String, dynamic> fileFieldList in listOfFileFields){
-              formValuesMap[fileFieldList['field']] = await BaseAPI.uploadImageToDataStore(context, File(formValuesMap[fileFieldList['field']]));
+              formValuesMap[fileFieldList['field']] = await FeatureDevAPI.uploadImageToDataStore(context, File(formValuesMap[fileFieldList['field']]));
             }
 
             FeatureDevAPI.saveToDataStore(

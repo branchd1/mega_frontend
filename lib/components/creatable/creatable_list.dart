@@ -4,6 +4,7 @@ import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:mega/components/texts/error_text.dart';
 import 'package:mega/services/api/feature_dev_api.dart';
+import 'package:mega/services/callback_types.dart';
 
 class CreatableList extends StatelessWidget{
 
@@ -35,6 +36,8 @@ class CreatableList extends StatelessWidget{
     assert(data.containsKey('title'));
     assert((data['title'] as Map).containsKey('value'));
 
+    NoArgNoReturnCallback _addButtonCallback;
+
     Future<List<dynamic>> _getData;
 
     // get list action map
@@ -44,6 +47,11 @@ class CreatableList extends StatelessWidget{
       if (_formActionMap['action_type'] == 'get'){
         String _tag = _formActionMap['tag'];
         _getData = FeatureDevAPI.getToDataStore(context, tag: _tag);
+      }
+
+      if(_formActionMap.containsKey('add_page')){
+        assert((_formActionMap['add_page'] as Map).containsKey('new_page'));
+        _addButtonCallback = _formActionMap['add_page']['new_page'];
       }
     }
 
@@ -78,12 +86,14 @@ class CreatableList extends StatelessWidget{
               child: ListView.separated(
                 shrinkWrap: true,
                 itemBuilder: (context, index){
+                  if(index == snapshot.data.length){
+                    return FloatingActionButton(child: Icon(Icons.add),onPressed: _addButtonCallback);
+                  }
                   return ListTile(
 //              leading: Text(),
                     title: (data['title'] as Map).containsKey('prefix') ?
                     Text(data['title']['prefix'] + convertSpecialStrings(_titleValue, snapshot.data[index])) :
                     Text(convertSpecialStrings(_titleValue, snapshot.data[index])),
-
 
                     subtitle: _subtitleValue != null ?
                     ((data['subtitle'] as Map).containsKey('prefix') ?
@@ -96,7 +106,7 @@ class CreatableList extends StatelessWidget{
                 separatorBuilder: (context, index){
                   return Divider();
                 },
-                itemCount: snapshot.data.length,
+                itemCount: _addButtonCallback == null ? snapshot.data.length : snapshot.data.length+1,
               ),
             );
           } else if (snapshot.hasError){

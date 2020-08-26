@@ -1,13 +1,12 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:mega/components/buttons/my_submit_button.dart';
+import 'package:mega/components/inputs/my_email_input.dart';
 import 'package:mega/models/response_models/email_exists_response_model.dart';
 import 'package:mega/screens/welcome/login_screen.dart';
 import 'package:mega/screens/welcome/register_screen.dart';
 import 'package:mega/services/api/auth_api.dart';
-
-import '../inputs/my_email_input.dart';
-import '../buttons/my_submit_button.dart';
 
 class WelcomeForm extends StatefulWidget{
   @override

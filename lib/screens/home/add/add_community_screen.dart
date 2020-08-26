@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:mega/components/bars/my_app_bars.dart';
 import 'package:mega/components/buttons/my_button.dart';
-import 'package:mega/components/forms/create_community_form.dart';
-import 'package:mega/components/forms/join_community_form.dart';
+import 'package:mega/forms/create_community_form.dart';
+import 'package:mega/forms/join_community_form.dart';
 import 'package:mega/components/texts/big_text.dart';
 
 class AddCommunityScreen extends StatefulWidget{

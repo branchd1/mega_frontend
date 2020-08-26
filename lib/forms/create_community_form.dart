@@ -1,6 +1,9 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:mega/components/buttons/my_submit_button.dart';
 import 'package:mega/components/inputs/dropdown_input.dart';
+import 'package:mega/components/inputs/my_file_input.dart';
 import 'package:mega/components/inputs/my_text_input.dart';
 import 'package:mega/components/texts/error_text.dart';
 import 'package:mega/models/response_models/create_community_response_model.dart';
@@ -14,6 +17,7 @@ class CreateCommunityForm extends StatefulWidget{
 
 class _CreateCommunityFormState extends State<CreateCommunityForm>{
   final TextEditingController _communityNameController = TextEditingController();
+  final TextEditingController _communityPicturePathController = TextEditingController();
   String _communityTypeControllerSimulator;
   final _formKey = GlobalKey<FormState>();
   String _errorText;
@@ -26,13 +30,13 @@ class _CreateCommunityFormState extends State<CreateCommunityForm>{
 
   void submit() async {
     if (_formKey.currentState.validate()){
-      // check email
-      CreateCommunityResponseModel _res = await CommunityAPI.createCommunity(context, _communityNameController.text, _communityTypeControllerSimulator, setErrorText);
+      // create community
+      CreateCommunityResponseModel _res = await CommunityAPI.createCommunity(context, _communityNameController.text, _communityTypeControllerSimulator, _communityPicturePathController.text, setErrorText);
 
       // check successful
       if(_res != null) Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => HomeScreen())
+        context,
+        MaterialPageRoute(builder: (context) => HomeScreen())
       );
     }
   }
@@ -57,6 +61,14 @@ class _CreateCommunityFormState extends State<CreateCommunityForm>{
               dropDownList: <Map<String,String>>[{'value':'EST', 'text':'Estate'}],
               dropDownChangedCallback: changeTypeValue,
               hintText: 'Community type *',
+              validator: Validators.requiredValidator,
+            ),
+            margin: EdgeInsets.fromLTRB(0, 10, 0, 0),
+          ),
+          Container(
+            child: MyFileInput(
+              hintText: 'upload picture *',
+              controller: _communityPicturePathController,
               validator: Validators.requiredValidator,
             ),
             margin: EdgeInsets.fromLTRB(0, 10, 0, 0),

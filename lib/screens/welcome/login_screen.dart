@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mega/components/texts/big_text.dart';
 import 'package:mega/components/bars/my_app_bars.dart';
-import 'package:mega/components/forms/login_form.dart';
+import 'package:mega/forms/login_form.dart';
 
 //class LoginScreenArguments {
 //  final String email;
