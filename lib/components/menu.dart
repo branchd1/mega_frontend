@@ -18,6 +18,11 @@ class _MenuState extends State<Menu>{
             onTap: () {},
           ),
           Divider(),
+          ListTile(
+            title: Text('Logout'),
+            onTap: () {},
+          ),
+          Divider(),
           AboutListTile(),
         ],
       )

@@ -18,7 +18,6 @@ class HomeScreen extends StatefulWidget{
 }
 
 class _HomeScreenState extends State<HomeScreen>{
-  Future<List<CommunityModel>> communities;
   String searchVal;
 
   void onSearch(String val){
@@ -36,7 +35,10 @@ class _HomeScreenState extends State<HomeScreen>{
 
   @override
   Widget build(BuildContext context){
+    Future<List<CommunityModel>> communities;
+
     if (searchVal == null) communities = CommunityAPI.getCommunities(context);
+
     return Scaffold(
       appBar: MyAppBars.myAppBar2(),
       drawer: Menu(),
