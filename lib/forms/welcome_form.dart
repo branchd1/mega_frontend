@@ -49,7 +49,7 @@ class _WelcomeFormState extends State<WelcomeForm>{
           Align(
             alignment: Alignment.bottomRight,
             child: MySubmitButton(
-              buttonText: 'Go',
+              buttonText: 'Login',
               submitCallback: submit
             )
           ),

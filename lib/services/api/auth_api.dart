@@ -114,4 +114,33 @@ class AuthAPI {
       return null;
     }
   }
+
+  static Future<bool> resetPassword(
+      BuildContext context,
+      String email) async {
+
+    Map<String, String> data = <String, String>{
+      'email': email,
+    };
+
+    http.Response _res;
+
+    try{
+      _res = await BaseAPI.post(
+        'auth/users/reset_password/',
+        data: data
+      );
+    } on SocketException{
+      showErrorSnackBar(context);
+    } catch (e) {
+      print(e);
+    }
+
+    if(_res.statusCode == 204){
+      return true;
+    } else {
+      showErrorSnackBar(context);
+      return false;
+    }
+  }
 }

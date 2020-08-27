@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mega/components/buttons/my_button.dart';
 import 'package:mega/components/texts/big_text.dart';
 import 'package:mega/components/bars/my_app_bars.dart';
 import 'package:mega/forms/welcome_form.dart';
@@ -37,7 +38,7 @@ class WelcomeScreen extends StatelessWidget{
                   Padding(
                     child: WelcomeForm(),
                     padding: EdgeInsets.fromLTRB(0, 30, 0, 30),
-                  )
+                  ),
                 ],
               ),
             ],
