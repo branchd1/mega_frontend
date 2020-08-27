@@ -7,7 +7,7 @@ import 'my_card.dart';
 
 class CardGrid extends StatelessWidget{
   final List<dynamic> list;
-  final NoArgNoReturnCallback addButtonCallback;
+  final VoidCallback addButtonCallback;
   final String emptyText;
   final TapCardCallback tapCardCallback;
 

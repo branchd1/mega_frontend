@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
-
-typedef void OnPressCallback();
+import 'package:mega/services/callback_types.dart';
 
 class MyButton extends StatelessWidget{
   final String buttonText;
 
-  final OnPressCallback onPressCallback;
+  final VoidCallback onPressCallback;
 
   MyButton({Key key, @required this.buttonText, this.onPressCallback}) : super(key: key);
 

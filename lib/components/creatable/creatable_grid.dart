@@ -43,7 +43,7 @@ class CreatableGrid extends StatelessWidget{
     // get list action map
     Map<String, dynamic> _formActionMap = data.containsKey('action') ? data['action'] : null;
 
-    NoArgNoReturnCallback _addButtonCallback;
+    VoidCallback _addButtonCallback;
 
     if(_formActionMap!=null){
       if (_formActionMap['action_type'] == 'get'){

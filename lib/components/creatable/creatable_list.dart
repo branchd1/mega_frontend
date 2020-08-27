@@ -36,7 +36,7 @@ class CreatableList extends StatelessWidget{
     assert(data.containsKey('title'));
     assert((data['title'] as Map).containsKey('value'));
 
-    NoArgNoReturnCallback _addButtonCallback;
+    VoidCallback _addButtonCallback;
 
     Future<List<dynamic>> _getData;
 

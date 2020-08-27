@@ -4,7 +4,7 @@ import 'package:mega/services/callback_types.dart';
 class MySubmitButton extends StatelessWidget{
   final String buttonText;
 
-  final NoArgNoReturnCallback submitCallback;
+  final VoidCallback submitCallback;
 
   MySubmitButton({Key key, @required this.buttonText, this.submitCallback}) : super(key: key);
 

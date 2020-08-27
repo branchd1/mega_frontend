@@ -22,7 +22,7 @@ class _CreatableFormState extends State<CreatableForm>{
   Map<TextEditingController, String> _controllersMap = Map<TextEditingController, String>();
   final _formKey = GlobalKey<FormState>();
 
-  void submit({NoArgNoReturnCallback doAfter}) async {
+  void submit({VoidCallback doAfter}) async {
     if (_formKey.currentState.validate()){
       // get form action map
       Map<String, dynamic> _formActionMap = widget.data['action'];

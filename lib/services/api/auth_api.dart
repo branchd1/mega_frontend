@@ -130,8 +130,6 @@ class AuthAPI {
         'auth/users/reset_password/',
         data: data
       );
-    } on SocketException{
-      showErrorSnackBar(context);
     } catch (e) {
       print(e);
     }
@@ -139,7 +137,6 @@ class AuthAPI {
     if(_res.statusCode == 204){
       return true;
     } else {
-      showErrorSnackBar(context);
       return false;
     }
   }

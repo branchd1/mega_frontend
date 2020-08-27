@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mega/components/buttons/my_async_button.dart';
 import 'package:mega/components/buttons/my_button.dart';
 import 'package:mega/components/texts/big_text.dart';
 import 'package:mega/components/bars/my_app_bars.dart';
@@ -18,28 +19,36 @@ class LoginScreen extends StatelessWidget{
 
   const LoginScreen({this.email});
 
-  void doResetPassword(BuildContext context) async {
-    // reset password
+  Future<void> doResetPassword(BuildContext context) async {
     bool _res = await AuthAPI.resetPassword(context, email);
-    if(_res == true){
-      return showDialog<void>(
-        context: context,
-        barrierDismissible: true,
-        builder: (BuildContext context) {
-          return AlertDialog(
-            title: Text('Password Reset Email Sent'),
-            content: SingleChildScrollView(
-              child: ListBody(
-                children: <Widget>[
-                  Text('Please check your email to complete the password reset action.'),
-                ],
-              ),
-            ),
 
-          );
-        },
-      );
+    String _alertTitle;
+    String _alertText;
+    if(_res == true) {
+      _alertTitle = 'Password Reset Email Sent';
+      _alertText = 'Please check your email to complete the password reset action.';
+    } else {
+      _alertTitle = 'Something went wrong';
+      _alertText = 'The password reset email could not be sent. Please try again.';
     }
+
+    return showDialog<void>(
+      context: context,
+      barrierDismissible: true,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text(_alertTitle),
+          content: SingleChildScrollView(
+            child: ListBody(
+              children: <Widget>[
+                Text(_alertText),
+              ],
+            ),
+          ),
+
+        );
+      },
+    );
   }
 
   @override
@@ -62,7 +71,7 @@ class LoginScreen extends StatelessWidget{
                       padding: EdgeInsets.fromLTRB(0, 30, 0, 30),
                     ),
                     Align(
-                      child: MyButton(buttonText: 'reset password', onPressCallback: ()=>doResetPassword(context),),
+                      child: MyAsyncButton(buttonText: 'reset password', onPressCallback: ()=>doResetPassword(context),),
                       alignment: Alignment.bottomLeft,
                     )
                   ],
