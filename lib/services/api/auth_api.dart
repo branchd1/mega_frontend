@@ -8,7 +8,10 @@ import 'dart:convert';
 import 'package:mega/models/response_models/email_exists_response_model.dart';
 import 'package:mega/models/response_models/login_response_model.dart';
 import 'package:mega/models/response_models/register_response_model.dart';
+import 'package:mega/models/state_models/auth_token_state_model.dart';
+import 'package:mega/models/user_model.dart';
 import 'package:mega/services/callback_types.dart';
+import 'package:provider/provider.dart';
 
 import 'base_api.dart';
 
@@ -138,6 +141,46 @@ class AuthAPI {
       return true;
     } else {
       return false;
+    }
+  }
+
+  static Future<UserModel> getUser(BuildContext context) async {
+
+    http.Response _res;
+    http.Response _res2;
+
+    Map<String, String> headers = <String, String>{
+      'Authorization': 'Token ' + Provider.of<AuthTokenStateModel>(context, listen: false).token
+    };
+
+    try{
+      _res = await BaseAPI.get(
+        'auth/users/me/',
+        additionalHeaders: headers
+      );
+    } catch (e) {
+      print(e);
+    }
+
+    try{
+      _res2 = await BaseAPI.get(
+          'api/profiles/',
+          additionalHeaders: headers
+      );
+    } catch (e) {
+      print(e);
+    }
+
+    if(_res.statusCode == 200 && _res2.statusCode == 200){
+      Map<String, dynamic> _userModel = {
+        ...jsonDecode(_res2.body)['results'][0],
+        ...jsonDecode(_res.body),
+      };
+      print(_userModel);
+      return UserModel.fromJson(_userModel);
+    } else {
+      showErrorSnackBar(context);
+      return null;
     }
   }
 }
