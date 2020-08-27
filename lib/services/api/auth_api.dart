@@ -155,7 +155,7 @@ class AuthAPI {
 
     try{
       _res = await BaseAPI.get(
-        'auth/users/me/',
+        'accounts/users/me/',
         additionalHeaders: headers
       );
     } catch (e) {
@@ -164,22 +164,84 @@ class AuthAPI {
 
     try{
       _res2 = await BaseAPI.get(
-          'api/profiles/',
-          additionalHeaders: headers
+        'api/profiles/',
+        additionalHeaders: headers
       );
     } catch (e) {
       print(e);
     }
 
     if(_res.statusCode == 200 && _res2.statusCode == 200){
+
+      int profileId = jsonDecode(_res2.body)['results'][0]['id'];
+
       Map<String, dynamic> _userModel = {
         ...jsonDecode(_res2.body)['results'][0],
         ...jsonDecode(_res.body),
+        'profileId': profileId
       };
+
       return UserModel.fromJson(_userModel);
     } else {
       showErrorSnackBar(context);
       return null;
+    }
+  }
+
+  static Future<bool> patchUser(
+      BuildContext context,
+      {
+        String firstName,
+        String lastName,
+        String phoneNumber,
+        String picturePath,
+        int profileId
+      }
+      ) async {
+
+    http.Response _res;
+    http.StreamedResponse _res2;
+
+    Map<String, String> headers = <String, String>{
+      'Authorization': 'Token ' + Provider.of<AuthTokenStateModel>(context, listen: false).token
+    };
+
+    Map<String, String> _userData = <String, String>{
+      'first_name': firstName,
+      'last_name': lastName,
+    };
+
+    Map<String, String> _profileData = <String, String>{
+      'phone_number': phoneNumber,
+      if (picturePath != '') 'picture': picturePath,
+    };
+
+    try{
+      _res = await BaseAPI.patch(
+        'accounts/users/me/',
+        data: _userData,
+        additionalHeaders: headers
+      );
+    } catch (e) {
+      print(e);
+    }
+
+    try{
+      _res2 = await BaseAPI.multipartPatch(
+        'api/profiles/' + profileId.toString() + '/',
+        data: _profileData,
+        mediaKeys: ['picture'],
+        additionalHeaders: headers
+      );
+    } catch (e) {
+      print(e);
+    }
+
+    if(_res.statusCode == 200 && _res2.statusCode == 200){
+      return true;
+    } else {
+      showErrorSnackBar(context);
+      return false;
     }
   }
 }

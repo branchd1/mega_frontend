@@ -61,7 +61,12 @@ class _MyFileInputState extends State<MyFileInput>{
             ),
         );
       },
-      validator: (val)=> _filePath == null ? widget.validator('') : widget.validator(_filePath),
+      validator: (val){
+        if(widget.validator != null){
+          return _filePath == null ? widget.validator('') : widget.validator(_filePath);
+        }
+        return null;
+      },
       initialValue: '',
     );
   }

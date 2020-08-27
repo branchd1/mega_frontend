@@ -76,7 +76,7 @@ class _CreateCommunityFormState extends State<CreateCommunityForm>{
           Align(
             alignment: Alignment.bottomRight,
             child: MySubmitButton(
-              buttonText: 'Go',
+              buttonText: 'Submit',
               submitCallback: submit,
             )
           ),
