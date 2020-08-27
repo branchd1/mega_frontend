@@ -23,7 +23,10 @@ class ProfileScreen extends StatelessWidget{
           child: Column(
             children: <Widget>[
               BigText('Your profile'),
-              ProfileForm(),
+              Padding(
+                child: ProfileForm(),
+                padding: EdgeInsets.fromLTRB(0, 30, 0, 30),
+              ),
             ],
           ),
           padding: EdgeInsets.fromLTRB(30, 0, 30, 0),

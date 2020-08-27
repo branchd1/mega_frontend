@@ -176,7 +176,6 @@ class AuthAPI {
         ...jsonDecode(_res2.body)['results'][0],
         ...jsonDecode(_res.body),
       };
-      print(_userModel);
       return UserModel.fromJson(_userModel);
     } else {
       showErrorSnackBar(context);

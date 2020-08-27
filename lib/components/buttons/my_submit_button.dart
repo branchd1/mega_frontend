@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:mega/services/callback_types.dart';
 
 class MySubmitButton extends StatelessWidget{
   final String buttonText;
