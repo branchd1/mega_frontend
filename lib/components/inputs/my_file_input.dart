@@ -3,7 +3,7 @@ import 'dart:io';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:mega/components/buttons/my_button.dart';
-import 'package:mega/components/texts/error_text.dart';
+import 'package:mega/components/texts/error_text_plain.dart';
 import 'package:mega/services/callback_types.dart';
 
 class MyFileInput extends StatefulWidget{
@@ -53,7 +53,7 @@ class _MyFileInputState extends State<MyFileInput>{
                 if(field.hasError) Align(
                   alignment: Alignment.bottomLeft,
                   child: Padding(
-                    child: ErrorText(field.errorText),
+                    child: ErrorTextPlain(field.errorText),
                     padding: EdgeInsets.fromLTRB(0, 5, 0, 0),
                   )
                 )

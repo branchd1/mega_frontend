@@ -4,7 +4,7 @@ import 'package:mega/components/buttons/my_reset_password_button.dart';
 import 'package:mega/components/buttons/my_submit_button.dart';
 import 'package:mega/components/inputs/my_file_input.dart';
 import 'package:mega/components/inputs/my_text_input.dart';
-import 'package:mega/components/texts/error_text.dart';
+import 'package:mega/components/texts/error_text_plain.dart';
 import 'package:mega/models/user_model.dart';
 import 'package:mega/screens/profile/profile_screen.dart';
 import 'package:mega/services/api/auth_api.dart';
@@ -120,7 +120,7 @@ class _ProfileFormState extends State<ProfileForm>{
             ),
             if(_errorText!=null) Align(
               alignment: Alignment.bottomLeft,
-              child: ErrorText(_errorText),
+              child: ErrorTextPlain(_errorText),
             )
           ],
         )

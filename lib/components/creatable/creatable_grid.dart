@@ -2,9 +2,9 @@
 import 'package:http/http.dart' as http;
 
 import 'package:flutter/material.dart';
-import 'package:mega/components/cards/card_grid.dart';
+import 'package:mega/components/cards/my_card_grid.dart';
 import 'package:mega/components/cards/my_card.dart';
-import 'package:mega/components/texts/error_text.dart';
+import 'package:mega/components/texts/error_text_plain.dart';
 import 'package:mega/services/api/feature_dev_api.dart';
 import 'package:mega/services/callback_types.dart';
 
@@ -107,7 +107,7 @@ class CreatableGrid extends StatelessWidget{
               _imgUrls.add(convertSpecialStrings(_imageUrlValue, snapshot.data[i]));
             }
 
-            _widget = CardGrid(
+            _widget = MyCardGrid(
               list: snapshot.data,
               gridTexts: _titles,
               gridSubTexts: _subtitles,
@@ -116,7 +116,7 @@ class CreatableGrid extends StatelessWidget{
             );
           } else if (snapshot.hasError){
             print(snapshot.error);
-            _widget = ErrorText('Error');
+            _widget = ErrorTextPlain('Error');
           } else {
             _widget = CircularProgressIndicator();
           }

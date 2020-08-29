@@ -3,7 +3,7 @@ import 'package:mega/components/bars/my_bottom_nav.dart';
 import 'package:mega/components/buttons/my_button.dart';
 import 'package:mega/components/buttons/my_reset_password_button.dart';
 import 'package:mega/components/texts/big_text.dart';
-import 'package:mega/components/cards/card_grid.dart';
+import 'package:mega/components/cards/my_card_grid.dart';
 import 'package:mega/components/bars/my_app_bars.dart';
 import 'package:mega/components/inputs/search_input.dart';
 import 'package:mega/forms/edit_profile_form.dart';
@@ -30,7 +30,7 @@ class EditProfileScreen extends StatelessWidget{
         body: Padding(
           child: Column(
             children: <Widget>[
-              BigText('Your profile'),
+              BigText('Edit profile'),
               Padding(
                 child: FutureBuilder<UserModel>(
                     future: _user,

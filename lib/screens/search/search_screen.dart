@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mega/components/bars/my_bottom_nav.dart';
 import 'package:mega/components/texts/big_text.dart';
-import 'package:mega/components/cards/card_grid.dart';
+import 'package:mega/components/cards/my_card_grid.dart';
 import 'package:mega/components/bars/my_app_bars.dart';
 import 'package:mega/components/inputs/search_input.dart';
 import 'package:mega/models/community_model.dart';

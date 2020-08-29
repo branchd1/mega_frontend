@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:mega/components/buttons/my_submit_button.dart';
 import 'package:mega/components/inputs/my_password_input.dart';
 import 'package:mega/forms/login_form.dart';
-import 'package:mega/components/texts/error_text.dart';
+import 'package:mega/components/texts/error_text_plain.dart';
 import 'package:mega/models/state_models/auth_token_state_model.dart';
 import 'package:mega/models/response_models/login_response_model.dart';
 import 'package:mega/models/response_models/register_response_model.dart';
@@ -67,7 +67,7 @@ class _RegisterFormState extends State<RegisterForm>{
           ),
           if(_errorText!=null) Align(
             alignment: Alignment.bottomLeft,
-            child: ErrorText(_errorText),
+            child: ErrorTextPlain(_errorText),
           )
         ],
       )

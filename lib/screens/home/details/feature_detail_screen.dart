@@ -3,7 +3,7 @@ import 'dart:collection';
 import 'package:flutter/material.dart';
 import 'package:mega/components/bars/my_app_bars.dart';
 import 'package:mega/components/texts/big_text.dart';
-import 'package:mega/components/texts/error_text.dart';
+import 'package:mega/components/texts/error_text_plain.dart';
 import 'package:mega/models/community_model.dart';
 import 'package:mega/models/state_models/current_feature_state_model.dart';
 import 'package:mega/models/feature_model.dart';
@@ -255,7 +255,7 @@ class _FeatureDetailScreenState extends State<FeatureDetailScreen>{
         // inform user of error
         String err = 'A component (' + _componentName + ') used does not exist';
         print(err);
-        return ErrorText(err);
+        return ErrorTextPlain(err);
       }
     }).toList();
 

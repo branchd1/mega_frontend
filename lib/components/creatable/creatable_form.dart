@@ -1,7 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:mega/components/texts/error_text.dart';
+import 'package:mega/components/texts/error_text_plain.dart';
 import 'package:mega/services/api/base_api.dart';
 import 'package:mega/services/api/feature_dev_api.dart';
 import 'package:mega/services/callback_types.dart';
@@ -131,7 +131,7 @@ class _CreatableFormState extends State<CreatableForm>{
       on NoSuchMethodError{
         String err = 'A component (' + _componentName + ') used does not exist';
         print(err);
-        return ErrorText(err);
+        return ErrorTextPlain(err);
       }
     }).toList();
 

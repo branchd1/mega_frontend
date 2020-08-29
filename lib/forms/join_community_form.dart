@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mega/components/buttons/my_submit_button.dart';
 import 'package:mega/components/inputs/my_text_input.dart';
-import 'package:mega/components/texts/error_text.dart';
+import 'package:mega/components/texts/error_text_plain.dart';
 import 'package:mega/screens/home/home_screen.dart';
 import 'package:mega/services/api/community_api.dart';
 import 'package:mega/services/validators.dart';
@@ -54,7 +54,7 @@ class _JoinCommunityFormState extends State<JoinCommunityForm>{
           ),
           if(_errorText!=null) Align(
             alignment: Alignment.bottomLeft,
-            child: ErrorText(_errorText),
+            child: ErrorTextPlain(_errorText),
           )
         ],
       )

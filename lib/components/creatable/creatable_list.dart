@@ -2,7 +2,7 @@
 import 'package:http/http.dart' as http;
 
 import 'package:flutter/material.dart';
-import 'package:mega/components/texts/error_text.dart';
+import 'package:mega/components/texts/error_text_plain.dart';
 import 'package:mega/services/api/feature_dev_api.dart';
 import 'package:mega/services/callback_types.dart';
 
@@ -111,7 +111,7 @@ class CreatableList extends StatelessWidget{
             );
           } else if (snapshot.hasError){
             print(snapshot.error);
-            _widget = ErrorText('Error');
+            _widget = ErrorTextPlain('Error');
           } else {
             _widget = CircularProgressIndicator();
           }

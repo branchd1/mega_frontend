@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mega/components/bars/my_app_bars.dart';
 import 'package:mega/components/bars/my_bottom_nav.dart';
-import 'package:mega/components/cards/card_grid.dart';
+import 'package:mega/components/cards/my_card_grid.dart';
 import 'package:mega/components/inputs/search_input.dart';
 import 'package:mega/components/texts/big_text.dart';
 import 'package:mega/models/community_model.dart';
@@ -72,7 +72,7 @@ class _CommunityDetailScreenState extends State<CommunityDetailScreen>{
               builder: (BuildContext context, AsyncSnapshot<List<FeatureModel>> snapshot) {
                 Widget _widget;
                 if(snapshot.hasData){
-                  _widget = CardGrid(
+                  _widget = MyCardGrid(
                     list: searchVal == null ?
                     snapshot.data : snapshot.data.where((element) => element.name.toLowerCase().contains(searchVal)).toList(),
                     addButtonCallback: this.widget.community.isAdmin ? (){
