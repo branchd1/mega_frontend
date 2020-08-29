@@ -61,25 +61,27 @@ class CardGrid extends StatelessWidget{
         crossAxisCount: 2,
         scrollDirection: Axis.vertical,
         shrinkWrap: true,
-        children: List.generate(
-          addButtonCallback != null ? list.length + 1 : list.length,
-          (int index) => index == list.length && addButtonCallback != null  ? Container(
-            child: IconButton(
-              icon: Icon(Icons.add_circle_outline),
-              iconSize: 50,
-              onPressed: addButtonCallback,
-            ),
-          ) : Container(
-            child: GestureDetector(
-                onTap: tapCardCallback != null ? ()=>tapCardCallback(context, list[index]) : (){},
-                child: MyCard(
-                  texts: getTexts(index),
-                  subTexts: getSubtexts(index),
-                  imageUrl: getPictureUrl(index),
-                )
+        children: <Widget>[
+          ...List.generate(
+            addButtonCallback != null ? list.length + 1 : list.length,
+                (int index) => index == list.length && addButtonCallback != null  ? Container(
+              child: IconButton(
+                icon: Icon(Icons.add_circle_outline),
+                iconSize: 50,
+                onPressed: addButtonCallback,
+              ),
+            ) : Container(
+              child: GestureDetector(
+                  onTap: tapCardCallback != null ? ()=>tapCardCallback(context, list[index]) : (){},
+                  child: MyCard(
+                    texts: getTexts(index),
+                    subTexts: getSubtexts(index),
+                    imageUrl: getPictureUrl(index),
+                  )
+              ),
             ),
           ),
-        ),
+        ]
       )
     );
   }
