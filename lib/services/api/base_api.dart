@@ -1,16 +1,12 @@
 import 'dart:convert';
-import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:mega/models/state_models/auth_token_state_model.dart';
-import 'package:path/path.dart';
-import 'package:async/async.dart';
 import 'package:http/http.dart' as http;
-
-import 'package:provider/provider.dart';
 
 class BaseAPI {
   static const String url = '0.0.0.0:9000';
+//  static const String url = 'mega-app-project.herokuapp.com';
+
 
   static Future<http.Response> post(
     String endpoint,
