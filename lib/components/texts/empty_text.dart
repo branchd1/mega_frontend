@@ -14,7 +14,6 @@ class EmptyText extends StatelessWidget{
         Icon(
           Icons.search,
           size: 100,
-          color: Colors.red,
         ),
         Container(
           child: Text(text, textScaleFactor: 1.5,),
