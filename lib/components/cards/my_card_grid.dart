@@ -10,13 +10,14 @@ class MyCardGrid extends StatelessWidget{
   final List<dynamic> list;
   final VoidCallback addButtonCallback;
   final String emptyText;
+  final String emptySubtext;
   final TapCardCallback tapCardCallback;
 
   final List<String> gridTexts;
   final List<String> gridSubTexts;
   final List<String> gridPicturesUrls;
 
-  const MyCardGrid({Key key, this.list, this.addButtonCallback, this.emptyText, this.tapCardCallback, this.gridTexts, this.gridSubTexts, this.gridPicturesUrls}) : super(key: key);
+  const MyCardGrid({Key key, this.list, this.addButtonCallback, this.emptyText, this.emptySubtext, this.tapCardCallback, this.gridTexts, this.gridSubTexts, this.gridPicturesUrls}) : super(key: key);
 
   List<String> getSubtexts(int index){
     List<String> res = List<String>();
@@ -59,32 +60,38 @@ class MyCardGrid extends StatelessWidget{
   Widget build(BuildContext context) {
     return Column(
       children: <Widget>[
-        if(list.length == 0) EmptyText(text: 'No communities found', subtext: 'add below'),
-        GridView.count(
-            crossAxisCount: list.length == 0 ? 1 : 2,
-            scrollDirection: Axis.vertical,
-            shrinkWrap: true,
-            children: <Widget>[
-              ...List.generate(
-                addButtonCallback != null ? list.length + 1 : list.length,
-                    (int index) => index == list.length && addButtonCallback != null  ? Container(
-                  child: IconButton(
-                    icon: Icon(Icons.add_circle_outline),
-                    iconSize: 50,
-                    onPressed: addButtonCallback,
-                  ),
-                ) : Container(
-                  child: GestureDetector(
-                      onTap: tapCardCallback != null ? ()=>tapCardCallback(context, list[index]) : (){},
-                      child: MyCard(
-                        texts: getTexts(index),
-                        subTexts: getSubtexts(index),
-                        imageUrl: getPictureUrl(index),
-                      )
-                  ),
-                ),
+        list.length == 0 ? Column(
+          children: <Widget>[
+            EmptyText(text: emptyText, subtext: emptySubtext),
+            IconButton(
+              icon: Icon(Icons.add_circle_outline),
+              iconSize: 50,
+              onPressed: addButtonCallback,
+            )
+          ],
+        ) : GridView.count(
+          crossAxisCount: 2,
+          scrollDirection: Axis.vertical,
+          shrinkWrap: true,
+          children: List.generate(
+            addButtonCallback != null ? list.length + 1 : list.length,
+                (int index) => index == list.length && addButtonCallback != null  ? Container(
+              child: IconButton(
+                icon: Icon(Icons.add_circle_outline),
+                iconSize: 50,
+                onPressed: addButtonCallback,
               ),
-            ]
+            ) : Container(
+              child: GestureDetector(
+                  onTap: tapCardCallback != null ? ()=>tapCardCallback(context, list[index]) : (){},
+                  child: MyCard(
+                    texts: getTexts(index),
+                    subTexts: getSubtexts(index),
+                    imageUrl: getPictureUrl(index),
+                  )
+              ),
+            ),
+          ),
         )
       ],
     );

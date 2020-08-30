@@ -67,6 +67,7 @@ class _HomeScreenState extends State<HomeScreen>{
                       );
                     },
                     emptyText: 'No communities',
+                    emptySubtext: 'add below',
                     tapCardCallback: tapCardCallback,
                   );
                 } else if (snapshot.hasError){
