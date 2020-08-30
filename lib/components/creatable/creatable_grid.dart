@@ -60,7 +60,7 @@ class _CreatableGridState extends State<CreatableGrid>{
 
     VoidCallback _addButtonCallback;
 
-    if(_formActionMap!=null && searchVal == null){
+    if(_formActionMap!=null){
       if (_formActionMap['action_type'] == 'get'){
         String _tag = _formActionMap['tag'];
         _getData = FeatureDevAPI.getToDataStore(context, tag: _tag);
@@ -105,7 +105,7 @@ class _CreatableGridState extends State<CreatableGrid>{
               if(snapshot.hasData){
 
                 List<dynamic> _data = searchVal == null ? snapshot.data :
-                  snapshot.data.where((element) => element[_formActionMap['search']['field']].toLowerCase().contains(searchVal)).toList();
+                  snapshot.data.where((element) => element['value'][_formActionMap['search']['field']].toLowerCase().contains(searchVal)).toList();
 
                 String _titleValue = widget.data['title']['value'];
                 String _subtitleValue = widget.data.containsKey('subtitle') ? widget.data['subtitle']['value'] : null;

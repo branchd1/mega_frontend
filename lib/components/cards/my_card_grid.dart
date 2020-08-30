@@ -60,38 +60,28 @@ class MyCardGrid extends StatelessWidget{
   Widget build(BuildContext context) {
     return Column(
       children: <Widget>[
-        list.length == 0 ? Column(
-          children: <Widget>[
-            EmptyText(text: emptyText, subtext: emptySubtext),
-            if(addButtonCallback != null)IconButton(
-              icon: Icon(Icons.add_circle_outline),
-              iconSize: 50,
-              onPressed: addButtonCallback,
-            )
-          ],
-        ) : GridView.count(
+        list.length == 0 ? EmptyText(text: emptyText, subtext: emptySubtext) : GridView.count(
           crossAxisCount: 2,
           scrollDirection: Axis.vertical,
           shrinkWrap: true,
           children: List.generate(
-            addButtonCallback != null ? list.length + 1 : list.length,
-                (int index) => index == list.length && addButtonCallback != null  ? Container(
-              child: IconButton(
-                icon: Icon(Icons.add_circle_outline),
-                iconSize: 50,
-                onPressed: addButtonCallback,
-              ),
-            ) : Container(
+            list.length,
+            (int index) => Container(
               child: GestureDetector(
-                  onTap: tapCardCallback != null ? ()=>tapCardCallback(context, list[index]) : (){},
-                  child: MyCard(
-                    texts: getTexts(index),
-                    subTexts: getSubtexts(index),
-                    imageUrl: getPictureUrl(index),
-                  )
+                onTap: tapCardCallback != null ? ()=>tapCardCallback(context, list[index]) : (){},
+                child: MyCard(
+                  texts: getTexts(index),
+                  subTexts: getSubtexts(index),
+                  imageUrl: getPictureUrl(index),
+                )
               ),
             ),
           ),
+        ),
+        if(addButtonCallback != null)IconButton(
+          icon: Icon(Icons.add_circle_outline),
+          iconSize: 50,
+          onPressed: addButtonCallback,
         )
       ],
     );

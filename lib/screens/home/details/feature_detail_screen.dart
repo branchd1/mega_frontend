@@ -52,7 +52,7 @@ class FeatureDetailScreen extends StatefulWidget{
                   'new_page': 'add_menu'
                 },
                 'search': {
-                  'field': 'title'
+                  'field': 'item_name'
                 }
               },
               'title': {
