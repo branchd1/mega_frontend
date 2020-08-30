@@ -44,12 +44,15 @@ class FeatureDetailScreen extends StatefulWidget{
 //            }
 //          },
           {
-            'list': {
+            'grid': {
               'action': {
                 'action_type': 'get',
                 'tag': 'menu',
                 'add_page': {
                   'new_page': 'add_menu'
+                },
+                'search': {
+                  'field': 'title'
                 }
               },
               'title': {
@@ -59,6 +62,21 @@ class FeatureDetailScreen extends StatefulWidget{
               'subtitle': {
                 'value': 'mega\$action\$value.item_price',
                 'prefix': 'price: \$'
+              },
+              'image': {
+                'value': 'mega\$action\$value.item_picture'
+              },
+              'empty_text': {
+                'value': 'No items'
+              },
+              'empty_subtext': {
+                'value': 'add below'
+              },
+              'error_text': {
+                'value': 'Cannot retrieve communities'
+              },
+              'error_subtext': {
+                'value': 'Try again'
               },
             }
           },
@@ -160,7 +178,10 @@ class FeatureDetailScreen extends StatefulWidget{
               },
               'image': {
                 'value': 'mega\$action\$value.item_picture'
-              }
+              },
+              'empty_text': {
+                'value': 'No items'
+              },
             }
           },
         ]

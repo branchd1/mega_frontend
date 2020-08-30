@@ -63,7 +63,7 @@ class MyCardGrid extends StatelessWidget{
         list.length == 0 ? Column(
           children: <Widget>[
             EmptyText(text: emptyText, subtext: emptySubtext),
-            IconButton(
+            if(addButtonCallback != null)IconButton(
               icon: Icon(Icons.add_circle_outline),
               iconSize: 50,
               onPressed: addButtonCallback,
