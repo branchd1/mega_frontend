@@ -53,7 +53,7 @@ class ProfileScreen extends StatelessWidget{
                               radius: 80,
                             ),
                             MyButton(
-                              buttonText: 'edit info',
+                              buttonText: 'edit profile',
                               onPressCallback: (){
                                 Navigator.push(
                                   context,

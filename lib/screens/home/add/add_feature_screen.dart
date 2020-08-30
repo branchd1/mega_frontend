@@ -44,7 +44,7 @@ class _AddFeatureScreenState extends State<AddFeatureScreen>{
         body: Padding(
           child: Column(
             children: <Widget>[
-              BigText('Features'),
+              BigText('Add features'),
               Align(
                 child: Text(
                   this.widget.community.type,

@@ -18,7 +18,14 @@ class MyCard extends StatelessWidget{
           children: <Widget>[
             if(imageUrl != null) ClipRRect(
               borderRadius: BorderRadius.all(Radius.circular(10)),
-              child: Image.network(imageUrl),
+              child: Container(
+                decoration: BoxDecoration(
+                  image: DecorationImage(
+                    fit: BoxFit.fill,
+                    image: NetworkImage(imageUrl)
+                  ),
+                ),
+              ),
             ),
             Align(
               alignment: Alignment.bottomCenter,

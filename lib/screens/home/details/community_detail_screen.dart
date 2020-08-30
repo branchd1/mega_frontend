@@ -86,6 +86,7 @@ class _CommunityDetailScreenState extends State<CommunityDetailScreen>{
                       );
                     } : null,
                     emptyText: 'No features',
+                    emptySubtext: 'add below',
                     tapCardCallback: tapCardCallback,
                   );
                 } else if (snapshot.hasError){

@@ -4,6 +4,7 @@ import 'package:mega/components/texts/big_text.dart';
 import 'package:mega/components/cards/my_card_grid.dart';
 import 'package:mega/components/bars/my_app_bars.dart';
 import 'package:mega/components/inputs/search_input.dart';
+import 'package:mega/components/texts/error_text_with_icon.dart';
 import 'package:mega/models/community_model.dart';
 import 'package:mega/services/api/community_api.dart';
 
@@ -71,7 +72,7 @@ class _HomeScreenState extends State<HomeScreen>{
                     tapCardCallback: tapCardCallback,
                   );
                 } else if (snapshot.hasError){
-                  _widget = Text('Error');
+                  _widget = ErrorTextWithIcon(text: 'Cannot retrieve communities', subtext: 'Try again',);
                 } else {
                   _widget = CircularProgressIndicator();
                 }
