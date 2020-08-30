@@ -30,7 +30,7 @@ class AuthAPI {
         data: data
       );
     } on SocketException{
-      showErrorSnackBar(context);
+      ErrorSnackBar.showErrorSnackBar(context);
     } catch (e) {
       print(e);
     }
@@ -38,7 +38,7 @@ class AuthAPI {
     if(_res.statusCode == 200){
       return EmailExistsResponseModel.fromJson(jsonDecode(_res.body));
     } else {
-      showErrorSnackBar(context);
+      ErrorSnackBar.showErrorSnackBar(context);
       return null;
     }
   }
@@ -62,7 +62,7 @@ class AuthAPI {
           data: data
       );
     } on SocketException{
-      showErrorSnackBar(context);
+      ErrorSnackBar.showErrorSnackBar(context);
     } catch (e) {
       print(e);
     }
@@ -73,7 +73,7 @@ class AuthAPI {
       setErrorText('Invalid email/password');
       return null;
     } else {
-      showErrorSnackBar(context);
+      ErrorSnackBar.showErrorSnackBar(context);
       return null;
     }
   }
@@ -99,7 +99,7 @@ class AuthAPI {
         data: data
       );
     } on SocketException{
-      showErrorSnackBar(context);
+      ErrorSnackBar.showErrorSnackBar(context);
     } catch (e) {
       print(e);
     }
@@ -113,7 +113,7 @@ class AuthAPI {
       );
       return null;
     } else {
-      showErrorSnackBar(context);
+      ErrorSnackBar.showErrorSnackBar(context);
       return null;
     }
   }
@@ -183,7 +183,7 @@ class AuthAPI {
 
       return UserModel.fromJson(_userModel);
     } else {
-      showErrorSnackBar(context);
+      ErrorSnackBar.showErrorSnackBar(context);
       return null;
     }
   }
@@ -240,7 +240,7 @@ class AuthAPI {
     if(_res.statusCode == 200 && _res2.statusCode == 200){
       return true;
     } else {
-      showErrorSnackBar(context);
+      ErrorSnackBar.showErrorSnackBar(context);
       return false;
     }
   }

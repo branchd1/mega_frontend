@@ -31,7 +31,7 @@ class FeatureAPI {
         params: params
       );
     } on SocketException{
-      showErrorSnackBar(context);
+      ErrorSnackBar.showErrorSnackBar(context);
     } catch (e) {
       print(e);
     }
@@ -43,10 +43,10 @@ class FeatureAPI {
       List<FeatureModel> _features = _featuresDynamicList.map((item) => FeatureModel.fromJson(item)).toList();
       return _features;
     } else if(_res.statusCode == 400) {
-      showErrorSnackBar(context);
+      ErrorSnackBar.showErrorSnackBar(context);
       return null;
     } else {
-      showErrorSnackBar(context);
+      ErrorSnackBar.showErrorSnackBar(context);
       return null;
     }
   }
@@ -71,7 +71,7 @@ class FeatureAPI {
         params: params
       );
     } on SocketException{
-      showErrorSnackBar(context);
+      ErrorSnackBar.showErrorSnackBar(context);
     } catch (e) {
       print(e);
     }
@@ -83,10 +83,10 @@ class FeatureAPI {
       List<FeatureModel> _features = _featuresDynamicList.map((item) => FeatureModel.fromJson(item)).toList();
       return _features;
     } else if(_res.statusCode == 400) {
-      showErrorSnackBar(context);
+      ErrorSnackBar.showErrorSnackBar(context);
       return null;
     } else {
-      showErrorSnackBar(context);
+      ErrorSnackBar.showErrorSnackBar(context);
       return null;
     }
   }
@@ -111,7 +111,7 @@ class FeatureAPI {
           data: data
       );
     } on SocketException{
-      showErrorSnackBar(context);
+      ErrorSnackBar.showErrorSnackBar(context);
     } catch (e) {
       print(e);
     }
@@ -119,10 +119,10 @@ class FeatureAPI {
     if(_res.statusCode==200){
       return true;
     } else if(_res.statusCode == 400) {
-      showErrorSnackBar(context);
+      ErrorSnackBar.showErrorSnackBar(context);
       return false;
     } else {
-      showErrorSnackBar(context);
+      ErrorSnackBar.showErrorSnackBar(context);
       return false;
     }
   }

@@ -29,7 +29,7 @@ class CommunityAPI {
         additionalHeaders: headers,
       );
     } on SocketException{
-      showErrorSnackBar(context);
+      ErrorSnackBar.showErrorSnackBar(context);
     } catch (e) {
       print(e);
     }
@@ -41,10 +41,10 @@ class CommunityAPI {
       List<CommunityModel> _communities = _communitiesDynamicList.map((item) => CommunityModel.fromJson(item)).toList();
       return _communities;
     } else if(_res.statusCode == 400) {
-      showErrorSnackBar(context);
+      ErrorSnackBar.showErrorSnackBar(context);
       return null;
     } else {
-      showErrorSnackBar(context);
+      ErrorSnackBar.showErrorSnackBar(context);
       return null;
     }
   }
@@ -69,7 +69,7 @@ class CommunityAPI {
         data: data
       );
     } on SocketException{
-      showErrorSnackBar(context);
+      ErrorSnackBar.showErrorSnackBar(context);
     } catch (e) {
       print(e);
     }
@@ -82,7 +82,7 @@ class CommunityAPI {
       );
       return false;
     } else {
-      showErrorSnackBar(context);
+      ErrorSnackBar.showErrorSnackBar(context);
       return false;
     }
   }
@@ -109,7 +109,7 @@ class CommunityAPI {
         data: data
       );
     } on SocketException{
-      showErrorSnackBar(context);
+      ErrorSnackBar.showErrorSnackBar(context);
     } catch (e) {
       print(e);
     }
@@ -120,7 +120,7 @@ class CommunityAPI {
       setErrorText(CreateCommunityResponseModel.fromJson(jsonDecode(await _res.stream.bytesToString())).errorToString());
       return null;
     } else {
-      showErrorSnackBar(context);
+      ErrorSnackBar.showErrorSnackBar(context);
       return null;
     }
   }

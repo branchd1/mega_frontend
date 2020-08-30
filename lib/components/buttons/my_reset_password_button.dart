@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mega/components/buttons/my_async_button.dart';
+import 'package:mega/components/dialog.dart';
 import 'package:mega/services/api/auth_api.dart';
 import 'package:mega/services/callback_types.dart';
 
@@ -22,23 +23,7 @@ class MyResetPasswordButton extends StatelessWidget{
       _alertText = 'The password reset email could not be sent. Please try again.';
     }
 
-    return showDialog<void>(
-      context: context,
-      barrierDismissible: true,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: Text(_alertTitle),
-          content: SingleChildScrollView(
-            child: ListBody(
-              children: <Widget>[
-                Text(_alertText),
-              ],
-            ),
-          ),
-
-        );
-      },
-    );
+    MyDialog.showMyDialog(context, _alertTitle, _alertText);
   }
 
   @override

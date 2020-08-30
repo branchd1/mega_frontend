@@ -44,7 +44,7 @@ class FeatureDevAPI {
           data: data
       );
     } on SocketException{
-      showErrorSnackBar(context);
+      ErrorSnackBar.showErrorSnackBar(context);
     } catch (e) {
       print(e);
     }
@@ -53,10 +53,10 @@ class FeatureDevAPI {
       Map<String, dynamic> _finalRes = jsonDecode(_res.body);
       return _finalRes;
     } else if(_res.statusCode == 400) {
-      showErrorSnackBar(context);
+      ErrorSnackBar.showErrorSnackBar(context);
       return null;
     } else {
-      showErrorSnackBar(context);
+      ErrorSnackBar.showErrorSnackBar(context);
       return null;
     }
   }
@@ -89,7 +89,7 @@ class FeatureDevAPI {
           params: params
       );
     } on SocketException{
-      showErrorSnackBar(context);
+      ErrorSnackBar.showErrorSnackBar(context);
     } catch (e) {
       print(e);
     }
@@ -98,10 +98,10 @@ class FeatureDevAPI {
       List<dynamic> _finalRes = jsonDecode(_res.body);
       return _finalRes;
     } else if(_res.statusCode == 400) {
-      showErrorSnackBar(context);
+      ErrorSnackBar.showErrorSnackBar(context);
       return null;
     } else {
-      showErrorSnackBar(context);
+      ErrorSnackBar.showErrorSnackBar(context);
       return null;
     }
   }
