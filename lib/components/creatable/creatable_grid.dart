@@ -144,7 +144,6 @@ class _CreatableGridState extends State<CreatableGrid>{
                   emptySubtext: widget.data.containsKey('empty_subtext') ? widget.data['empty_subtext']['value'] : '',
                 );
               } else if (snapshot.hasError){
-                print(snapshot.error);
                 _widget = ErrorTextWithIcon(
                   text: widget.data.containsKey('error_text') ? widget.data['error_text']['value'] : 'Cannot retrieve data',
                   subtext: widget.data.containsKey('error_subtext') ? widget.data['error_subtext']['value'] : 'try again',

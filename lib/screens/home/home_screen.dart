@@ -60,7 +60,7 @@ class _HomeScreenState extends State<HomeScreen>{
                 if(snapshot.hasData){
                   _widget = MyCardGrid(
                     list: searchVal == null ?
-                      snapshot.data : snapshot.data.where((element) => element.name.toLowerCase().contains(searchVal)).toList(),
+                    snapshot.data : snapshot.data.where((element) => element.name.toLowerCase().contains(searchVal)).toList(),
                     addButtonCallback: (){
                       Navigator.push(
                         context,

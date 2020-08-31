@@ -1,7 +1,9 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:mega/components/buttons/my_button.dart';
 import 'package:mega/components/buttons/my_submit_button.dart';
+import 'package:mega/components/my_dialog.dart';
 import 'package:mega/components/inputs/dropdown_input.dart';
 import 'package:mega/components/inputs/my_file_input.dart';
 import 'package:mega/components/inputs/my_text_input.dart';
@@ -33,11 +35,25 @@ class _CreateCommunityFormState extends State<CreateCommunityForm>{
       // create community
       CreateCommunityResponseModel _res = await CommunityAPI.createCommunity(context, _communityNameController.text, _communityTypeControllerSimulator, _communityPicturePathController.text, setErrorText);
 
-      // check successful
-      if(_res != null) Navigator.push(
-        context,
-        MaterialPageRoute(builder: (context) => HomeScreen())
+      String _dialogTitle = 'Save your community key';
+
+      String _dialogText = 'Your community key is ' + _res.key +
+          '.\n\nShare this key to members to join your community.' +
+          '\n\nTo restrict strangers from joining, keep this key private.';
+
+      Widget _dialogButton = MyButton(
+        buttonText: 'ok',
+        onPressCallback: (){
+          if(_res != null) Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => HomeScreen())
+          );
+        }
       );
+
+      List<Widget> _dialogButtons = [_dialogButton];
+
+      MyDialog.showMyDialog(context, _dialogTitle, _dialogText, buttons: _dialogButtons);
     }
   }
 

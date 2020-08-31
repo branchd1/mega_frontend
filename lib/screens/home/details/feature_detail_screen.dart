@@ -164,7 +164,7 @@ class FeatureDetailScreen extends StatefulWidget{
       'home': {
         'components': [
           {
-            'grid': {
+            'list': {
               'action': {
                 'action_type': 'get',
                 'tag': 'menu',
@@ -176,9 +176,9 @@ class FeatureDetailScreen extends StatefulWidget{
                 'value': 'mega\$action\$value.item_price',
                 'prefix': 'price: \$'
               },
-              'image': {
-                'value': 'mega\$action\$value.item_picture'
-              },
+//              'image': {
+//                'value': 'mega\$action\$value.item_picture'
+//              },
               'empty_text': {
                 'value': 'No items'
               },

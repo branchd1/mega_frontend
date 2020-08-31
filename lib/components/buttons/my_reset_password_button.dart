@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mega/components/buttons/my_async_button.dart';
-import 'package:mega/components/dialog.dart';
+import 'package:mega/components/my_dialog.dart';
 import 'package:mega/services/api/auth_api.dart';
 import 'package:mega/services/callback_types.dart';
 
