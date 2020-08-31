@@ -58,32 +58,35 @@ class MyCardGrid extends StatelessWidget{
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: <Widget>[
-        list.length == 0 ? EmptyText(text: emptyText, subtext: emptySubtext) : GridView.count(
-          crossAxisCount: 2,
-          scrollDirection: Axis.vertical,
-          shrinkWrap: true,
-          children: List.generate(
-            list.length,
-            (int index) => Container(
-              child: GestureDetector(
-                onTap: tapCardCallback != null ? ()=>tapCardCallback(context, list[index]) : (){},
-                child: MyCard(
-                  texts: getTexts(index),
-                  subTexts: getSubtexts(index),
-                  imageUrl: getPictureUrl(index),
-                )
+    return SingleChildScrollView(
+      child: Column(
+        children: <Widget>[
+          list.length == 0 ? EmptyText(text: emptyText, subtext: emptySubtext) : GridView.count(
+            shrinkWrap: true,
+            physics: BouncingScrollPhysics(),
+            crossAxisCount: 2,
+            scrollDirection: Axis.vertical,
+            children: List.generate(
+              list.length,
+                  (int index) => Container(
+                child: GestureDetector(
+                    onTap: tapCardCallback != null ? ()=>tapCardCallback(context, list[index]) : (){},
+                    child: MyCard(
+                      texts: getTexts(index),
+                      subTexts: getSubtexts(index),
+                      imageUrl: getPictureUrl(index),
+                    )
+                ),
               ),
             ),
           ),
-        ),
-        if(addButtonCallback != null)IconButton(
-          icon: Icon(Icons.add_circle_outline),
-          iconSize: 50,
-          onPressed: addButtonCallback,
-        )
-      ],
+          if(addButtonCallback != null)IconButton(
+            icon: Icon(Icons.add_circle_outline),
+            iconSize: 50,
+            onPressed: addButtonCallback,
+          )
+        ],
+      ),
     );
   }
 }

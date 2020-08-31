@@ -90,71 +90,75 @@ class _CreatableGridState extends State<CreatableGrid>{
 //        ),
 //      );
     } else {
-      return Column(
-        children: <Widget>[
-          if( _formActionMap.containsKey('search') ) Padding(
-            child: SearchInput(
-              onChangeCallback: onSearch,
+      return Expanded(
+        child: Column(
+          children: <Widget>[
+            if( _formActionMap.containsKey('search') ) Padding(
+              child: SearchInput(
+                onChangeCallback: onSearch,
+              ),
+              padding: EdgeInsets.fromLTRB(0, 30, 0, 30),
             ),
-            padding: EdgeInsets.fromLTRB(0, 30, 0, 30),
-          ),
-          FutureBuilder<List<dynamic>>(
-            future: _getData,
-            builder: (BuildContext context, AsyncSnapshot<List<dynamic>> snapshot) {
-              Widget _widget;
-              if(snapshot.hasData){
+            FutureBuilder<List<dynamic>>(
+              future: _getData,
+              builder: (BuildContext context, AsyncSnapshot<List<dynamic>> snapshot) {
+                Widget _widget;
+                if(snapshot.hasData){
 
-                List<dynamic> _data = searchVal == null ? snapshot.data :
+                  List<dynamic> _data = searchVal == null ? snapshot.data :
                   snapshot.data.where((element) => element['value'][_formActionMap['search']['field']].toLowerCase().contains(searchVal)).toList();
 
-                String _titleValue = widget.data['title']['value'];
-                String _subtitleValue = widget.data.containsKey('subtitle') ? widget.data['subtitle']['value'] : null;
-                String _imageUrlValue = widget.data.containsKey('image') ? widget.data['image']['value'] : null;
+                  String _titleValue = widget.data['title']['value'];
+                  String _subtitleValue = widget.data.containsKey('subtitle') ? widget.data['subtitle']['value'] : null;
+                  String _imageUrlValue = widget.data.containsKey('image') ? widget.data['image']['value'] : null;
 
-                List<String> _titles = List<String>();
-                for(int i=0; i<_data.length; i++){
-                  String _title = convertSpecialStrings(_titleValue, _data[i]);
+                  List<String> _titles = List<String>();
+                  for(int i=0; i<_data.length; i++){
+                    String _title = convertSpecialStrings(_titleValue, _data[i]);
 
-                  _title = widget.data['title'].containsKey('prefix') ? widget.data['title']['prefix']+_title : _title;
+                    _title = widget.data['title'].containsKey('prefix') ? widget.data['title']['prefix']+_title : _title;
 
-                  _titles.add(_title);
+                    _titles.add(_title);
+                  }
+
+                  List<String> _subtitles = List<String>();
+                  for(int i=0; i<_data.length; i++){
+                    String _subtitle = convertSpecialStrings(_subtitleValue, _data[i]);
+
+                    _subtitle = widget.data['subtitle'].containsKey('prefix') ? widget.data['subtitle']['prefix']+_subtitle : _subtitle;
+
+                    _subtitles.add(_subtitle);
+                  }
+
+                  List<String> _imgUrls = List<String>();
+                  for(int i=0; i<_data.length; i++){
+                    _imgUrls.add(convertSpecialStrings(_imageUrlValue, _data[i]));
+                  }
+
+                  _widget = Expanded(
+                    child: MyCardGrid(
+                      list: _data,
+                      gridTexts: _titles,
+                      gridSubTexts: _subtitles,
+                      gridPicturesUrls: _imgUrls,
+                      addButtonCallback: _addButtonCallback,
+                      emptyText: widget.data.containsKey('empty_text') ? widget.data['empty_text']['value'] : 'No items',
+                      emptySubtext: widget.data.containsKey('empty_subtext') ? widget.data['empty_subtext']['value'] : '',
+                    ),
+                  );
+                } else if (snapshot.hasError){
+                  _widget = ErrorTextWithIcon(
+                    text: widget.data.containsKey('error_text') ? widget.data['error_text']['value'] : 'Cannot retrieve data',
+                    subtext: widget.data.containsKey('error_subtext') ? widget.data['error_subtext']['value'] : 'try again',
+                  );
+                } else {
+                  _widget = CircularProgressIndicator();
                 }
-
-                List<String> _subtitles = List<String>();
-                for(int i=0; i<_data.length; i++){
-                  String _subtitle = convertSpecialStrings(_subtitleValue, _data[i]);
-
-                  _subtitle = widget.data['subtitle'].containsKey('prefix') ? widget.data['subtitle']['prefix']+_subtitle : _subtitle;
-
-                  _subtitles.add(_subtitle);
-                }
-
-                List<String> _imgUrls = List<String>();
-                for(int i=0; i<_data.length; i++){
-                  _imgUrls.add(convertSpecialStrings(_imageUrlValue, _data[i]));
-                }
-
-                _widget = MyCardGrid(
-                  list: _data,
-                  gridTexts: _titles,
-                  gridSubTexts: _subtitles,
-                  gridPicturesUrls: _imgUrls,
-                  addButtonCallback: _addButtonCallback,
-                  emptyText: widget.data.containsKey('empty_text') ? widget.data['empty_text']['value'] : 'No items',
-                  emptySubtext: widget.data.containsKey('empty_subtext') ? widget.data['empty_subtext']['value'] : '',
-                );
-              } else if (snapshot.hasError){
-                _widget = ErrorTextWithIcon(
-                  text: widget.data.containsKey('error_text') ? widget.data['error_text']['value'] : 'Cannot retrieve data',
-                  subtext: widget.data.containsKey('error_subtext') ? widget.data['error_subtext']['value'] : 'try again',
-                );
-              } else {
-                _widget = CircularProgressIndicator();
-              }
-              return _widget;
-            },
-          )
-        ],
+                return _widget;
+              },
+            )
+          ],
+        ),
       );
     }
   }

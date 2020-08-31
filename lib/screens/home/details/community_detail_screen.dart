@@ -72,22 +72,24 @@ class _CommunityDetailScreenState extends State<CommunityDetailScreen>{
               builder: (BuildContext context, AsyncSnapshot<List<FeatureModel>> snapshot) {
                 Widget _widget;
                 if(snapshot.hasData){
-                  _widget = MyCardGrid(
-                    list: searchVal == null ?
-                    snapshot.data : snapshot.data.where((element) => element.name.toLowerCase().contains(searchVal)).toList(),
-                    addButtonCallback: this.widget.community.isAdmin ? (){
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => AddFeatureScreen(
-                            community: this.widget.community,
-                          )
-                        ),
-                      );
-                    } : null,
-                    emptyText: 'No features',
-                    emptySubtext: 'add below',
-                    tapCardCallback: tapCardCallback,
+                  _widget = Expanded(
+                    child: MyCardGrid(
+                      list: searchVal == null ?
+                      snapshot.data : snapshot.data.where((element) => element.name.toLowerCase().contains(searchVal)).toList(),
+                      addButtonCallback: this.widget.community.isAdmin ? (){
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => AddFeatureScreen(
+                              community: this.widget.community,
+                            )
+                          ),
+                        );
+                      } : null,
+                      emptyText: 'No features',
+                      emptySubtext: 'add below',
+                      tapCardCallback: tapCardCallback,
+                    ),
                   );
                 } else if (snapshot.hasError){
                   _widget = Text('Error');

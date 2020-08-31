@@ -58,18 +58,20 @@ class _HomeScreenState extends State<HomeScreen>{
               builder: (BuildContext context, AsyncSnapshot<List<CommunityModel>> snapshot) {
                 Widget _widget;
                 if(snapshot.hasData){
-                  _widget = MyCardGrid(
-                    list: searchVal == null ?
-                    snapshot.data : snapshot.data.where((element) => element.name.toLowerCase().contains(searchVal)).toList(),
-                    addButtonCallback: (){
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => AddCommunityScreen()),
-                      );
-                    },
-                    emptyText: 'No communities',
-                    emptySubtext: 'add below',
-                    tapCardCallback: tapCardCallback,
+                  _widget = Expanded(
+                    child: MyCardGrid(
+                      list: searchVal == null ?
+                      snapshot.data : snapshot.data.where((element) => element.name.toLowerCase().contains(searchVal)).toList(),
+                      addButtonCallback: (){
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => AddCommunityScreen()),
+                        );
+                      },
+                      emptyText: 'No communities',
+                      emptySubtext: 'add below',
+                      tapCardCallback: tapCardCallback,
+                    ),
                   );
                 } else if (snapshot.hasError){
                   _widget = ErrorTextWithIcon(text: 'Cannot retrieve communities', subtext: 'Try again',);

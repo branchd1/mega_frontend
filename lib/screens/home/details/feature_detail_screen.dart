@@ -288,9 +288,9 @@ class _FeatureDetailScreenState extends State<FeatureDetailScreen>{
               BigText(this.widget.feature.name),
               Expanded(
                 child: Column(
-                  children: widgetList
+                  children: widgetList,
                 ),
-              )
+              ),
             ],
           ),
           padding: EdgeInsets.fromLTRB(30, 0, 30, 0),
