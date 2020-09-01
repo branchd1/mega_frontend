@@ -8,6 +8,7 @@ import 'package:mega/models/community_model.dart';
 import 'package:mega/models/state_models/current_community_state_model.dart';
 import 'package:mega/models/feature_model.dart';
 import 'package:mega/screens/home/add/add_feature_screen.dart';
+import 'package:mega/screens/home/details/community_detail_screen.dart';
 import 'package:mega/screens/home/details/feature_detail_screen.dart';
 import 'package:mega/services/api/feature_api.dart';
 import 'package:provider/provider.dart';
@@ -61,10 +62,10 @@ class _CommunityScreenState extends State<CommunityScreen>{
                   icon: Icon(Icons.settings),
                   iconSize: 40,
                   onPressed: (){
-//                    Navigator.push(
-//                      context,
-//                      MaterialPageRoute(builder: (context) => CommunityDetailScreen(community: this.widget.community)),
-//                    );
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => CommunityDetailScreen(community: this.widget.community)),
+                    );
                   },
                 )
               ],

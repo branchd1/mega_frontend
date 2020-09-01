@@ -98,4 +98,21 @@ class MyAppBars{
         }
     ),
   );
+
+  static AppBar myAppBar7(BuildContext context, {String logoUrl}) => AppBar(
+    backgroundColor: Colors.white,
+    iconTheme: IconThemeData(
+      color: Colors.black,
+    ),
+    actions: <Widget>[
+      Padding(
+        padding: EdgeInsets.fromLTRB(0, 0, 20, 0),
+        child: ClipRRect(
+          borderRadius: BorderRadius.all(Radius.circular(10)),
+          child: Image.network(logoUrl),
+        ),
+      )
+    ],
+    elevation: 0.0,
+  );
 }
