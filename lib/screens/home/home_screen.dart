@@ -9,7 +9,7 @@ import 'package:mega/models/community_model.dart';
 import 'package:mega/services/api/community_api.dart';
 
 import 'add/add_community_screen.dart';
-import 'details/community_detail_screen.dart';
+import 'community_screen.dart';
 
 class HomeScreen extends StatefulWidget{
   static const routeName = '/home';
@@ -30,7 +30,7 @@ class _HomeScreenState extends State<HomeScreen>{
   void tapCardCallback(BuildContext context, dynamic item){
     Navigator.push(
       context,
-      MaterialPageRoute(builder: (context) => CommunityDetailScreen(community: item,)),
+      MaterialPageRoute(builder: (context) => CommunityScreen(community: item,)),
     );
   }
 

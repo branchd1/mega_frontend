@@ -6,7 +6,7 @@ import 'package:mega/components/texts/big_text.dart';
 import 'package:mega/components/texts/main_text.dart';
 import 'package:mega/models/community_model.dart';
 import 'package:mega/models/feature_model.dart';
-import 'package:mega/screens/home/details/community_detail_screen.dart';
+import 'package:mega/screens/home/community_screen.dart';
 import 'package:mega/services/api/feature_api.dart';
 
 class FeatureDetailAddScreen extends StatelessWidget{
@@ -41,7 +41,7 @@ class FeatureDetailAddScreen extends StatelessWidget{
                               if(_res) Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                  builder: (context) => CommunityDetailScreen(community: community)
+                                  builder: (context) => CommunityScreen(community: community)
                                 ),
                               );
                             }),
