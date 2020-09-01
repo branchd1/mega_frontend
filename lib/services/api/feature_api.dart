@@ -37,8 +37,7 @@ class FeatureAPI {
     }
 
     if(_res.statusCode==200){
-      final Map<String, dynamic> _resBody = jsonDecode(_res.body);
-      List<dynamic> _featuresDynamicList = _resBody['results'];
+      List<dynamic> _featuresDynamicList = jsonDecode(_res.body);
 
       List<FeatureModel> _features = _featuresDynamicList.map((item) => FeatureModel.fromJson(item)).toList();
       return _features;
@@ -77,8 +76,7 @@ class FeatureAPI {
     }
 
     if(_res.statusCode==200){
-      final Map<String, dynamic> _resBody = jsonDecode(_res.body);
-      List<dynamic> _featuresDynamicList = _resBody['results'];
+      List<dynamic> _featuresDynamicList = jsonDecode(_res.body);
 
       List<FeatureModel> _features = _featuresDynamicList.map((item) => FeatureModel.fromJson(item)).toList();
       return _features;

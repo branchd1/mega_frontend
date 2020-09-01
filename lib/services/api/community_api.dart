@@ -36,8 +36,7 @@ class CommunityAPI {
     }
 
     if(_res.statusCode==200){
-      final Map<String, dynamic> _resBody = jsonDecode(_res.body);
-      List<dynamic> _communitiesDynamicList = _resBody['results'];
+      List<dynamic> _communitiesDynamicList = jsonDecode(_res.body);
 
       List<CommunityModel> _communities = _communitiesDynamicList.map((item) => CommunityModel.fromJson(item)).toList();
       return _communities;
@@ -70,8 +69,7 @@ class CommunityAPI {
     }
 
     if(_res.statusCode==200){
-      final Map<String, dynamic> _resBody = jsonDecode(_res.body);
-      List<dynamic> _communityTypesDynamicList = _resBody['results'];
+      List<dynamic> _communityTypesDynamicList = jsonDecode(_res.body);
 
       List<CommunityTypeModel> _communityTypes = _communityTypesDynamicList.map((item) => CommunityTypeModel.fromJson(item)).toList();
       return _communityTypes;

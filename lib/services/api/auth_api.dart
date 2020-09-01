@@ -173,10 +173,10 @@ class AuthAPI {
 
     if(_res.statusCode == 200 && _res2.statusCode == 200){
 
-      int profileId = jsonDecode(_res2.body)['results'][0]['id'];
+      int profileId = jsonDecode(_res2.body)[0]['id'];
 
       Map<String, dynamic> _userModel = {
-        ...jsonDecode(_res2.body)['results'][0],
+        ...jsonDecode(_res2.body)[0],
         ...jsonDecode(_res.body),
         'profileId': profileId
       };
