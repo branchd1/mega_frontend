@@ -37,8 +37,8 @@ class MyCard extends StatelessWidget{
                   child: Padding(
                     child: Column(
                       children: <Widget>[
-                        ...texts.map((text) => MainText(text)).toList(),
-                        if(subTexts != null) ...subTexts.map((text) => Text(text)).toList(),
+                        ...texts.map((text) => MainText(text, textCenter: true)).toList(),
+                        if(subTexts != null) ...subTexts.map((text) => Text(text, textAlign: TextAlign.center,)).toList(),
                       ],
                       mainAxisAlignment: MainAxisAlignment.end,
                       crossAxisAlignment: CrossAxisAlignment.center,
