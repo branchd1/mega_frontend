@@ -1,19 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:mega/components/bars/my_bottom_nav.dart';
-import 'package:mega/components/buttons/my_button.dart';
-import 'package:mega/components/buttons/my_reset_password_button.dart';
 import 'package:mega/components/texts/big_text.dart';
-import 'package:mega/components/cards/my_card_grid.dart';
 import 'package:mega/components/bars/my_app_bars.dart';
-import 'package:mega/components/inputs/search_input.dart';
 import 'package:mega/forms/edit_profile_form.dart';
-import 'package:mega/models/community_model.dart';
 import 'package:mega/models/user_model.dart';
 import 'package:mega/services/api/auth_api.dart';
-import 'package:mega/services/api/community_api.dart';
-import 'package:mega/services/constants.dart';
-
-import '../home/add/add_community_screen.dart';
 
 class EditProfileScreen extends StatelessWidget{
 

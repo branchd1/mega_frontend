@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:mega/components/bars/my_app_bars.dart';
-import 'package:mega/components/bars/my_bottom_nav.dart';
 import 'package:mega/components/buttons/my_button.dart';
 import 'package:mega/components/cards/my_card.dart';
 import 'package:mega/components/texts/big_text.dart';
