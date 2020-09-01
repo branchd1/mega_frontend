@@ -3,6 +3,7 @@ import 'package:mega/components/bars/my_app_bars.dart';
 import 'package:mega/components/cards/my_card_grid.dart';
 import 'package:mega/components/inputs/search_input.dart';
 import 'package:mega/components/texts/big_text.dart';
+import 'package:mega/components/texts/error_text_with_icon.dart';
 import 'package:mega/models/community_model.dart';
 import 'package:mega/models/feature_model.dart';
 import 'package:mega/services/api/feature_api.dart';
@@ -65,11 +66,11 @@ class _AddFeatureScreenState extends State<AddFeatureScreen>{
                     _widget = MyCardGrid(
                       list: searchVal == null ?
                       snapshot.data : snapshot.data.where((element) => element.name.toLowerCase().contains(searchVal)).toList(),
-                      emptyText: 'No features',
+                      emptyText: 'No unused features',
                       tapCardCallback: tapCardCallback,
                     );
                   } else if (snapshot.hasError){
-                    _widget = Text('Error');
+                    _widget = ErrorTextWithIcon(text: 'Something went wrong', subtext: 'try again',);
                   } else {
                     _widget = CircularProgressIndicator();
                   }

@@ -58,7 +58,7 @@ class FeatureAPI {
     };
 
     Map<String, String> params = {
-      'type': communityType,
+      'all': 'true',
       'community': communityId.toString()
     };
 

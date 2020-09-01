@@ -33,7 +33,6 @@ class FeatureDetailAddScreen extends StatelessWidget{
                       child: Column(
                         children: <Widget>[
                           MainText(feature.name),
-                          Text(feature.communityType),
                           MyButton(
                             buttonText: 'add to community',
                             onPressCallback: () async {

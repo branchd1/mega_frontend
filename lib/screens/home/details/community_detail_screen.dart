@@ -27,7 +27,7 @@ class _CommunityDetailScreenState extends State<CommunityDetailScreen>{
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: MyAppBars.myAppBar7(context, logoUrl: this.widget.community.picture),
+      appBar: MyAppBars.myAppBar3(),
       body: Padding(
         child: Column(
           children: <Widget>[
