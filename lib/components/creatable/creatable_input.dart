@@ -45,7 +45,7 @@ class CreatableInput extends StatelessWidget{
       }
       
       if(validator == 'max_file_size'){
-        res = Validators.fileSizeValidator(File(val), val: _validators['max_file_size']);
+        res = Validators.fileSizeValidator(File(val), val: double.parse(_validators['max_file_size']));
       }
     });
 

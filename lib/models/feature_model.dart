@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 class FeatureModel {
   final int id;
   final String name;
@@ -5,8 +7,9 @@ class FeatureModel {
   final String communityType;
   final String description;
   final String key;
+  final Map<String, dynamic> payload;
 
-  FeatureModel({this.id, this.name, this.picture, this.communityType, this.description, this.key});
+  FeatureModel({this.id, this.name, this.picture, this.communityType, this.description, this.key, this.payload});
 
   factory FeatureModel.fromJson(Map<String, dynamic> json) {
     return FeatureModel(
@@ -15,7 +18,8 @@ class FeatureModel {
       picture: json['picture'],
       communityType: json['community_type'],
       description: json['description'],
-      key: json['key']
+      key: json['key'],
+      payload: jsonDecode(json['payload'])
     );
   }
 }

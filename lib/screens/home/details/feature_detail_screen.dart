@@ -16,179 +16,6 @@ class FeatureDetailScreen extends StatefulWidget{
 
   FeatureDetailScreen({Key key, this.feature, this.community}) : super(key: key);
 
-  final Map<String, dynamic> json = {
-    'admin': {
-      'home': {
-        'metadata': {
-          'show_back_button': 'false'
-        },
-        'components': [
-//          {
-//            'grid': {
-//              'action': {
-//                'action_type': 'get',
-//                'tag': 'menu',
-//                'add_page': {
-//                  'new_page': 'add_menu'
-//                }
-//              },
-//              'title': {
-//                'value': 'mega\$action\$value.item_name'
-//              },
-//              'subtitle': {
-//                'value': 'mega\$action\$value.item_price'
-//              },
-//              'image': {
-//                'value': 'mega\$action\$value.item_picture'
-//              }
-//            }
-//          },
-          {
-            'grid': {
-              'action': {
-                'action_type': 'get',
-                'tag': 'menu',
-                'add_page': {
-                  'new_page': 'add_menu'
-                },
-                'search': {
-                  'field': 'item_name'
-                }
-              },
-              'title': {
-                'value': 'mega\$action\$value.item_name',
-                'prefix': 'item: '
-              },
-              'subtitle': {
-                'value': 'mega\$action\$value.item_price',
-                'prefix': 'price: \$'
-              },
-              'image': {
-                'value': 'mega\$action\$value.item_picture'
-              },
-              'empty_text': {
-                'value': 'No items'
-              },
-              'empty_subtext': {
-                'value': 'add below'
-              },
-              'error_text': {
-                'value': 'Cannot retrieve communities'
-              },
-              'error_subtext': {
-                'value': 'Try again'
-              },
-            }
-          },
-        ]
-      },
-      'add_menu': {
-        'components': [
-          {
-            'form': {
-              'action': {
-                'action_type': 'save',
-                'multipart': [
-                  {
-                    'field': 'item_picture'
-                  }
-                ],
-                'method': 'post',
-                'access': 'community',
-                'tag': 'menu'
-              },
-              'body': [
-                {
-                  'stuffing': {
-                    'height': '20',
-                  }
-                },
-                {
-                  'input': {
-                    'type': 'text',
-                    'name': 'item_name',
-                    'hint': 'item name *',
-                    'validators': {
-                      'required':'',
-                    }
-                  }
-                },
-                {
-                  'stuffing': {
-                    'height': '20',
-                  }
-                },
-                {
-                  'input': {
-                    'type': 'text',
-                    'name': 'item_price',
-                    'hint': 'item price *',
-                    'validators': {
-                      'required':'',
-                      'number': ''
-                    }
-                  }
-                },
-                {
-                  'stuffing': {
-                    'height': '20',
-                  }
-                },
-                {
-                  'input': {
-                    'type': 'file',
-                    'name': 'item_picture',
-                    'hint': 'item picture *',
-                    'validators': {
-                      'required':'',
-                      'max_file_size': 2.0
-                    }
-                  }
-                },
-                {
-                  'submit_button': {
-                    'value': 'submit',
-                    'action': {
-                      'action_type': 'change_page',
-                      'new_page': 'home', // specify name of new page
-                    }
-                  }
-                },
-              ]
-            }
-          },
-        ]
-      },
-    },
-    'member': {
-      'home': {
-        'components': [
-          {
-            'list': {
-              'action': {
-                'action_type': 'get',
-                'tag': 'menu',
-              },
-              'title': {
-                'value': 'mega\$action\$value.item_name'
-              },
-              'subtitle': {
-                'value': 'mega\$action\$value.item_price',
-                'prefix': 'price: \$'
-              },
-//              'image': {
-//                'value': 'mega\$action\$value.item_picture'
-//              },
-              'empty_text': {
-                'value': 'No items'
-              },
-            }
-          },
-        ]
-      }
-    }
-  };
-
   @override
   _FeatureDetailScreenState createState()=> _FeatureDetailScreenState();
 }
@@ -211,9 +38,9 @@ class _FeatureDetailScreenState extends State<FeatureDetailScreen>{
       if((value as List).isEmpty) throw ('Configuration data not well formed. Remove empty lists.');
 
       // create new list from old one. Replace inner maps
-      List<dynamic> newList = value.map((Map<String, dynamic> map)=>
-        Map<String, dynamic>.from(map.map(replaceMapValues))
-      ).toList();
+      List<dynamic> newList = value.map((dynamic map){
+        return Map<String, dynamic>.from(map.map(replaceMapValues));
+      }).toList();
 
       // update value to new list
       value = List<Map<String, dynamic>>.from(newList);
@@ -232,9 +59,9 @@ class _FeatureDetailScreenState extends State<FeatureDetailScreen>{
     Provider.of<CurrentFeatureStateModel>(context, listen: false).setCurrentFeature(widget.feature);
 
     // get admin or member data
-    assert(widget.json != null);
-    assert(widget.json.containsKey('admin') || widget.json.containsKey('member'));
-    final Map<String, dynamic> _newJson = widget.community.isAdmin ? widget.json['admin'] : widget.json['member'];
+    assert(widget.feature.payload != null);
+    assert(widget.feature.payload.containsKey('admin') || widget.feature.payload.containsKey('member'));
+    final Map<String, dynamic> _newJson = widget.community.isAdmin ? widget.feature.payload['admin'] : widget.feature.payload['member'];
 
     // replace special values and data in configuration data
     assert(_newJson != null);
