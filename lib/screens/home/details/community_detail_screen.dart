@@ -29,32 +29,35 @@ class _CommunityDetailScreenState extends State<CommunityDetailScreen>{
     return Scaffold(
       appBar: MyAppBars.myAppBar3(),
       body: Padding(
-        child: Column(
-          children: <Widget>[
-            BigText(widget.community.name + ' details'),
-            Align(
-              child: Row(
-                children: <Widget>[
-                  MyCard(imageUrl: widget.community.picture, texts: [],),
-                  Padding(
-                    padding: EdgeInsets.fromLTRB(5, 0, 0, 0),
-                    child: Column(
-                      children: <Widget>[
-                        MainText(widget.community.name),
-                      ],
-                      crossAxisAlignment: CrossAxisAlignment.start,
+        child: SingleChildScrollView(
+          child: Column(
+            children: <Widget>[
+              BigText(widget.community.name + ' details'),
+              Align(
+                child: Row(
+                  children: <Widget>[
+                    MyCard(imageUrl: widget.community.picture, texts: [],),
+                    Padding(
+                      padding: EdgeInsets.fromLTRB(5, 0, 0, 0),
+                      child: Column(
+                        children: <Widget>[
+                          MainText(widget.community.name),
+                          Text('type: ' + widget.community.type)
+                        ],
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                      ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
+                alignment: Alignment.bottomLeft,
               ),
-              alignment: Alignment.bottomLeft,
-            ),
-            Padding(
-              padding: EdgeInsets.fromLTRB(0, 15, 0, 0),
-              child: Text(widget.community.description),
-            )
-          ],
-          crossAxisAlignment: CrossAxisAlignment.start,
+              Padding(
+                padding: EdgeInsets.fromLTRB(0, 15, 0, 0),
+                child: Text(widget.community.description),
+              )
+            ],
+            crossAxisAlignment: CrossAxisAlignment.start,
+          ),
         ),
         padding: EdgeInsets.fromLTRB(30, 0, 30, 0),
       ),

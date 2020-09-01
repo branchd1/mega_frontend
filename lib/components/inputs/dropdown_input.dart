@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:mega/services/callback_types.dart';
 
 class DropdownInput extends StatelessWidget{
-  final List<Map<String,String>> dropDownList;
+  final List<dynamic> dropDownList;
   final DropDownChangedCallback dropDownChangedCallback;
   final String hintText;
   final ValidatorCallback validator;
@@ -14,9 +14,9 @@ class DropdownInput extends StatelessWidget{
     return Container(
       child: DropdownButtonFormField<String>(
         items: dropDownList.map(
-          (Map<String,String> elem) => DropdownMenuItem<String>(
-            value: elem['value'],
-            child: new Text(elem['text']),
+          (dynamic elem) => DropdownMenuItem<String>(
+            value: elem.id.toString(),
+            child: new Text(elem.value),
           )
         ).toList(),
         onChanged: dropDownChangedCallback,

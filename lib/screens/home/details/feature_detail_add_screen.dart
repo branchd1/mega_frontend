@@ -21,43 +21,45 @@ class FeatureDetailAddScreen extends StatelessWidget{
     return Scaffold(
         appBar: MyAppBars.myAppBar3(),
         body: Padding(
-          child: Column(
-            children: <Widget>[
-              BigText(feature.name + ' feature details'),
-              Align(
-                child: Row(
-                  children: <Widget>[
-                    MyCard(imageUrl: feature.picture, texts: [],),
-                    Padding(
-                      padding: EdgeInsets.fromLTRB(5, 0, 0, 0),
-                      child: Column(
-                        children: <Widget>[
-                          MainText(feature.name),
-                          MyButton(
-                            buttonText: 'add to community',
-                            onPressCallback: () async {
-                              bool _res = await FeatureAPI.addFeatureToCommunity(context, feature.id, community.id);
-                              if(_res) Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => CommunityScreen(community: community)
-                                ),
-                              );
-                            }),
-                        ],
-                        crossAxisAlignment: CrossAxisAlignment.start,
+          child: SingleChildScrollView(
+            child: Column(
+              children: <Widget>[
+                BigText(feature.name + ' feature details'),
+                Align(
+                  child: Row(
+                    children: <Widget>[
+                      MyCard(imageUrl: feature.picture, texts: [],),
+                      Padding(
+                        padding: EdgeInsets.fromLTRB(5, 0, 0, 0),
+                        child: Column(
+                          children: <Widget>[
+                            MainText(feature.name),
+                            MyButton(
+                              buttonText: 'add to community',
+                              onPressCallback: () async {
+                                bool _res = await FeatureAPI.addFeatureToCommunity(context, feature.id, community.id);
+                                if(_res) Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => CommunityScreen(community: community)
+                                  ),
+                                );
+                              }),
+                          ],
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                        ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
+                  alignment: Alignment.bottomLeft,
                 ),
-                alignment: Alignment.bottomLeft,
-              ),
-              Padding(
-                padding: EdgeInsets.fromLTRB(0, 15, 0, 0),
-                child: Text(feature.description),
-              )
-            ],
-            crossAxisAlignment: CrossAxisAlignment.start,
+                Padding(
+                  padding: EdgeInsets.fromLTRB(0, 15, 0, 0),
+                  child: Text(feature.description),
+                )
+              ],
+              crossAxisAlignment: CrossAxisAlignment.start,
+            ),
           ),
           padding: EdgeInsets.fromLTRB(30, 0, 30, 0),
         ),

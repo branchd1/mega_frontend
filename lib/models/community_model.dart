@@ -12,7 +12,7 @@ class CommunityModel {
     return CommunityModel(
       id: json['id'],
       name: json['name'],
-      type: json['type'],
+      type: json['type_value'],
       picture: json['picture'],
       description: json['description'],
       isAdmin: json['is_admin']

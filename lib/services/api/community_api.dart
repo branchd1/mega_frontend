@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:mega/components/bars/error_snack_bar.dart';
+import 'package:mega/models/community_type_model.dart';
 import 'package:mega/models/state_models/auth_token_state_model.dart';
 import 'package:mega/models/community_model.dart';
 import 'package:mega/models/response_models/create_community_response_model.dart';
@@ -40,6 +41,40 @@ class CommunityAPI {
 
       List<CommunityModel> _communities = _communitiesDynamicList.map((item) => CommunityModel.fromJson(item)).toList();
       return _communities;
+    } else if(_res.statusCode == 400) {
+      ErrorSnackBar.showErrorSnackBar(context);
+      return null;
+    } else {
+      ErrorSnackBar.showErrorSnackBar(context);
+      return null;
+    }
+  }
+
+  static Future<List<CommunityTypeModel>> getCommunityTypes(BuildContext context) async {
+
+    Map<String, String> headers = <String, String>{
+      'Authorization': 'Token ' + Provider.of<AuthTokenStateModel>(context, listen: false).token
+    };
+
+    http.Response _res;
+
+    try{
+      _res = await BaseAPI.get(
+        'api/communitytypes/',
+        additionalHeaders: headers,
+      );
+    } on SocketException{
+      ErrorSnackBar.showErrorSnackBar(context);
+    } catch (e) {
+      print(e);
+    }
+
+    if(_res.statusCode==200){
+      final Map<String, dynamic> _resBody = jsonDecode(_res.body);
+      List<dynamic> _communityTypesDynamicList = _resBody['results'];
+
+      List<CommunityTypeModel> _communityTypes = _communityTypesDynamicList.map((item) => CommunityTypeModel.fromJson(item)).toList();
+      return _communityTypes;
     } else if(_res.statusCode == 400) {
       ErrorSnackBar.showErrorSnackBar(context);
       return null;
