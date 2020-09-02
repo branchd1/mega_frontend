@@ -41,8 +41,7 @@ class _CommunityDetailScreenState extends State<CommunityDetailScreen>{
                       padding: EdgeInsets.fromLTRB(5, 0, 0, 0),
                       child: Column(
                         children: <Widget>[
-                          MainText(widget.community.name),
-                          Text('type: ' + widget.community.type)
+                          Text('type: ' + widget.community.type),
                         ],
                         crossAxisAlignment: CrossAxisAlignment.start,
                       ),

@@ -24,7 +24,9 @@ class FeatureDetailAddScreen extends StatelessWidget{
           child: SingleChildScrollView(
             child: Column(
               children: <Widget>[
-                BigText(feature.name + ' feature details'),
+                Expanded(
+                  child: BigText(feature.name + ' feature details'),
+                ),
                 Align(
                   child: Row(
                     children: <Widget>[
@@ -33,7 +35,6 @@ class FeatureDetailAddScreen extends StatelessWidget{
                         padding: EdgeInsets.fromLTRB(5, 0, 0, 0),
                         child: Column(
                           children: <Widget>[
-                            MainText(feature.name),
                             MyButton(
                               buttonText: 'add to community',
                               onPressCallback: () async {

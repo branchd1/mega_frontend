@@ -57,7 +57,9 @@ class _CommunityScreenState extends State<CommunityScreen>{
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                BigText(this.widget.community.name),
+                Expanded(
+                  child: BigText(this.widget.community.name),
+                ),
                 IconButton(
                   icon: Icon(Icons.settings),
                   iconSize: 40,
