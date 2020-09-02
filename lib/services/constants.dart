@@ -12,7 +12,6 @@ const int transGrey = 0xC0F1F1F1;
 const Map<String, dynamic> configurationMap = {
   'text': CreatableText.createText,
   'button': CreatableButton.createButton,
-  'submit_button': CreatableButton.createButton,
   'form': CreatableForm.createForm,
   'input': CreatableInput.createInput,
   'list': CreatableList.createList,

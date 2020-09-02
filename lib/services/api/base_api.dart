@@ -33,6 +33,29 @@ class BaseAPI {
     );
   }
 
+  static Future<http.Response> delete(
+      String endpoint,
+      {
+        Map<String, String> additionalHeaders
+      }){
+
+    Map<String, String> headers = <String, String>{
+      'Content-Type': 'application/json; charset=UTF-8',
+    };
+
+    headers = {
+      ...headers,
+      if(additionalHeaders != null) ...additionalHeaders
+    };
+
+    final Uri uri = Uri.http(url, endpoint);
+
+    return http.delete(
+      uri,
+      headers: headers,
+    );
+  }
+
   static Future<http.Response> patch(
       String endpoint,
       {

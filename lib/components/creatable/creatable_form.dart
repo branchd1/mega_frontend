@@ -59,7 +59,7 @@ class _CreatableFormState extends State<CreatableForm>{
         // send data to api and do something with it
         if(_formActionMap['method'] == 'get') {
           // send map for storage in server
-          FeatureDevAPI.getToDataStore(context, params: formValuesMap);
+          await FeatureDevAPI.getToDataStore(context, params: formValuesMap);
 
           // incomplete - do something with return data above
         } else if (_formActionMap['method'] == 'post'){
@@ -79,21 +79,13 @@ class _CreatableFormState extends State<CreatableForm>{
               formValuesMap[fileFieldList['field']] = await FeatureDevAPI.uploadImageToDataStore(context, File(formValuesMap[fileFieldList['field']]));
             }
 
-            FeatureDevAPI.saveToDataStore(
-              context,
-              data: formValuesMap,
-              access: access,
-              tag: tag
-            );
-          } else {
-            FeatureDevAPI.saveToDataStore(
+            await FeatureDevAPI.saveToDataStore(
               context,
               data: formValuesMap,
               access: access,
               tag: tag
             );
           }
-
           // incomplete - do something with return data above
         } else {
           throw ('action method must be get, post, put, or delete');
@@ -116,8 +108,8 @@ class _CreatableFormState extends State<CreatableForm>{
     List<Widget> list = _formBody.map<Widget>((component){
       final String _componentName = component.keys.toList()[0];
       try{
-        if(_componentName=='submit_button') {
-          return configurationMap[_componentName](component[_componentName], submitCallback: submit);
+        if(_componentName=='button') {
+          return configurationMap[_componentName](component[_componentName], callback: submit);
         } else if (_componentName=='input'){
           // store the controller
           TextEditingController inputController = TextEditingController();

@@ -56,19 +56,19 @@ class _CreatableGridState extends State<CreatableGrid>{
     Future<List<dynamic>> _getData;
 
     // get list action map
-    Map<String, dynamic> _formActionMap = widget.data.containsKey('action') ? widget.data['action'] : null;
+    Map<String, dynamic> _gridActionMap = widget.data.containsKey('action') ? widget.data['action'] : null;
 
     VoidCallback _addButtonCallback;
 
-    if(_formActionMap!=null){
-      if (_formActionMap['action_type'] == 'get'){
-        String _tag = _formActionMap['tag'];
+    if(_gridActionMap!=null){
+      if (_gridActionMap['action_type'] == 'get'){
+        String _tag = _gridActionMap['tag'];
         _getData = FeatureDevAPI.getToDataStore(context, tag: _tag);
       }
 
-      if(_formActionMap.containsKey('add_page')){
-        assert((_formActionMap['add_page'] as Map).containsKey('new_page'));
-        _addButtonCallback = _formActionMap['add_page']['new_page'];
+      if(_gridActionMap.containsKey('add_page')){
+        assert((_gridActionMap['add_page'] as Map).containsKey('new_page'));
+        _addButtonCallback = _gridActionMap['add_page']['new_page'];
       }
     }
 
@@ -93,7 +93,7 @@ class _CreatableGridState extends State<CreatableGrid>{
       return Expanded(
         child: Column(
           children: <Widget>[
-            if( _formActionMap.containsKey('search') ) Padding(
+            if( _gridActionMap.containsKey('search') ) Padding(
               child: SearchInput(
                 onChangeCallback: onSearch,
               ),
@@ -106,7 +106,7 @@ class _CreatableGridState extends State<CreatableGrid>{
                 if(snapshot.hasData){
 
                   List<dynamic> _data = searchVal == null ? snapshot.data :
-                  snapshot.data.where((element) => element['value'][_formActionMap['search']['field']].toLowerCase().contains(searchVal)).toList();
+                  snapshot.data.where((element) => element['value'][_gridActionMap['search']['field']].toLowerCase().contains(searchVal)).toList();
 
                   String _titleValue = widget.data['title']['value'];
                   String _subtitleValue = widget.data.containsKey('subtitle') ? widget.data['subtitle']['value'] : null;

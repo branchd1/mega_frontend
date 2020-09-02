@@ -24,9 +24,7 @@ class FeatureDetailAddScreen extends StatelessWidget{
           child: SingleChildScrollView(
             child: Column(
               children: <Widget>[
-                Expanded(
-                  child: BigText(feature.name + ' feature details'),
-                ),
+                BigText(feature.name + ' feature details'),
                 Align(
                   child: Row(
                     children: <Widget>[

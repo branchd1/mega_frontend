@@ -7,6 +7,15 @@ const map = {
           'show_back_button': 'false'
         },
         'components': [
+			{
+				'button': {
+					'value': 'manage items',
+					'action': {
+					  'action_type': 'change_page',
+					  'new_page': 'manage_items',
+					}
+				}
+			},
           {
             'grid': {
               'action': {
@@ -45,6 +54,31 @@ const map = {
             }
           },
         ]
+      },
+      'manage_items': {
+      	'components': [
+      		{
+      			'list': {
+				  'action': {
+					'action_type': 'get',
+					'tag': 'menu',
+					'delete': {
+						'new_page': 'manage_items'
+					}
+				  },
+				  'title': {
+					'value': 'mega\$action\$value.item_name'
+				  },
+				  'subtitle': {
+					'value': 'mega\$action\$value.item_price',
+					'prefix': 'price: \$'
+				  },
+				  'empty_text': {
+					'value': 'No items'
+				  },
+				},
+      		}
+      	]
       },
       'add_menu': {
         'components': [
@@ -110,11 +144,12 @@ const map = {
                   }
                 },
                 {
-                  'submit_button': {
+                  'button': {
+                  	'type': 'submit',
                     'value': 'submit',
                     'action': {
                       'action_type': 'change_page',
-                      'new_page': 'home', // specify name of new page
+                      'new_page': 'home',
                     }
                   }
                 },

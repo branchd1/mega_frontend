@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:mega/components/texts/error_text_plain.dart';
 import 'package:mega/services/api/feature_dev_api.dart';
 import 'package:mega/services/callback_types.dart';
+import 'package:mega/services/constants.dart';
 
 class CreatableList extends StatelessWidget{
 
@@ -41,17 +42,17 @@ class CreatableList extends StatelessWidget{
     Future<List<dynamic>> _getData;
 
     // get list action map
-    Map<String, dynamic> _formActionMap = data.containsKey('action') ? data['action'] : null;
+    Map<String, dynamic> _listActionMap = data.containsKey('action') ? data['action'] : null;
 
-    if(_formActionMap!=null){
-      if (_formActionMap['action_type'] == 'get'){
-        String _tag = _formActionMap['tag'];
+    if(_listActionMap!=null){
+      if (_listActionMap['action_type'] == 'get'){
+        String _tag = _listActionMap['tag'];
         _getData = FeatureDevAPI.getToDataStore(context, tag: _tag);
       }
 
-      if(_formActionMap.containsKey('add_page')){
-        assert((_formActionMap['add_page'] as Map).containsKey('new_page'));
-        _addButtonCallback = _formActionMap['add_page']['new_page'];
+      if(_listActionMap.containsKey('add_page')){
+        assert((_listActionMap['add_page'] as Map).containsKey('new_page'));
+        _addButtonCallback = _listActionMap['add_page']['new_page'];
       }
     }
 
@@ -90,17 +91,33 @@ class CreatableList extends StatelessWidget{
                     return FloatingActionButton(child: Icon(Icons.add),onPressed: _addButtonCallback);
                   }
                   return ListTile(
-//              leading: Text(),
                     title: (data['title'] as Map).containsKey('prefix') ?
-                    Text(data['title']['prefix'] + convertSpecialStrings(_titleValue, snapshot.data[index])) :
-                    Text(convertSpecialStrings(_titleValue, snapshot.data[index])),
+                      Text(data['title']['prefix'] + convertSpecialStrings(_titleValue, snapshot.data[index])) :
+                      Text(convertSpecialStrings(_titleValue, snapshot.data[index])),
 
                     subtitle: _subtitleValue != null ?
-                    ((data['subtitle'] as Map).containsKey('prefix') ?
-                    Text(data['subtitle']['prefix'] + convertSpecialStrings(_subtitleValue, snapshot.data[index])) :
-                    Text(convertSpecialStrings(_subtitleValue, snapshot.data[index]))) :
-                    null,
-//              trailing: Text('d'),
+                      ((data['subtitle'] as Map).containsKey('prefix') ?
+                        Text(data['subtitle']['prefix'] + convertSpecialStrings(_subtitleValue, snapshot.data[index])) :
+                        Text(convertSpecialStrings(_subtitleValue, snapshot.data[index]))) :
+                      null,
+
+                    trailing: SizedBox(
+                      width: 100,
+                      child: Row(
+                        children: <Widget>[
+                          if(_listActionMap != null && _listActionMap.containsKey('delete')) IconButton(
+                            icon: Icon(Icons.delete),
+                            onPressed: () async {
+                              bool isSuccess = await FeatureDevAPI.deleteFromDataStore(context, storeId: snapshot.data[index]['id'].toString());
+
+                              if(isSuccess==true) _listActionMap['delete']['new_page']();
+                            },
+                            color: Colors.red,
+                          )
+                        ],
+                        textDirection: TextDirection.rtl,
+                      ),
+                    )
                   );
                 },
                 separatorBuilder: (context, index){

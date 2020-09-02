@@ -68,6 +68,7 @@ class _ManageFeatureScreenState extends State<ManageFeatureScreen>{
                   List<FeatureModel> _list = searchVal == null ? snapshot.data : snapshot.data.where((element) => element.name.toLowerCase().contains(searchVal)).toList();
                   _widget = _list.length == 0 ? EmptyText(text: 'No features in this community',) : Expanded(
                     child: ListView.separated(
+                      shrinkWrap: true,
                       itemCount: _list.length,
                       itemBuilder: (context, index) {
                         return ListTile(

@@ -191,4 +191,39 @@ class FeatureDevAPI {
 
     return jsonDecode(_resStr)['url'];
   }
+
+  static Future<bool> deleteFromDataStore(
+      BuildContext context,
+      {
+        String storeId
+      }
+      ) async {
+
+    Map<String, String> headers = <String, String>{
+      'Authorization': 'Token ' + Provider.of<AuthTokenStateModel>(context, listen: false).token
+    };
+
+    http.Response _res;
+
+    try{
+      _res = await BaseAPI.delete(
+          'api/data_store_delete/' + storeId + '/',
+          additionalHeaders: headers,
+      );
+    } on SocketException{
+      ErrorSnackBar.showErrorSnackBar(context);
+    } catch (e) {
+      print(e);
+    }
+
+    if(_res.statusCode==200){
+      return true;
+    } else if(_res.statusCode == 400) {
+      ErrorSnackBar.showErrorSnackBar(context);
+      return false;
+    } else {
+      ErrorSnackBar.showErrorSnackBar(context);
+      return false;
+    }
+  }
 }
