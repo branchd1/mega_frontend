@@ -120,6 +120,40 @@ class CommunityAPI {
     }
   }
 
+  static Future<bool> leaveCommunities(BuildContext context, String communityId) async {
+
+    Map<String, String> headers = <String, String>{
+      'Authorization': 'Token ' + Provider.of<AuthTokenStateModel>(context, listen: false).token
+    };
+
+    Map<String, String> data = <String, String>{
+      'community': communityId,
+    };
+
+    http.Response _res;
+
+    try{
+      _res = await BaseAPI.post(
+          'api/communities/leave/',
+          additionalHeaders: headers,
+          data: data
+      );
+    } on SocketException{
+      ErrorSnackBar.showErrorSnackBar(context);
+    } catch (e) {
+      print(e);
+    }
+
+    if(_res.statusCode==200){
+      return true;
+    } else if(_res.statusCode == 400) {
+      return false;
+    } else {
+      ErrorSnackBar.showErrorSnackBar(context);
+      return false;
+    }
+  }
+
   static Future<CreateCommunityResponseModel> createCommunity(BuildContext context, String communityName, String communityType, String communityPicturePath, SetErrorTextCallback setErrorText) async {
 
     Map<String, String> headers = <String, String>{
