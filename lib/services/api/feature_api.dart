@@ -124,4 +124,43 @@ class FeatureAPI {
       return false;
     }
   }
+
+  static Future<bool> removeFeature(BuildContext context, String communityId, String featureId) async {
+
+    Map<String, String> headers = <String, String>{
+      'Authorization': 'Token ' + Provider.of<AuthTokenStateModel>(context, listen: false).token
+    };
+
+    Map<String, String> data = <String, String>{
+      'community': communityId,
+      'feature': featureId,
+    };
+
+    print(featureId);
+
+    http.Response _res;
+
+    try{
+      _res = await BaseAPI.post(
+          'api/features/remove/',
+          additionalHeaders: headers,
+          data: data
+      );
+    } on SocketException{
+      ErrorSnackBar.showErrorSnackBar(context);
+    } catch (e) {
+      print(e);
+    }
+
+    print(_res.body);
+
+    if(_res.statusCode==200){
+      return true;
+    } else if(_res.statusCode == 400) {
+      return false;
+    } else {
+      ErrorSnackBar.showErrorSnackBar(context);
+      return false;
+    }
+  }
 }
