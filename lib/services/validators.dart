@@ -15,7 +15,7 @@ class Validators{
   );
 
   static String requiredValidator(String val){
-    return val.length == 0 ? 'required' : null;
+    return val == null || val.length == 0 ? 'required' : null;
   }
 
   static String fileSizeValidator(File file, {double val: 2.5}){
