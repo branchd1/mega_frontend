@@ -126,7 +126,7 @@ class FeatureDevAPI {
     // add a trailing slash
     if(!endpoint.endsWith('/')) endpoint += '/';
 
-    final Uri uri = Uri.http(url, endpoint);
+    final Uri uri = Uri.https(url, endpoint);
 
     return http.post(
       uri,
@@ -155,7 +155,7 @@ class FeatureDevAPI {
     // add a trailing slash
     if(!endpoint.endsWith('/')) endpoint += '/';
 
-    final Uri uri = Uri.http(url, endpoint, params);
+    final Uri uri = Uri.https(url, endpoint, params);
 
     return http.get(
       uri,
@@ -170,7 +170,7 @@ class FeatureDevAPI {
     final stream = new http.ByteStream(image.openRead());
     final length = await image.length();
 
-    final Uri uri = Uri.http(BaseAPI.url, endpoint);
+    final Uri uri = Uri.https(BaseAPI.url, endpoint);
 
     var request = new http.MultipartRequest("POST", uri);
 
