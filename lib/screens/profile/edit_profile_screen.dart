@@ -13,7 +13,6 @@ class EditProfileScreen extends StatelessWidget{
 
   @override
   Widget build(BuildContext context){
-    Future<UserModel> _user = AuthAPI.getUser(context);
 
     return Scaffold(
         appBar: MyAppBars.myAppBar2(),
@@ -22,22 +21,7 @@ class EditProfileScreen extends StatelessWidget{
             children: <Widget>[
               BigText('Edit profile'),
               Padding(
-                child: FutureBuilder<UserModel>(
-                    future: _user,
-                    builder: (BuildContext context, AsyncSnapshot<UserModel> snapshot){
-                      Widget _widget;
-                      if(snapshot.hasData){
-                        UserModel _userObj = snapshot.data;
-
-                        _widget = ProfileForm(user: _userObj,);
-                      } else if (snapshot.hasError){
-                        _widget = Text('Error');
-                      } else {
-                        _widget = CircularProgressIndicator();
-                      }
-                      return _widget;
-                    }
-                ),
+                child: ProfileForm(user: user,),
                 padding: EdgeInsets.fromLTRB(0, 30, 0, 30),
               ),
             ],
