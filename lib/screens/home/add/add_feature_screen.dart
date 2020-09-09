@@ -92,7 +92,8 @@ class _FeatureGridState extends State<FeatureGrid>{
           _widget = MyCardGrid(
             list: widget.searchVal == null ?
             snapshot.data : snapshot.data.where((element) => element.name.toLowerCase().contains(widget.searchVal)).toList(),
-            emptyText: 'No unused features',
+            emptyText: 'No unused features to add',
+            emptySubtext: 'you can only add features you haven\'t used',
             tapCardCallback: widget.tapCardCallback,
           );
         } else if (snapshot.hasError){

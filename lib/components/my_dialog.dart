@@ -9,11 +9,11 @@ class MyDialog{
       barrierDismissible: true,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Text(text),
+          title: SelectableText(text),
           content: SingleChildScrollView(
             child: ListBody(
               children: <Widget>[
-                Text(subtext),
+                SelectableText(subtext),
               ],
             ),
           ),
