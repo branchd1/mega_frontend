@@ -12,6 +12,7 @@ class MyAppBars{
       color: Colors.black,
     ),
     elevation: 0.0,
+    brightness: Brightness.light,
   );
 
   static AppBar myAppBar2() => AppBar(
@@ -23,6 +24,7 @@ class MyAppBars{
       Image.asset('assets/img/logo/small/logo.png')
     ],
     elevation: 0.0,
+    brightness: Brightness.light,
   );
 
   static AppBar myAppBar3() => AppBar(
@@ -34,6 +36,7 @@ class MyAppBars{
       Image.asset('assets/img/logo/small/logo.png')
     ],
     elevation: 0.0,
+    brightness: Brightness.light,
   );
 
   static AppBar myAppBar4(BuildContext context) => AppBar(
@@ -51,6 +54,7 @@ class MyAppBars{
           Navigator.popUntil(context, ModalRoute.withName(HomeScreen.routeName));
         }
     ),
+    brightness: Brightness.light,
   );
 
   static AppBar myAppBar5(BuildContext context, {PopScreenStack onPop, bool isFirstScreen}) => AppBar(
@@ -73,7 +77,8 @@ class MyAppBars{
       new IconButton(
         icon: new Icon(Icons.arrow_back_ios),
         onPressed: onPop
-      ) : Container()
+      ) : Container(),
+    brightness: Brightness.light,
   );
 
   static AppBar myAppBar6(BuildContext context, {String logoUrl}) => AppBar(
@@ -97,6 +102,7 @@ class MyAppBars{
           Navigator.popUntil(context, ModalRoute.withName(HomeScreen.routeName));
         }
     ),
+    brightness: Brightness.light,
   );
 
   static AppBar myAppBar7(BuildContext context, {String logoUrl}) => AppBar(
@@ -114,5 +120,6 @@ class MyAppBars{
       )
     ],
     elevation: 0.0,
+    brightness: Brightness.light,
   );
 }
