@@ -17,7 +17,7 @@ class _WelcomeFormState extends State<WelcomeForm>{
   final TextEditingController _emailController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
 
-  void submit() async {
+  Future<void> submit() async {
     if (_formKey.currentState.validate()){
       // check email
        EmailExistsResponseModel _res = await AuthAPI.checkEmailExists(context, _emailController.text);
@@ -49,7 +49,7 @@ class _WelcomeFormState extends State<WelcomeForm>{
           Align(
             alignment: Alignment.bottomRight,
             child: MySubmitButton(
-              buttonText: 'Login',
+              buttonText: 'Signup/Login',
               submitCallback: submit
             )
           ),

@@ -22,6 +22,10 @@ class LoginScreen extends StatelessWidget{
                 Column(
                   children: <Widget>[
                     BigText('Login'),
+                    Align(
+                        alignment: Alignment.bottomLeft,
+                        child: Text(email + ' is already registered. Login below.')
+                    ),
                     Padding(
                       child: LoginForm(
                           email: email

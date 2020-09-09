@@ -34,6 +34,10 @@ class _HomeScreenState extends State<HomeScreen>{
     );
   }
 
+  Future<void> refresh() async {
+    setState(() {});
+  }
+
   @override
   Widget build(BuildContext context){
     Future<List<CommunityModel>> communities;

@@ -38,7 +38,7 @@ class _ProfileFormState extends State<ProfileForm>{
     });
   }
 
-  void submit(int profileId) async {
+  Future<void> submit(int profileId) async {
     if (_formKey.currentState.validate()){
       bool _res = await AuthAPI.patchUser(
         context,
@@ -115,7 +115,7 @@ class _ProfileFormState extends State<ProfileForm>{
                 alignment: Alignment.bottomRight,
                 child: MySubmitButton(
                   buttonText: 'Submit',
-                  submitCallback: ()=>submit(_userObj.profileId),
+                  submitCallback: () async =>submit(_userObj.profileId),
                 )
             ),
             if(_errorText!=null) Align(

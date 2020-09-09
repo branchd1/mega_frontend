@@ -32,7 +32,7 @@ class _CreateCommunityFormState extends State<CreateCommunityForm>{
     });
   }
 
-  void submit() async {
+  Future<void> submit() async {
     if (_formKey.currentState.validate()){
       // create community
       CreateCommunityResponseModel _res = await CommunityAPI.createCommunity(context, _communityNameController.text, _communityTypeControllerSimulator, _communityPicturePathController.text, setErrorText);

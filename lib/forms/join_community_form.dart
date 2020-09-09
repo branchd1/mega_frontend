@@ -24,7 +24,7 @@ class _JoinCommunityFormState extends State<JoinCommunityForm>{
     });
   }
 
-  void submit() async {
+  Future<void> submit() async {
     if (_formKey.currentState.validate()){
 
       String _dialogTitle = 'Data compliance';

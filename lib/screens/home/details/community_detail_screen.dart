@@ -46,7 +46,8 @@ class _CommunityDetailScreenState extends State<CommunityDetailScreen>{
                       child: Column(
                         children: <Widget>[
                           Text('type: ' + widget.community.type),
-                          if(widget.community.isAdmin)MyButton(
+                          SelectableText('key: ' + widget.community.key),
+                          if(widget.community.isAdmin) MyButton(
                             buttonText: 'manage features',
                             onPressCallback: (){
                               Navigator.push(context, MaterialPageRoute(

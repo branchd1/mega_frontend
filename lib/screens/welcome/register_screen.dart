@@ -1,17 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:mega/components/texts/big_text.dart';
 import 'package:mega/components/bars/my_app_bars.dart';
-import 'package:mega/forms/login_form.dart';
 import 'package:mega/forms/register_form.dart';
 
-//class RegisterScreenArguments {
-//  final String email;
-//
-//  RegisterScreenArguments({this.email});
-//}
-
 class RegisterScreen extends StatelessWidget{
-//  static const routeName = '/register';
 
   final String email;
 
@@ -19,7 +11,6 @@ class RegisterScreen extends StatelessWidget{
 
   @override
   Widget build(BuildContext context){
-//    final RegisterScreenArguments args = ModalRoute.of(context).settings.arguments;
     return(
         Scaffold(
             appBar: MyAppBars.myAppBar1(),
@@ -30,6 +21,10 @@ class RegisterScreen extends StatelessWidget{
                   Column(
                     children: <Widget>[
                       BigText('Register'),
+                      Align(
+                          alignment: Alignment.bottomLeft,
+                          child: Text(email + ' does not exist on the database. Register below.')
+                      ),
                       Padding(
                         child: RegisterForm(
                             email: email
