@@ -26,7 +26,7 @@ class AuthAPI {
 
     try{
       _res = await BaseAPI.post(
-        'api/check_email/',
+        'api/check-email/',
         data: data
       );
     } on SocketException{

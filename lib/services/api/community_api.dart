@@ -59,7 +59,7 @@ class CommunityAPI {
 
     try{
       _res = await BaseAPI.get(
-        'api/communitytypes/',
+        'api/community-types/',
         additionalHeaders: headers,
       );
     } on SocketException{

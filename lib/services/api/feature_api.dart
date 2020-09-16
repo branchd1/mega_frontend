@@ -104,7 +104,7 @@ class FeatureAPI {
 
     try{
       _res = await BaseAPI.post(
-          'api/features/add_to_community/',
+          'api/features/add-to-community/',
           additionalHeaders: headers,
           data: data
       );

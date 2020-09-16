@@ -39,7 +39,7 @@ class FeatureDevAPI {
 
     try{
       _res = await BaseAPI.post(
-          'api/data_store/',
+          'api/data-store/',
           additionalHeaders: headers,
           data: data
       );
@@ -84,7 +84,7 @@ class FeatureDevAPI {
 
     try{
       _res = await BaseAPI.get(
-          'api/data_store/',
+          'api/data-store/',
           additionalHeaders: headers,
           params: params
       );
@@ -165,7 +165,7 @@ class FeatureDevAPI {
 
   static Future<String> uploadImageToDataStore(BuildContext fileContext, File image) async {
 
-    final String endpoint = 'api/upload_img/';
+    final String endpoint = 'api/upload-img/';
 
     final stream = new http.ByteStream(image.openRead());
     final length = await image.length();
@@ -207,7 +207,7 @@ class FeatureDevAPI {
 
     try{
       _res = await BaseAPI.delete(
-          'api/data_store_delete/' + storeId + '/',
+          'api/data-store/delete/' + storeId + '/',
           additionalHeaders: headers,
       );
     } on SocketException{
