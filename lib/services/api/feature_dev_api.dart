@@ -106,63 +106,6 @@ class FeatureDevAPI {
     }
   }
 
-  static Future<http.Response> postExternal(
-    BuildContext context,
-    String url,
-    String endpoint,
-    {
-      Map<String, String> data,
-    }){
-
-    Map<String, String> headers = <String, String>{
-      'Content-Type': 'application/json; charset=UTF-8',
-      'Authorization': 'Token ' + Provider.of<AuthTokenStateModel>(context, listen: false).token
-    };
-
-    headers = {
-      ...headers,
-    };
-
-    // add a trailing slash
-    if(!endpoint.endsWith('/')) endpoint += '/';
-
-    final Uri uri = Uri.https(url, endpoint);
-
-    return http.post(
-      uri,
-      headers: headers,
-      body: jsonEncode(data),
-    );
-  }
-
-  static Future<http.Response> getExternal(
-      BuildContext context,
-      String url,
-      String endpoint,
-      {
-        Map<String, String> params,
-      }){
-
-    Map<String, String> headers = <String, String>{
-      'Content-Type': 'application/json; charset=UTF-8',
-      'Authorization': 'Token ' + Provider.of<AuthTokenStateModel>(context, listen: false).token
-    };
-
-    headers = {
-      ...headers,
-    };
-
-    // add a trailing slash
-    if(!endpoint.endsWith('/')) endpoint += '/';
-
-    final Uri uri = Uri.https(url, endpoint, params);
-
-    return http.get(
-      uri,
-      headers: headers,
-    );
-  }
-
   static Future<String> uploadImageToDataStore(BuildContext fileContext, File image) async {
 
     final String endpoint = 'api/upload-img/';
@@ -170,7 +113,7 @@ class FeatureDevAPI {
     final stream = new http.ByteStream(image.openRead());
     final length = await image.length();
 
-    final Uri uri = Uri.https(BaseAPI.url, endpoint);
+    final Uri uri = Uri.http(BaseAPI.url, endpoint);
 
     var request = new http.MultipartRequest("POST", uri);
 

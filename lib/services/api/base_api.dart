@@ -4,8 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
 class BaseAPI {
-//  static const String url = '0.0.0.0:9000';
-  static const String url = 'mega-app-project.herokuapp.com';
+  static const String url = '0.0.0.0:9000';
+//  static const String url = 'mega-app-project.herokuapp.com';
 
 
   static Future<http.Response> post(
@@ -48,7 +48,7 @@ class BaseAPI {
       if(additionalHeaders != null) ...additionalHeaders
     };
 
-    final Uri uri = Uri.https(url, endpoint);
+    final Uri uri = Uri.http(url, endpoint);
 
     return http.delete(
       uri,
@@ -72,7 +72,7 @@ class BaseAPI {
       if(additionalHeaders != null) ...additionalHeaders
     };
 
-    final Uri uri = Uri.https(url, endpoint);
+    final Uri uri = Uri.http(url, endpoint);
 
     return http.patch(
       uri,
@@ -97,7 +97,7 @@ class BaseAPI {
       if(additionalHeaders != null) ...additionalHeaders
     };
 
-    final Uri uri = Uri.https(url, endpoint, params);
+    final Uri uri = Uri.http(url, endpoint, params);
 
     return http.get(
       uri,
@@ -112,7 +112,7 @@ class BaseAPI {
       Map<String, String> additionalHeaders
     }) async {
 
-    final Uri uri = Uri.https(BaseAPI.url, endpoint);
+    final Uri uri = Uri.http(BaseAPI.url, endpoint);
 
     var request = new http.MultipartRequest("POST", uri);
 
@@ -150,7 +150,7 @@ class BaseAPI {
         Map<String, String> additionalHeaders
       }) async {
 
-    final Uri uri = Uri.https(BaseAPI.url, endpoint);
+    final Uri uri = Uri.http(BaseAPI.url, endpoint);
 
     var request = new http.MultipartRequest("PATCH", uri);
 

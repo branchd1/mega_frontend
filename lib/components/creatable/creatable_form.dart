@@ -30,32 +30,8 @@ class _CreatableFormState extends State<CreatableForm>{
       // create map from form values using controllers
       Map<String, String> formValuesMap = Map<String, String>.from(_controllersMap.map((key, value) => MapEntry(value, key.text)));
 
-      // calling external api
-      if (_formActionMap['action_type'] == 'external_api'){
-        assert(_formActionMap['method']!=null);
-
-        // send data to api and do something with it
-        if(_formActionMap['method'] == 'get') {
-          // send map for storage in server
-          FeatureDevAPI.getExternal(context,
-              _formActionMap['url'],
-              _formActionMap['endpoint'],
-              params: formValuesMap
-          );
-          // incomplete
-        } else if (_formActionMap['method'] == 'post'){
-          // send map for storage in server
-          FeatureDevAPI.postExternal(context,
-              _formActionMap['url'],
-              _formActionMap['endpoint'], data: formValuesMap
-          );
-          // incomplete
-        } else {
-          throw ('action method must be get or post');
-        }
-      }
       // saving to data store
-      else if (_formActionMap['action_type'] == 'save'){
+      if (_formActionMap['action_type'] == 'save'){
         // send data to api and do something with it
         if(_formActionMap['method'] == 'get') {
           // send map for storage in server
