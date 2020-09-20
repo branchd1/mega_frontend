@@ -3,12 +3,8 @@ import 'package:mega/components/texts/big_text.dart';
 import 'package:mega/screens/profile/profile_screen.dart';
 import 'package:mega/services/logout.dart';
 
-class Menu extends StatefulWidget{
-  @override
-  _MenuState createState() => _MenuState();
-}
-
-class _MenuState extends State<Menu>{
+/// Widget representing the apps menu
+class Menu extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
     return Drawer(
@@ -17,6 +13,7 @@ class _MenuState extends State<Menu>{
           DrawerHeader(child: BigText('Menu'),),
           ListTile(
             title: Text('Profile'),
+            // push to profile screen when tapped
             onTap: () {
               Navigator.pop(context);
               Navigator.push(
@@ -29,6 +26,7 @@ class _MenuState extends State<Menu>{
           Divider(),
           ListTile(
             title: Text('Logout'),
+            // logout when tapped
             onTap: (){
               Navigator.pop(context);
               doLogout(context);

@@ -1,7 +1,6 @@
-
 import 'package:flutter/material.dart';
 
-/// A dialog used for popups
+/// A dialog widget used for popups
 class MyDialog extends StatelessWidget{
 
   /// The main title of the dialog
@@ -14,17 +13,17 @@ class MyDialog extends StatelessWidget{
   final List<Widget> buttons;
 
   /// Constructor
-  const MyDialog({Key key, this.title, this.subtitle, this.buttons}) : super(key: key);
+  const MyDialog({Key key, @required this.title, @required this.subtitle, this.buttons}) : super(key: key);
 
   /// Shows the desired dialog on the specified scaffold context
-  static void showMyDialog(BuildContext context, String text, String subtext, {List<Widget> buttons}){
+  static void showMyDialog(BuildContext context, String title, String subtitle, {List<Widget> buttons}){
     showDialog<void>(
       context: context,
       barrierDismissible: true, // dismiss when user clicks outside the dialog
       builder: (BuildContext context) {
         return MyDialog(
-          title: text,
-          subtitle: subtext,
+          title: title,
+          subtitle: subtitle,
           buttons: buttons
         );
       },
