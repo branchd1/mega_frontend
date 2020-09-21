@@ -6,7 +6,7 @@ import 'package:mega/components/texts/error_text_plain.dart';
 import 'package:mega/models/user_model.dart';
 import 'package:mega/screens/profile/profile_screen.dart';
 import 'package:mega/services/api/auth_api.dart';
-import 'package:mega/services/callback_types.dart';
+import 'package:mega/services/type_defs.dart';
 import 'package:mega/services/validators.dart';
 
 /// The form used to edit user profile

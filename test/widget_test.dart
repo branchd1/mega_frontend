@@ -1,15 +1,9 @@
-
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:mega/components/bars/error_snack_bar.dart';
-import 'package:mega/components/buttons/my_async_button.dart';
 import 'package:mega/components/buttons/my_reset_password_button.dart';
 import 'package:mega/components/cards/my_card_grid.dart';
 import 'package:mega/components/inputs/my_file_input.dart';
 import 'package:mega/components/my_dialog.dart';
-import 'package:mega/services/callback_types.dart';
 
 /// test widgets
 void main() {

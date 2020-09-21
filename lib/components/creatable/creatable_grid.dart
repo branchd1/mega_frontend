@@ -8,7 +8,7 @@ import 'package:mega/components/inputs/search_input.dart';
 import 'package:mega/components/texts/error_text_plain.dart';
 import 'package:mega/components/texts/error_text_with_icon.dart';
 import 'package:mega/services/api/feature_dev_api.dart';
-import 'package:mega/services/callback_types.dart';
+import 'package:mega/services/type_defs.dart';
 
 class CreatableGrid extends StatefulWidget{
   final Map<String, dynamic> data;

@@ -13,25 +13,36 @@ import 'package:mega/screens/home/details/feature_detail_screen.dart';
 import 'package:mega/services/api/feature_api.dart';
 import 'package:provider/provider.dart';
 
+/// The community screen
+///
+/// Displays the list of features
 class CommunityScreen extends StatefulWidget{
+  /// The community
   final CommunityModel community;
 
-  const CommunityScreen({Key key, this.community}) : super(key: key);
+  const CommunityScreen({Key key, @required this.community}) : super(key: key);
 
   @override
   _CommunityScreenState createState()=>_CommunityScreenState();
 }
 
 class _CommunityScreenState extends State<CommunityScreen>{
+  /// The community features
   Future<List<FeatureModel>> features;
+
+  /// Search bar value
   String searchVal;
 
+  /// Filter feature list on search
   void onSearch(String val){
     setState(() {
       searchVal = val;
     });
   }
 
+  /// Callback when feature card tapped
+  ///
+  /// Goes to feature detail screen when the feature's card is tapped
   void tapCardCallback(BuildContext context, dynamic item){
     Navigator.push(
       context,
@@ -39,16 +50,19 @@ class _CommunityScreenState extends State<CommunityScreen>{
     );
   }
 
-  Future<void> forceRefresh() async{
-    setState((){});
-  }
+//  /// refresh widget
+//  Future<void> forceRefresh() async{
+//    setState((){});
+//  }
 
   @override
   Widget build(BuildContext context) {
     // set the current community
     Provider.of<CurrentCommunityStateModel>(context, listen: false).setCurrentCommunity(widget.community);
 
+    // get the list of features
     if (searchVal == null) features = FeatureAPI.getFeatures(context, widget.community.id);
+
     return Scaffold(
       appBar: MyAppBars.myAppBar4(context, logoUrl: this.widget.community.pictureUrl),
       body: Padding(

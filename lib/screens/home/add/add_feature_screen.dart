@@ -6,33 +6,41 @@ import 'package:mega/components/texts/big_text.dart';
 import 'package:mega/components/texts/error_text_with_icon.dart';
 import 'package:mega/models/community_model.dart';
 import 'package:mega/models/feature_model.dart';
+import 'package:mega/screens/home/details/feature_detail_add_screen.dart';
 import 'package:mega/services/api/feature_api.dart';
-import 'package:mega/services/callback_types.dart';
+import 'package:mega/services/type_defs.dart';
 
-import '../details/feature_detail_add_screen.dart';
-
+/// Screen to add feature to community
 class AddFeatureScreen extends StatefulWidget {
+
+  /// The community
   final CommunityModel community;
 
-  const AddFeatureScreen({Key key, this.community}) : super(key: key);
+  const AddFeatureScreen({Key key, @required this.community}) : super(key: key);
 
   @override
   _AddFeatureScreenState createState()=> _AddFeatureScreenState();
 }
 
 class _AddFeatureScreenState extends State<AddFeatureScreen>{
+  /// Search bar value
   String searchVal;
 
+  /// Filter list of communities when search bar value changes
   void onSearch(String val){
     setState(() {
       searchVal = val;
     });
   }
 
+  /// Go to feature detail add screen when user taps feature card
   void tapCardCallback(BuildContext context, dynamic item){
     Navigator.push(
       context,
-      MaterialPageRoute(builder: (context) => FeatureDetailAddScreen(feature: item, community: this.widget.community)),
+      MaterialPageRoute(builder: (context) => FeatureDetailAddScreen(
+        feature: item,
+        community: this.widget.community)
+      ),
     );
   }
 
@@ -63,25 +71,36 @@ class _AddFeatureScreenState extends State<AddFeatureScreen>{
   }
 }
 
+/// Feature grid
+///
+/// Contains a feature details
+/// Helper class for AddFeatureScreen only
 class FeatureGrid extends StatefulWidget{
 
+  /// Search bar value
   final String searchVal;
 
+  /// The community
   final CommunityModel community;
 
+  /// Callback when card tapped
   final TapCardCallback tapCardCallback;
 
-  FeatureGrid({Key key, this.searchVal, this.community, this.tapCardCallback}) : super(key: key);
+  FeatureGrid({Key key, @required this.searchVal,
+    @required this.community,
+    @required this.tapCardCallback}) : super(key: key);
 
   @override
   _FeatureGridState createState() => _FeatureGridState();
 }
 
 class _FeatureGridState extends State<FeatureGrid>{
+  /// The list of features
   Future<List<FeatureModel>> features;
 
   @override
   Widget build(BuildContext context) {
+    // get the list of features
     if (widget.searchVal == null) features = FeatureAPI.getAllFeatures(context, widget.community.type, widget.community.id);
 
     return FutureBuilder<List<FeatureModel>>(
@@ -91,7 +110,8 @@ class _FeatureGridState extends State<FeatureGrid>{
         if(snapshot.hasData){
           _widget = MyCardGrid(
             list: widget.searchVal == null ?
-            snapshot.data : snapshot.data.where((element) => element.name.toLowerCase().contains(widget.searchVal)).toList(),
+            snapshot.data : snapshot.data.where((element) =>
+                element.name.toLowerCase().contains(widget.searchVal)).toList(),
             emptyText: 'No unused features to add',
             emptySubtext: 'you can only add features you haven\'t used',
             tapCardCallback: widget.tapCardCallback,

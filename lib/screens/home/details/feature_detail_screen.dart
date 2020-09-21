@@ -10,8 +10,15 @@ import 'package:mega/models/feature_model.dart';
 import 'package:mega/services/constants.dart';
 import 'package:provider/provider.dart';
 
+/// Feature detail screen
+///
+/// Displays the widget using the features code / configuration gotten from
+/// the database
 class FeatureDetailScreen extends StatefulWidget{
+  /// The feature
   final FeatureModel feature;
+
+  /// The current community
   final CommunityModel community;
 
   FeatureDetailScreen({Key key, this.feature, this.community}) : super(key: key);
@@ -22,10 +29,14 @@ class FeatureDetailScreen extends StatefulWidget{
 
 class _FeatureDetailScreenState extends State<FeatureDetailScreen>{
 
+  /// The default first screen
   final String _firstFeatureScreen = 'home';
 
+  /// The screen stack to maintain screen history
   ListQueue<String> screenStack = ListQueue<String>();
 
+  /// Replaces special characters in the features configuration / code data
+  /// Checks if the configuration data is well formed
   MapEntry<String, dynamic> replaceMapValues(String key, dynamic value){
     // recursively replace map values
     if(value is Map){
@@ -48,7 +59,9 @@ class _FeatureDetailScreenState extends State<FeatureDetailScreen>{
 
     // do replacement
     if(key == 'new_page' && value is String){
-      return MapEntry(key, ()=>setState(()=>{screenStack.add(value)})); // function passes change screen callback to components
+      // replace specified string value with the relevant callback function
+      // function passes change screen callback to components
+      return MapEntry(key, ()=>setState(()=>{screenStack.add(value)}));
     } else {
       return MapEntry(key, value);
     }
@@ -56,6 +69,7 @@ class _FeatureDetailScreenState extends State<FeatureDetailScreen>{
 
   @override
   Widget build(BuildContext context) {
+    // set feature as the current feature globally
     Provider.of<CurrentFeatureStateModel>(context, listen: false).setCurrentFeature(widget.feature);
 
     // get admin or member data

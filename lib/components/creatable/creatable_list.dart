@@ -4,7 +4,7 @@ import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:mega/components/texts/error_text_plain.dart';
 import 'package:mega/services/api/feature_dev_api.dart';
-import 'package:mega/services/callback_types.dart';
+import 'package:mega/services/type_defs.dart';
 import 'package:mega/services/constants.dart';
 
 class CreatableList extends StatelessWidget{

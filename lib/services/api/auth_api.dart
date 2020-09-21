@@ -10,7 +10,7 @@ import 'package:mega/models/response_models/login_response_model.dart';
 import 'package:mega/models/response_models/register_response_model.dart';
 import 'package:mega/models/state_models/auth_token_state_model.dart';
 import 'package:mega/models/user_model.dart';
-import 'package:mega/services/callback_types.dart';
+import 'package:mega/services/type_defs.dart';
 import 'package:provider/provider.dart';
 
 import 'base_api.dart';

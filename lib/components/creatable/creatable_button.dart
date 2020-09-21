@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mega/components/buttons/my_button.dart';
 import 'package:mega/components/buttons/my_submit_button.dart';
-import 'package:mega/services/callback_types.dart';
+import 'package:mega/services/type_defs.dart';
 
 class CreatableButton extends StatelessWidget{
   static const String changePage='change_page', getData='get_data', deleteItem='delete_item';

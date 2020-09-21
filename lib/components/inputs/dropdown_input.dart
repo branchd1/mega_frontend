@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:mega/services/callback_types.dart';
+import 'package:mega/services/type_defs.dart';
 
 /// Drop down input widget
 class DropdownInput extends StatelessWidget{

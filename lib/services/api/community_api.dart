@@ -8,7 +8,7 @@ import 'package:mega/models/state_models/auth_token_state_model.dart';
 import 'package:mega/models/community_model.dart';
 import 'package:mega/models/response_models/create_community_response_model.dart';
 import 'package:mega/models/response_models/join_community_response_model.dart';
-import 'package:mega/services/callback_types.dart';
+import 'package:mega/services/type_defs.dart';
 import 'dart:convert';
 
 import 'package:provider/provider.dart';

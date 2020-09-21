@@ -11,7 +11,9 @@ import 'package:mega/services/api/community_api.dart';
 import 'add/add_community_screen.dart';
 import 'community_screen.dart';
 
+/// The home screen which lists all the users communities
 class HomeScreen extends StatefulWidget{
+  /// The home screen route name
   static const routeName = '/home';
 
   @override
@@ -19,14 +21,19 @@ class HomeScreen extends StatefulWidget{
 }
 
 class _HomeScreenState extends State<HomeScreen>{
+  /// search bar value
   String searchVal;
 
+  /// Update list when search bar value changes
   void onSearch(String val){
     setState(() {
       searchVal = val;
     });
   }
 
+  /// Callback when community card tapped
+  ///
+  /// Goes to community screen when the community's card is tapped
   void tapCardCallback(BuildContext context, dynamic item){
     Navigator.push(
       context,
@@ -34,14 +41,16 @@ class _HomeScreenState extends State<HomeScreen>{
     );
   }
 
-  Future<void> refresh() async {
-    setState(() {});
-  }
+//  /// refresh widget
+//  Future<void> refresh() async {
+//    setState(() {});
+//  }
 
   @override
   Widget build(BuildContext context){
     Future<List<CommunityModel>> communities;
 
+    // get communities
     if (searchVal == null) communities = CommunityAPI.getCommunities(context);
 
     return Scaffold(

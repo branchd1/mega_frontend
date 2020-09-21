@@ -3,7 +3,7 @@ import 'package:mega/components/cards/my_card.dart';
 import 'package:mega/components/texts/empty_text.dart';
 import 'package:mega/models/community_model.dart';
 import 'package:mega/models/feature_model.dart';
-import 'package:mega/services/callback_types.dart';
+import 'package:mega/services/type_defs.dart';
 
 /// Card grid widget
 class MyCardGrid extends StatelessWidget{

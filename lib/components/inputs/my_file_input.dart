@@ -4,7 +4,7 @@ import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:mega/components/buttons/my_button.dart';
 import 'package:mega/components/texts/error_text_plain.dart';
-import 'package:mega/services/callback_types.dart';
+import 'package:mega/services/type_defs.dart';
 
 /// File input widget
 class MyFileInput extends StatefulWidget{

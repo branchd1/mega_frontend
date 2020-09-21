@@ -13,3 +13,9 @@ typedef void TapCardCallback(BuildContext context, dynamic item);
 typedef Future<void> FutureVoidCallback();
 
 typedef void OnChangeCallback(String val);
+
+/// Represents the different states of AddCommunityScreen
+enum AddCommunityMethods {
+  join,
+  create
+}
