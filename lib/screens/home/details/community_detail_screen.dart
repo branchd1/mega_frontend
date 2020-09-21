@@ -40,7 +40,7 @@ class _CommunityDetailScreenState extends State<CommunityDetailScreen>{
               Align(
                 child: Row(
                   children: <Widget>[
-                    MyCard(imageUrl: widget.community.picture, texts: [],),
+                    MyCard(imageUrl: widget.community.pictureUrl, texts: [],),
                     Padding(
                       padding: EdgeInsets.fromLTRB(5, 0, 0, 0),
                       child: Column(

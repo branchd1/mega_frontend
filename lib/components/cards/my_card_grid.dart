@@ -63,7 +63,7 @@ class MyCardGrid extends StatelessWidget{
     // return text if it is a community model or feature model
     // specific cases
     if (list[index] is CommunityModel || list[index] is FeatureModel){
-      return list[index].name;
+      return list[index]._name;
     }
 
     // check for the corresponding grid text passed in the text list
@@ -79,7 +79,7 @@ class MyCardGrid extends StatelessWidget{
     // return picture url if it is a community or feature model
     // specific cases
     if (list[index] is CommunityModel || list[index] is FeatureModel){
-      return list[index].picture;
+      return list[index].pictureUrl;
     }
 
     // check for the corresponding grid picture url passed in the text list

@@ -1,11 +1,16 @@
-import 'package:flutter/foundation.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+/// Stores the current user auth token
 class AuthTokenStateModel {
+  /// The auth token
   String _token;
 
+  // Getter
   String get token => _token;
 
+  /// Check if a user has logged in on the app before
+  /// If yes, get the users token from the mobile memory
+  /// else, get the users token save in current app session
   Future<String> checkAndGetToken() async {
     if(_token == null){
       SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -19,6 +24,8 @@ class AuthTokenStateModel {
     return _token;
   }
 
+  /// Clear the token state and
+  /// remove it from memory
   void clearToken() async {
     _token = null;
 
@@ -26,6 +33,7 @@ class AuthTokenStateModel {
     prefs.remove('auth_token');
   }
 
+  /// Set the token in the app state and app memory
   void setToken(String token) async {
     _token = token;
 

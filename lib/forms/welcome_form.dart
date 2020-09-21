@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:mega/components/buttons/my_submit_button.dart';
 import 'package:mega/components/inputs/my_email_input.dart';
@@ -8,21 +6,30 @@ import 'package:mega/screens/welcome/login_screen.dart';
 import 'package:mega/screens/welcome/register_screen.dart';
 import 'package:mega/services/api/auth_api.dart';
 
+/// Form used to welcome user
+/// Checks if user email already used in database to
+/// decide if user needs to register or login
 class WelcomeForm extends StatefulWidget{
   @override
   _WelcomeFormState createState() => _WelcomeFormState();
 }
 
 class _WelcomeFormState extends State<WelcomeForm>{
+  /// Controls user email
   final TextEditingController _emailController = TextEditingController();
-  final _formKey = GlobalKey<FormState>();
 
+  /// The form key
+  /// Unique globally
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+
+  /// Submit the form
   Future<void> submit() async {
+    // validate the form
     if (_formKey.currentState.validate()){
-      // check email
+      // check email exists in database
        EmailExistsResponseModel _res = await AuthAPI.checkEmailExists(context, _emailController.text);
 
-      // check successful
+      // if successful navigate to login or register screen
       if(_res!= null && _res.exists){
         Navigator.push(
           context,
@@ -49,7 +56,7 @@ class _WelcomeFormState extends State<WelcomeForm>{
           Align(
             alignment: Alignment.bottomRight,
             child: MySubmitButton(
-              buttonText: 'Signup/Login',
+              buttonText: 'Sign up/Login',
               submitCallback: submit
             )
           ),

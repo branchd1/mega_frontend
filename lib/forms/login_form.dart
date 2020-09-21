@@ -3,28 +3,40 @@ import 'package:mega/components/buttons/my_submit_button.dart';
 import 'package:mega/components/inputs/my_password_input.dart';
 import 'package:mega/services/login.dart';
 
+/// Form used to login
 class LoginForm extends StatefulWidget{
+  // Users email
   final String email;
-  LoginForm({this.email});
+
+  LoginForm({@required this.email});
 
   @override
   _LoginFormState createState() => _LoginFormState();
 }
 
 class _LoginFormState extends State<LoginForm>{
+  /// Controls user password
   final TextEditingController _passwordController = TextEditingController();
+
+  /// The form key
+  /// Unique globally
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
+  /// Error text displayed at the bottom
   String _errorText;
 
+  /// Set the error text
   void setErrorText(text){
     setState(() {
       _errorText = text;
     });
   }
 
+
+  /// Submit the form
   Future<void> submit() {
     if (_formKey.currentState.validate()){
+      // do the login
       doLogin(
           context,
           this.widget.email,
@@ -32,6 +44,7 @@ class _LoginFormState extends State<LoginForm>{
           setErrorText: setErrorText
       );
     }
+    return null;
   }
 
   @override

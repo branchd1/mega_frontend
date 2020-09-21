@@ -1,17 +1,23 @@
+
+/// Response from REST API from joining a community
 class JoinCommunityResponseModel{
-  final dynamic key;
+  /// The community key
+  final dynamic _key;
 
-  JoinCommunityResponseModel({this.key});
+  // Getter
+  dynamic get key => _key;
 
+  JoinCommunityResponseModel(this._key);
+
+  /// Create object from JSON data
   factory JoinCommunityResponseModel.fromJson(Map<String, dynamic> json) {
-    return JoinCommunityResponseModel(
-      key: json['key'],
-    );
+    return JoinCommunityResponseModel(json['key']);
   }
 
+  /// Create object from error JSON data
   String errorToString() {
-    if (key != null && key is String){
-      return key;
+    if (_key != null && _key is String){
+      return _key;
     } else {
       return null;
     }

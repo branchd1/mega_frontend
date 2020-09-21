@@ -1,23 +1,46 @@
 import 'dart:convert';
 
+/// Represents a feature
 class FeatureModel {
-  final int id;
-  final String name;
-  final String picture;
-  final String description;
-  final String key;
-  final Map<String, dynamic> payload;
+  /// Feature id
+  final int _id;
 
-  FeatureModel({this.id, this.name, this.picture, this.description, this.key, this.payload});
+  /// Feature name
+  final String _name;
 
+  /// Feature picture
+  final String _pictureUrl;
+
+  /// Feature description
+  final String _description;
+
+  /// Feature key
+  final String _key;
+
+  /// Feature payload
+  /// The code which determines what widgets show on the feature MiniApp
+  final Map<String, dynamic> _payload;
+
+  // Getters
+  int get id => _id;
+  String get name => _name;
+  String get pictureUrl => _pictureUrl;
+  String get description => _description;
+  Map<String, dynamic> get payload => _payload;
+  String get key => _key;
+
+  FeatureModel(this._id, this._name, this._pictureUrl,
+      this._description, this._key, this._payload);
+
+  /// create object from JSON data
   factory FeatureModel.fromJson(Map<String, dynamic> json) {
     return FeatureModel(
-      id: json['id'],
-      name: json['name'],
-      picture: json['picture'],
-      description: json['description'],
-      key: json['key'],
-      payload: jsonDecode(json['payload'])
+      json['id'],
+      json['name'],
+      json['picture'],
+      json['description'],
+      json['key'],
+      jsonDecode(json['payload'])
     );
   }
 }

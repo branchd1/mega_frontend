@@ -30,7 +30,7 @@ class _MyAsyncButtonState extends State<MyAsyncButton>{
         setState(() {
           isLoading = true;
         });
-        widget.onPressCallback().then((value){
+        widget.onPressCallback().whenComplete((){
           setState(() {
             isLoading = false;
           });

@@ -28,7 +28,7 @@ class FeatureDetailAddScreen extends StatelessWidget{
                 Align(
                   child: Row(
                     children: <Widget>[
-                      MyCard(imageUrl: feature.picture, texts: [],),
+                      MyCard(imageUrl: feature.pictureUrl, texts: [],),
                       Padding(
                         padding: EdgeInsets.fromLTRB(5, 0, 0, 0),
                         child: Column(
