@@ -33,7 +33,7 @@ class WelcomeScreen extends StatelessWidget{
               Image.asset('assets/img/logo/logo.png'),
               Column(
                 children: <Widget>[
-                  BigText('Welcome'),
+                  BigText(text:'Welcome'),
                   Padding(
                     child: WelcomeForm(),
                     padding: EdgeInsets.fromLTRB(0, 30, 0, 30),

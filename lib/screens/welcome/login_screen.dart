@@ -21,7 +21,7 @@ class LoginScreen extends StatelessWidget{
                 Image.asset('assets/img/logo/logo.png'),
                 Column(
                   children: <Widget>[
-                    BigText('Login'),
+                    BigText(text:'Login'),
                     Align(
                         alignment: Alignment.bottomLeft,
                         child: Text(email + ' is already registered. Login below.')

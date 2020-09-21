@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:mega/services/callback_types.dart';
 
+/// Button used to submit forms
 class MySubmitButton extends StatefulWidget{
+  /// The button text
   final String buttonText;
 
+  /// Callback when button is clicked
   final FutureVoidCallback submitCallback;
 
   MySubmitButton({Key key, @required this.buttonText, this.submitCallback}) : super(key: key);
@@ -14,10 +17,13 @@ class MySubmitButton extends StatefulWidget{
 
 class _MySubmitButtonState extends State<MySubmitButton>{
 
+  /// Is the form action loading?
+  /// True if yes, False otherwise
   bool isLoading = false;
 
   @override
   Widget build(BuildContext context) {
+    // Show loading icon when form action is processing
     return isLoading == true ? CircularProgressIndicator() : FlatButton(
       child: Column(
         children: <Widget>[
@@ -29,7 +35,7 @@ class _MySubmitButtonState extends State<MySubmitButton>{
         setState(() {
           isLoading = true;
         });
-        widget.submitCallback().then((value){
+        if( widget.submitCallback != null ) widget.submitCallback().then((value){
           setState(() {
             isLoading = false;
           });

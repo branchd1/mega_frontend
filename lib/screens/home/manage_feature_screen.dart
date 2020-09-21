@@ -42,7 +42,7 @@ class _ManageFeatureScreenState extends State<ManageFeatureScreen>{
 
     if (searchVal == null) features = FeatureAPI.getFeatures(context, widget.community.id);
     return Scaffold(
-      appBar: MyAppBars.myAppBar3(),
+      appBar: MyAppBars.myAppBar2(),
       body: Padding(
         child: Column(
           children: <Widget>[
@@ -50,7 +50,7 @@ class _ManageFeatureScreenState extends State<ManageFeatureScreen>{
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Expanded(
-                  child: BigText('Manage ${this.widget.community.name} features'),
+                  child: BigText(text:'Manage ${this.widget.community.name} features'),
                 ),
               ],
             ),

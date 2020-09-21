@@ -1,14 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:mega/components/texts/main_text.dart';
 import 'package:mega/services/constants.dart';
 
-import '../texts/main_text.dart';
-
+/// Single card widget
 class MyCard extends StatelessWidget{
+  /// List of texts to display on card
   final List<String> texts;
+
+  /// List of subtexts to display on card
   final List<String> subTexts;
+
+  /// The card background image
   final String imageUrl;
 
-  const MyCard({Key key, @required this.texts, this.subTexts, this.imageUrl}) : super(key: key);
+  const MyCard({Key key, @required this.texts, @required this.imageUrl, this.subTexts}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +21,7 @@ class MyCard extends StatelessWidget{
       child: Card(
         child: Stack(
           children: <Widget>[
-            if(imageUrl != null) ClipRRect(
+            ClipRRect(
               borderRadius: BorderRadius.all(Radius.circular(10)),
               child: Container(
                 decoration: BoxDecoration(
@@ -37,7 +42,7 @@ class MyCard extends StatelessWidget{
                   child: Padding(
                     child: Column(
                       children: <Widget>[
-                        ...texts.map((text) => MainText(text, textCenter: true)).toList(),
+                        ...texts.map((text) => MainText(text: text, textCenter: true)).toList(),
                         if(subTexts != null) ...subTexts.map((text) => Text(text, textAlign: TextAlign.center,)).toList(),
                       ],
                       mainAxisAlignment: MainAxisAlignment.end,

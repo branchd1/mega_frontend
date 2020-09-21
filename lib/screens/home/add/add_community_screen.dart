@@ -36,7 +36,7 @@ class _AddCommunityScreenState extends State<AddCommunityScreen>{
               Image.asset('assets/img/logo/logo.png'),
               addCommunityMethod == AddCommunityMethods.join ? Column(
                 children: <Widget>[
-                  BigText('Join Community'),
+                  BigText(text:'Join Community'),
                   Padding(
                     child: JoinCommunityForm(),
                     padding: EdgeInsets.fromLTRB(0, 30, 0, 0),
@@ -48,7 +48,7 @@ class _AddCommunityScreenState extends State<AddCommunityScreen>{
                 ],
               ) : Column(
                 children: <Widget>[
-                  BigText('Create Community'),
+                  BigText(text:'Create Community'),
                   Padding(
                     child: CreateCommunityForm(),
                     padding: EdgeInsets.fromLTRB(0, 30, 0, 0),

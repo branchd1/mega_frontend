@@ -20,7 +20,7 @@ class RegisterScreen extends StatelessWidget{
                   Image.asset('assets/img/logo/logo.png'),
                   Column(
                     children: <Widget>[
-                      BigText('Register'),
+                      BigText(text:'Register'),
                       Align(
                           alignment: Alignment.bottomLeft,
                           child: Text(email + ' does not exist on the database. Register below.')

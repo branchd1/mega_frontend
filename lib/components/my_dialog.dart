@@ -12,10 +12,10 @@ class MyDialog extends StatelessWidget{
   /// Button widgets on the dialog
   final List<Widget> buttons;
 
-  /// Constructor
   const MyDialog({Key key, @required this.title, @required this.subtitle, this.buttons}) : super(key: key);
 
-  /// Shows the desired dialog on the specified scaffold context
+  /// Shows the desired dialog as a pop up on the specified scaffold context
+  /// This should be used within a Scaffold or similar widget else it would error
   static void showMyDialog(BuildContext context, String title, String subtitle, {List<Widget> buttons}){
     showDialog<void>(
       context: context,

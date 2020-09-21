@@ -23,7 +23,7 @@ class ProfileScreen extends StatelessWidget{
         body: Padding(
           child: Column(
             children: <Widget>[
-              BigText('Your profile'),
+              BigText(text:'Your profile'),
               Padding(
                 child: FutureBuilder<UserModel>(
                     future: _user,

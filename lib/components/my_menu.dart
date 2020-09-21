@@ -4,13 +4,13 @@ import 'package:mega/screens/profile/profile_screen.dart';
 import 'package:mega/services/logout.dart';
 
 /// Widget representing the apps menu
-class Menu extends StatelessWidget{
+class MyMenu extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
     return Drawer(
       child: ListView(
         children: <Widget> [
-          DrawerHeader(child: BigText('Menu'),),
+          DrawerHeader(child: BigText(text: 'Menu'),),
           ListTile(
             title: Text('Profile'),
             // push to profile screen when tapped

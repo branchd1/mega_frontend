@@ -50,7 +50,7 @@ class _CommunityScreenState extends State<CommunityScreen>{
 
     if (searchVal == null) features = FeatureAPI.getFeatures(context, widget.community.id);
     return Scaffold(
-      appBar: MyAppBars.myAppBar6(context, logoUrl: this.widget.community.picture),
+      appBar: MyAppBars.myAppBar4(context, logoUrl: this.widget.community.picture),
       body: Padding(
         child: Column(
           children: <Widget>[
@@ -58,7 +58,7 @@ class _CommunityScreenState extends State<CommunityScreen>{
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Expanded(
-                  child: BigText(this.widget.community.name),
+                  child: BigText(text:this.widget.community.name),
                 ),
                 IconButton(
                   icon: Icon(Icons.settings),

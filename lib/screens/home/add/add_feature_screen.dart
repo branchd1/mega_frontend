@@ -39,11 +39,11 @@ class _AddFeatureScreenState extends State<AddFeatureScreen>{
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: MyAppBars.myAppBar3(),
+      appBar: MyAppBars.myAppBar2(),
       body: Padding(
         child: Column(
           children: <Widget>[
-            BigText('Add features'),
+            BigText(text:'Add features'),
             Padding(
               child: SearchInput(
                 onChangeCallback: onSearch,

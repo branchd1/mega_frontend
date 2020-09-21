@@ -31,12 +31,12 @@ class _CommunityDetailScreenState extends State<CommunityDetailScreen>{
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: MyAppBars.myAppBar3(),
+      appBar: MyAppBars.myAppBar2(),
       body: Padding(
         child: SingleChildScrollView(
           child: Column(
             children: <Widget>[
-              BigText(widget.community.name + ' details'),
+              BigText(text:widget.community.name + ' details'),
               Align(
                 child: Row(
                   children: <Widget>[

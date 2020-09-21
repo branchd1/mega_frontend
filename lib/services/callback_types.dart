@@ -11,3 +11,5 @@ typedef void CreatableCallback({VoidCallback doAfter});
 typedef void TapCardCallback(BuildContext context, dynamic item);
 
 typedef Future<void> FutureVoidCallback();
+
+typedef void OnChangeCallback(String val);

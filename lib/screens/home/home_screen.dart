@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:mega/components/menu.dart';
+import 'package:mega/components/my_menu.dart';
 import 'package:mega/components/texts/big_text.dart';
 import 'package:mega/components/cards/my_card_grid.dart';
 import 'package:mega/components/bars/my_app_bars.dart';
@@ -46,11 +46,11 @@ class _HomeScreenState extends State<HomeScreen>{
 
     return Scaffold(
       appBar: MyAppBars.myAppBar2(),
-      drawer: Menu(),
+      drawer: MyMenu(),
       body: Padding(
         child: Column(
           children: <Widget>[
-            BigText('Your communities'),
+            BigText(text:'Your communities'),
             Padding(
               child: SearchInput(
                 onChangeCallback: onSearch,

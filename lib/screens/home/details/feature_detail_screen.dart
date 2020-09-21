@@ -108,11 +108,11 @@ class _FeatureDetailScreenState extends State<FeatureDetailScreen>{
     }).toList();
 
     return Scaffold(
-        appBar: MyAppBars.myAppBar5(context, onPop: ()=>setState(()=>{screenStack.removeLast()}), isFirstScreen: isFirstScreen),
+        appBar: MyAppBars.myAppBar3(context, onPop: ()=>setState(()=>{screenStack.removeLast()}), isFirstScreen: isFirstScreen),
         body: Padding(
           child: Column(
             children: <Widget>[
-              BigText(this.widget.feature.name),
+              BigText(text:this.widget.feature.name),
               Expanded(
                 child: Column(
                   children: widgetList,

@@ -19,7 +19,7 @@ class EditProfileScreen extends StatelessWidget{
         body: Padding(
           child: Column(
             children: <Widget>[
-              BigText('Edit profile'),
+              BigText(text:'Edit profile'),
               Padding(
                 child: ProfileForm(user: user,),
                 padding: EdgeInsets.fromLTRB(0, 30, 0, 30),

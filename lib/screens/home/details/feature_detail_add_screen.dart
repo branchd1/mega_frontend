@@ -19,12 +19,12 @@ class FeatureDetailAddScreen extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: MyAppBars.myAppBar3(),
+        appBar: MyAppBars.myAppBar2(),
         body: Padding(
           child: SingleChildScrollView(
             child: Column(
               children: <Widget>[
-                BigText(feature.name + ' feature details'),
+                BigText(text:feature.name + ' feature details'),
                 Align(
                   child: Row(
                     children: <Widget>[
