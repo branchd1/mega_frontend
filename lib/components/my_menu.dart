@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mega/components/texts/big_text.dart';
 import 'package:mega/screens/profile/profile_screen.dart';
-import 'package:mega/services/logout.dart';
+import 'package:mega/services/auth_services.dart';
 
 /// Widget representing the apps menu
 class MyMenu extends StatelessWidget{

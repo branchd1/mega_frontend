@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mega/components/buttons/my_submit_button.dart';
 import 'package:mega/components/inputs/my_password_input.dart';
-import 'package:mega/services/login.dart';
+import 'package:mega/services/auth_services.dart';
 
 /// Form used to login
 class LoginForm extends StatefulWidget{

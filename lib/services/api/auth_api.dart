@@ -15,7 +15,9 @@ import 'package:provider/provider.dart';
 
 import 'base_api.dart';
 
+/// Authentication and profile related API methods
 class AuthAPI {
+  /// Check if email exists in database
   static Future<EmailExistsResponseModel> checkEmailExists(BuildContext context, String email) async {
 
     Map<String, String> data = <String, String>{
@@ -43,6 +45,7 @@ class AuthAPI {
     }
   }
 
+  /// Login user and get token
   static Future<LoginResponseModel> login(
     BuildContext context,
     String email,
@@ -78,6 +81,7 @@ class AuthAPI {
     }
   }
 
+  /// Register user (i.e. create new user)
   static Future<RegisterResponseModel> register(
     BuildContext context,
     String email,
@@ -118,6 +122,7 @@ class AuthAPI {
     }
   }
 
+  /// Send password reset email request
   static Future<bool> resetPassword(
       BuildContext context,
       String email) async {
@@ -144,6 +149,7 @@ class AuthAPI {
     }
   }
 
+  /// Get the user details
   static Future<UserModel> getUser(BuildContext context) async {
 
     http.Response _res;
@@ -188,6 +194,7 @@ class AuthAPI {
     }
   }
 
+  /// Update the user details
   static Future<bool> patchUser(
       BuildContext context,
       {

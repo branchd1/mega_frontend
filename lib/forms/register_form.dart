@@ -4,7 +4,7 @@ import 'package:mega/components/inputs/my_password_input.dart';
 import 'package:mega/components/texts/error_text_plain.dart';
 import 'package:mega/models/response_models/register_response_model.dart';
 import 'package:mega/services/api/auth_api.dart';
-import 'package:mega/services/login.dart';
+import 'package:mega/services/auth_services.dart';
 
 /// Form used to register
 class RegisterForm extends StatefulWidget{

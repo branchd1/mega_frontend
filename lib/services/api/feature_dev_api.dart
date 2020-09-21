@@ -12,8 +12,9 @@ import 'package:mega/models/state_models/current_feature_state_model.dart';
 import 'package:mega/services/api/base_api.dart';
 import 'package:provider/provider.dart';
 
+/// Methods related to feature development API
 class FeatureDevAPI {
-
+  /// Save data to server data store
   static Future<Map<String, dynamic>> saveToDataStore(
       BuildContext context,
       {
@@ -29,6 +30,7 @@ class FeatureDevAPI {
 
     http.Response _res;
 
+    // form the data using Mega's syntax
     data = {
       if (data != null) ...data,
       'mega\$tag': tag,
@@ -61,6 +63,7 @@ class FeatureDevAPI {
     }
   }
 
+  /// Get data from data store
   static Future<List<dynamic>> getToDataStore(
       BuildContext context,
       {
@@ -106,6 +109,7 @@ class FeatureDevAPI {
     }
   }
 
+  /// upload image to datastore
   static Future<String> uploadImageToDataStore(BuildContext fileContext, File image) async {
 
     final String endpoint = 'api/upload-img/';
@@ -135,6 +139,7 @@ class FeatureDevAPI {
     return jsonDecode(_resStr)['url'];
   }
 
+  /// delete data from datastore
   static Future<bool> deleteFromDataStore(
       BuildContext context,
       {

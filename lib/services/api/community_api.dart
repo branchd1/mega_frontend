@@ -15,7 +15,9 @@ import 'package:provider/provider.dart';
 
 import 'base_api.dart';
 
+/// Methods related to community API
 class CommunityAPI {
+  /// Get a users communities from server
   static Future<List<CommunityModel>> getCommunities(BuildContext context) async {
 
     Map<String, String> headers = <String, String>{
@@ -49,6 +51,7 @@ class CommunityAPI {
     }
   }
 
+  /// Get a community types from server
   static Future<List<CommunityTypeModel>> getCommunityTypes(BuildContext context) async {
 
     Map<String, String> headers = <String, String>{
@@ -82,6 +85,7 @@ class CommunityAPI {
     }
   }
 
+  /// Add a user to a community in server
   static Future<bool> joinCommunities(BuildContext context, String communityKey,
       SetErrorTextCallback setErrorText) async {
 
@@ -120,6 +124,7 @@ class CommunityAPI {
     }
   }
 
+  /// Remove a user from a community in server
   static Future<bool> leaveCommunities(BuildContext context, String communityId) async {
 
     Map<String, String> headers = <String, String>{
@@ -154,7 +159,10 @@ class CommunityAPI {
     }
   }
 
-  static Future<CreateCommunityResponseModel> createCommunity(BuildContext context, String communityName, String communityType, String communityPicturePath, SetErrorTextCallback setErrorText) async {
+  /// Create a new community in server
+  static Future<CreateCommunityResponseModel> createCommunity(
+      BuildContext context, String communityName, String communityType,
+      String communityPicturePath, SetErrorTextCallback setErrorText) async {
 
     Map<String, String> headers = <String, String>{
       'Authorization': 'Token ' + Provider.of<AuthTokenStateModel>(context, listen: false).token
