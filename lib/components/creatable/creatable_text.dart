@@ -1,24 +1,27 @@
 import 'package:flutter/material.dart';
 
+/// Mega text component
 class CreatableText extends StatelessWidget{
+  /// The component data
   final Map data;
 
-  const CreatableText({Key key, this.data}) : super(key: key);
+  const CreatableText({Key key, @required this.data}) : super(key: key);
 
+  /// Create the text component with data
   static Widget createText(Map _data){
     return CreatableText(data: _data);
   }
 
   @override
   Widget build(BuildContext context) {
-//    if(data['id'] != null) assert((data['id']).length > 5); // move to external validator
+    // text value should not be null
     assert(data['value'] != null);
 
+    // form text with value
     Widget _text = Text(
       data['value']
     );
 
-//    if(data['id'] != null) widgetMap.addAll({data['id']: _text});
     return _text;
   }
 }

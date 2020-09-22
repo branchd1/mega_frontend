@@ -6,23 +6,31 @@ import 'package:mega/components/inputs/my_file_input.dart';
 import 'package:mega/components/inputs/my_text_input.dart';
 import 'package:mega/services/validators.dart';
 
+/// Mega component for text inputs
 class CreatableInput extends StatelessWidget{
+  /// The input types
   final List<String> inputTypes = ['email', 'text', 'file'];
+
+  /// The component data
   final Map<String, dynamic> data;
+
+  /// The input controller
   final TextEditingController controller;
 
-  CreatableInput({Key key, this.data, this.controller}) : super(key: key);
+  CreatableInput({Key key, @required this.data, @required this.controller}) : super(key: key);
 
+  /// Create Mega component input
   static Widget createInput(Map<String, dynamic> data, {TextEditingController controller}){
     return CreatableInput(data: data, controller: controller,);
   }
 
+  /// Validate input value
   String validator(String val) {
     // convert validator keys to enum
-
     Map<String, dynamic> _validators = data['validators'];
     String res;
 
+    // test all validators on value
     _validators.keys.takeWhile((value) => res == null).forEach((validator){
       if(validator == 'required') {
         res = Validators.requiredValidator(val);
@@ -54,9 +62,11 @@ class CreatableInput extends StatelessWidget{
 
   @override
   Widget build(BuildContext context) {
+    // assert data is well formed
     assert(data['type'] != null);
     assert(inputTypes.contains(data['type']));
 
+    // return appropriate input depending on type specified
     if(data['type'] == 'email') {
       return MyEmailInput(controller: controller,);
     }
@@ -76,10 +86,8 @@ class CreatableInput extends StatelessWidget{
         controller: controller,
       );
     }
-//    not yet implemented
-//    if(data['type'] == 'password') return MyPasswordInput();
-//    if(data['type'] == 'dropdown') return DropdownInput();
 
-      return Container();
+    // nothing specified
+    return Container();
   }
 }

@@ -3,31 +3,43 @@ import 'package:mega/components/buttons/my_button.dart';
 import 'package:mega/components/buttons/my_submit_button.dart';
 import 'package:mega/services/type_defs.dart';
 
+/// Mega button component
 class CreatableButton extends StatelessWidget{
+  /// The different button actions
   static const String changePage='change_page', getData='get_data', deleteItem='delete_item';
 
+  /// The component data
   final Map data;
+
+  /// The button tap callback
   final CreatableCallback callback;
 
-  const CreatableButton({Key key, this.data, this.callback,}) : super(key: key);
+  const CreatableButton({Key key, @required this.data, @required this.callback,}) : super(key: key);
 
+  /// The button action
   void buttonAction(Map<String, dynamic> action){
+    // check action map is valid
     String actionType = action['action_type'];
 
+    // perform action specified
     if (actionType == changePage){
-      assert(action.containsKey('new_page')); // delegate to a function that checks components structured correctly
+      assert(action.containsKey('new_page'));
       action['new_page']();
     }
   }
 
-  static Widget createButton(Map _data, {CreatableCallback callback}) => CreatableButton(data: _data, callback: callback);
+  /// Create Mega button component
+  static Widget createButton(Map _data, {CreatableCallback callback}) =>
+      CreatableButton(data: _data, callback: callback);
 
   @override
   Widget build(BuildContext context) {
+    // validate map
     assert(data['value'] != null);
 
     String buttonType = data.containsKey('type') ? data['type'] : null;
 
+    // return button based on type specified
     if(buttonType == 'icon'){
       Icon _icon;
       Color _iconColor;
@@ -60,6 +72,7 @@ class CreatableButton extends StatelessWidget{
             } else {
               callback();
             }
+            return null;
           },
         )
       );

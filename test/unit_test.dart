@@ -1,5 +1,4 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:mega/models/state_models/auth_token_state_model.dart';
 import 'package:mega/services/validators.dart';
 
 void main(){

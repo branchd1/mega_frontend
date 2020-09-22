@@ -1,8 +1,8 @@
 import 'package:mega/components/creatable/creatable_button.dart';
 import 'package:mega/components/creatable/creatable_form.dart';
-import 'package:mega/components/creatable/creatable_grid.dart';
+import 'package:mega/components/creatable/creatable_data_grid.dart';
 import 'package:mega/components/creatable/creatable_input.dart';
-import 'package:mega/components/creatable/creatable_list.dart';
+import 'package:mega/components/creatable/creatable_data_list.dart';
 import 'package:mega/components/creatable/creatable_stuffing.dart';
 import 'package:mega/components/creatable/creatable_text.dart';
 
@@ -21,7 +21,7 @@ const Map<String, dynamic> configurationMap = {
   'button': CreatableButton.createButton,
   'form': CreatableForm.createForm,
   'input': CreatableInput.createInput,
-  'list': CreatableList.createList,
-  'grid': CreatableGrid.createGrid,
+  'list': CreatableDataList.createList,
+  'grid': CreatableDataGrid.createGrid,
   'stuffing': CreatableStuffing.createStuffing,
 };
