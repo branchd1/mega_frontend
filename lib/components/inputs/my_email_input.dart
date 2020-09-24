@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:mega/services/validators.dart';
 
 /// Widget representing email input
@@ -19,6 +20,9 @@ class MyEmailInput extends StatelessWidget{
           contentPadding: EdgeInsets.fromLTRB(5, 0, 0, 0),
         ),
         validator: Validators.emailValidator,
+        inputFormatters: [
+          FilteringTextInputFormatter.deny(RegExp("[ ]"))
+        ],
       ),
     );
   }

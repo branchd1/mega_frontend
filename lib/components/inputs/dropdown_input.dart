@@ -26,7 +26,7 @@ class DropdownInput extends StatelessWidget{
           // iterate {dropDownList} to create {DropdownMenuItem}
           (dynamic elem){
             return DropdownMenuItem<String>(
-              value: elem._id.toString(),
+              value: elem.id.toString(),
               child: new Text(elem.value),
             );
           }

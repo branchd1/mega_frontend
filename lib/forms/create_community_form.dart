@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:mega/components/buttons/my_button.dart';
 import 'package:mega/components/buttons/my_submit_button.dart';
 import 'package:mega/components/my_dialog.dart';
@@ -59,12 +60,19 @@ class _CreateCommunityFormState extends State<CreateCommunityForm>{
           '\n\nTo restrict strangers from joining, keep this key private.';
 
       Widget _dialogButton = MyButton(
-        buttonText: 'ok',
+        buttonText: 'Copy key',
         onPressCallback: (){
+          // shouldn't error but just in case
+          try {
+            Clipboard.setData(ClipboardData(text: _res.key));
+          } catch (e) {}
+
+          // go to home screen
           if(_res != null) Navigator.push(
             context,
             MaterialPageRoute(builder: (context) => HomeScreen())
           );
+
         }
       );
 

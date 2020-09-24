@@ -33,7 +33,17 @@ class MyMenu extends StatelessWidget{
             },
           ),
           Divider(),
-          AboutListTile(),
+          AboutListTile(
+            icon: Icon(Icons.info),
+            applicationName: 'Mega App',
+            applicationIcon: Image.asset('assets/img/logo/small/logo.png'),
+            applicationVersion: '1.2.0',
+            aboutBoxChildren: [
+              Text('The Mega App is a Low Code Platform that enables '
+                  'organisations to create MiniApps for their customers '
+                  'and staff.'),
+            ],
+          ),
         ],
       )
     );

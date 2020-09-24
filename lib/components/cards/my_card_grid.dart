@@ -63,7 +63,7 @@ class MyCardGrid extends StatelessWidget{
     // return text if it is a community model or feature model
     // specific cases
     if (list[index] is CommunityModel || list[index] is FeatureModel){
-      return list[index]._name;
+      return list[index].name;
     }
 
     // check for the corresponding grid text passed in the text list

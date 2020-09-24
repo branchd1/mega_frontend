@@ -51,7 +51,7 @@ class _AddFeatureScreenState extends State<AddFeatureScreen>{
       body: Padding(
         child: Column(
           children: <Widget>[
-            BigText(text:'Add features'),
+            BigText(text:'Add features to the community'),
             Padding(
               child: SearchInput(
                 onChangeCallback: onSearch,
