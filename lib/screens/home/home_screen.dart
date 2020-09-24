@@ -41,10 +41,10 @@ class _HomeScreenState extends State<HomeScreen>{
     );
   }
 
-//  /// refresh widget
-//  Future<void> refresh() async {
-//    setState(() {});
-//  }
+  /// refresh widget
+  Future<void> refresh() async {
+    setState(() {});
+  }
 
   @override
   Widget build(BuildContext context){

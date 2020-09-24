@@ -88,7 +88,7 @@ class _CommunityScreenState extends State<CommunityScreen>{
             ),
             Align(
               child: Text(
-                this.widget.community.isAdmin ? 'admin' : 'member',
+                'You are ' + (this.widget.community.isAdmin ? 'admin' : 'member'),
                 textAlign: TextAlign.left,
               ),
               alignment: Alignment.bottomLeft,
