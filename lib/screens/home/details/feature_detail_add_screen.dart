@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mega/components/bars/my_app_bars.dart';
-import 'package:mega/components/buttons/my_button.dart';
+import 'package:mega/components/buttons/my_async_button.dart';
 import 'package:mega/components/cards/my_card.dart';
 import 'package:mega/components/texts/big_text.dart';
 import 'package:mega/models/community_model.dart';
@@ -35,7 +35,7 @@ class FeatureDetailAddScreen extends StatelessWidget{
                         padding: EdgeInsets.fromLTRB(5, 0, 0, 0),
                         child: Column(
                           children: <Widget>[
-                            MyButton(
+                            MyAsyncButton(
                               buttonText: 'add to community',
                               onPressCallback: () async {
                                 // add feature to community by calling API

@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:mega/components/buttons/delete_icon_list_button.dart';
 import 'package:mega/components/texts/empty_text.dart';
 import 'package:mega/components/texts/error_text_plain.dart';
 import 'package:mega/services/api/feature_dev_api.dart';
 
 /// Mega Component for list with data from server
-class CreatableDataList extends StatelessWidget{
+class CreatableDataList extends StatefulWidget{
   /// Component data
   final Map<String, dynamic> data;
 
@@ -12,6 +13,11 @@ class CreatableDataList extends StatelessWidget{
 
   /// Create the Mega list component
   static Widget createList(Map<String, dynamic> data) => CreatableDataList(data: data);
+
+  _CreatableDataList createState()=> _CreatableDataList();
+}
+
+class _CreatableDataList extends State<CreatableDataList>{
 
   /// Convert the special strings in the component map data
   /// to the appropriate values
@@ -35,8 +41,8 @@ class CreatableDataList extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
     // check component data is well formed
-    assert(data.containsKey('title'));
-    assert((data['title'] as Map).containsKey('value'));
+    assert(widget.data.containsKey('title'));
+    assert((widget.data['title'] as Map).containsKey('value'));
 
     // call back when add button pressed
     VoidCallback _addButtonCallback;
@@ -45,7 +51,7 @@ class CreatableDataList extends StatelessWidget{
     Future<List<dynamic>> _getData;
 
     // get list action map
-    Map<String, dynamic> _listActionMap = data.containsKey('action') ? data['action'] : null;
+    Map<String, dynamic> _listActionMap = widget.data.containsKey('action') ? widget.data['action'] : null;
 
     if(_listActionMap!=null){
       // get data from server
@@ -66,8 +72,8 @@ class CreatableDataList extends StatelessWidget{
       builder: (BuildContext context, AsyncSnapshot<List<dynamic>> snapshot) {
         Widget _widget;
         if(snapshot.hasData){
-          String _titleValue = data['title']['value'];
-          String _subtitleValue = data.containsKey('subtitle') ? data['subtitle']['value'] : null;
+          String _titleValue = widget.data['title']['value'];
+          String _subtitleValue = widget.data.containsKey('subtitle') ? widget.data['subtitle']['value'] : null;
 
           _widget = snapshot.data.length == 0 ? EmptyText(text: 'No items in this list',) : Expanded(
             child: ListView.separated(
@@ -78,13 +84,13 @@ class CreatableDataList extends StatelessWidget{
                 }
                 return ListTile(
                     // get appropriate values for list item title and subtitle
-                    title: (data['title'] as Map).containsKey('prefix') ?
-                    Text(data['title']['prefix'] + convertSpecialStrings(_titleValue, snapshot.data[index])) :
+                    title: (widget.data['title'] as Map).containsKey('prefix') ?
+                    Text(widget.data['title']['prefix'] + convertSpecialStrings(_titleValue, snapshot.data[index])) :
                     Text(convertSpecialStrings(_titleValue, snapshot.data[index])),
 
                     subtitle: _subtitleValue != null ?
-                    ((data['subtitle'] as Map).containsKey('prefix') ?
-                    Text(data['subtitle']['prefix'] + convertSpecialStrings(_subtitleValue, snapshot.data[index])) :
+                    ((widget.data['subtitle'] as Map).containsKey('prefix') ?
+                    Text(widget.data['subtitle']['prefix'] + convertSpecialStrings(_subtitleValue, snapshot.data[index])) :
                     Text(convertSpecialStrings(_subtitleValue, snapshot.data[index]))) :
                     null,
 
@@ -97,11 +103,20 @@ class CreatableDataList extends StatelessWidget{
                           if(_listActionMap != null && _listActionMap.containsKey('delete'))
                             (
                               DeleteIconListButton(
-                                snapshot: snapshot,
-                                listActionMap: _listActionMap,
-                                index: index,
-                              )
+                                onPressCallback: () async {
+                                  // send delete request
+                                  bool isSuccess = await FeatureDevAPI.deleteFromDataStore(
+                                    context,
+                                    storeId: snapshot.data[index]['id'].toString()
+                                  );
+
+                                  // complete request
+                                  if(isSuccess==true) {
+                                    _listActionMap['delete']['new_page']();
+                                  }
+                              }
                             )
+                          )
                         ],
                         textDirection: TextDirection.rtl,
                       ),
@@ -122,58 +137,6 @@ class CreatableDataList extends StatelessWidget{
         }
         return _widget;
       },
-    );
-  }
-}
-
-/// Delete icon button for the data list
-class DeleteIconListButton extends StatefulWidget{
-
-  /// Data from server
-  final AsyncSnapshot<List<dynamic>> snapshot;
-
-  /// The action map for the parent list
-  final Map<String, dynamic> listActionMap;
-
-  /// The item index in the list
-  final int index;
-
-  const DeleteIconListButton({Key key, @required this.snapshot,
-    @required this.listActionMap, @required this.index}) : super(key: key);
-
-  @override
-  _DeleteIconListButtonState createState()=> _DeleteIconListButtonState();
-}
-
-class _DeleteIconListButtonState extends State<DeleteIconListButton>{
-  /// Tracks if the request is loading
-  bool isLoading = false;
-
-  @override
-  Widget build(BuildContext context) {
-    return isLoading ? CircularProgressIndicator() : IconButton(
-      icon: Icon(Icons.delete),
-      onPressed: () async {
-        // start loading
-        setState(() {
-          isLoading = true;
-        });
-
-        // send delete request
-        bool isSuccess = await FeatureDevAPI.deleteFromDataStore(
-            context,
-            storeId: widget.snapshot.data[widget.index]['id'].toString()
-        );
-
-        // complete request
-        if(isSuccess==true) {
-          widget.listActionMap['delete']['new_page']();
-          setState(() {
-            isLoading = false;
-          });
-        }
-      },
-      color: Colors.red,
     );
   }
 }

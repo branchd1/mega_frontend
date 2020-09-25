@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mega/components/bars/my_app_bars.dart';
+import 'package:mega/components/buttons/delete_icon_list_button.dart';
 import 'package:mega/components/inputs/search_input.dart';
 import 'package:mega/components/texts/big_text.dart';
 import 'package:mega/components/texts/empty_text.dart';
@@ -33,11 +34,6 @@ class _ManageFeatureScreenState extends State<ManageFeatureScreen>{
       searchVal = val;
     });
   }
-
-//  /// Force widget refresh
-//  Future<void> forceRefresh() async{
-//    setState((){});
-//  }
 
   @override
   Widget build(BuildContext context) {
@@ -82,13 +78,13 @@ class _ManageFeatureScreenState extends State<ManageFeatureScreen>{
                         return ListTile(
                           title: Text(_list[index].name),
                           trailing: IconButton(
-                            icon: Icon(Icons.delete),
-                            color: Colors.red,
-                            onPressed: () async {
-                              // remove feature if deleted
-                              await FeatureAPI.removeFeature(context, widget.community.id.toString(), _list[index].id.toString());
-                              setState(() {});
-                            },
+                            icon: DeleteIconListButton(
+                              onPressCallback: () async {
+                                // remove feature if deleted
+                                await FeatureAPI.removeFeature(context, widget.community.id.toString(), _list[index].id.toString());
+                                setState(() {});
+                              }
+                            )
                           ),
                         );
                       },
@@ -102,10 +98,6 @@ class _ManageFeatureScreenState extends State<ManageFeatureScreen>{
                   _widget = CircularProgressIndicator();
                 }
                 return _widget;
-//                return RefreshIndicator(
-//                  child: _widget,
-//                  onRefresh: forceRefresh,
-//                );
               },
             ),
           ],
