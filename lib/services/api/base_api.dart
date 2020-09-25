@@ -6,8 +6,8 @@ import 'package:http/http.dart' as http;
 /// Base API methods
 class BaseAPI {
   /// The backend URL
-  static const String url = '0.0.0.0:9000';
-//  static const String url = 'mega-app-project.herokuapp.com';
+//  static const String url = '0.0.0.0:9000';
+  static const String url = 'mega-app-project.herokuapp.com';
 
   /// Post request to server
   static Future<http.Response> post(
@@ -28,7 +28,7 @@ class BaseAPI {
     };
 
     // build uri
-    final Uri uri = Uri.http(url, endpoint);
+    final Uri uri = Uri.https(url, endpoint);
 
     // send post request
     return http.post(
@@ -54,7 +54,7 @@ class BaseAPI {
       if(additionalHeaders != null) ...additionalHeaders
     };
 
-    final Uri uri = Uri.http(url, endpoint);
+    final Uri uri = Uri.https(url, endpoint);
 
     return http.delete(
       uri,
@@ -79,7 +79,7 @@ class BaseAPI {
       if(additionalHeaders != null) ...additionalHeaders
     };
 
-    final Uri uri = Uri.http(url, endpoint);
+    final Uri uri = Uri.https(url, endpoint);
 
     return http.patch(
       uri,
@@ -105,7 +105,7 @@ class BaseAPI {
       if(additionalHeaders != null) ...additionalHeaders
     };
 
-    final Uri uri = Uri.http(url, endpoint, params);
+    final Uri uri = Uri.https(url, endpoint, params);
 
     return http.get(
       uri,
@@ -121,7 +121,7 @@ class BaseAPI {
       Map<String, String> additionalHeaders
     }) async {
 
-    final Uri uri = Uri.http(BaseAPI.url, endpoint);
+    final Uri uri = Uri.https(BaseAPI.url, endpoint);
 
     var request = new http.MultipartRequest("POST", uri);
 
@@ -163,7 +163,7 @@ class BaseAPI {
         Map<String, String> additionalHeaders
       }) async {
 
-    final Uri uri = Uri.http(BaseAPI.url, endpoint);
+    final Uri uri = Uri.https(BaseAPI.url, endpoint);
 
     var request = new http.MultipartRequest("PATCH", uri);
 

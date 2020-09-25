@@ -117,7 +117,7 @@ class FeatureDevAPI {
     final stream = new http.ByteStream(image.openRead());
     final length = await image.length();
 
-    final Uri uri = Uri.http(BaseAPI.url, endpoint);
+    final Uri uri = Uri.https(BaseAPI.url, endpoint);
 
     var request = new http.MultipartRequest("POST", uri);
 
