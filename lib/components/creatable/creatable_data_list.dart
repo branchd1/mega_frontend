@@ -46,7 +46,6 @@ class CreatableDataList extends StatelessWidget{
     // get list action map
     Map<String, dynamic> _listActionMap = data.containsKey('action') ? data['action'] : null;
 
-
     if(_listActionMap!=null){
       // get data from server
       if (_listActionMap['action_type'] == 'get'){
