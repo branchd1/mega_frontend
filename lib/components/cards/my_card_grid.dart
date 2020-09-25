@@ -43,14 +43,14 @@ class MyCardGrid extends StatelessWidget{
   /// Get the corresponding subtexts in a list depending on index
   String getSubtexts(int index){
 
+    // check for the corresponding grid subtext passed in the subtext list
+    if (gridSubTexts != null) return gridSubTexts[index];
+
     // return subtext if it is a community model
     // specific case
     if (list[index] is CommunityModel){
       return list[index].isAdmin ? 'admin' : 'member';
     }
-
-    // check for the corresponding grid subtext passed in the subtext list
-    if (gridSubTexts != null) return gridSubTexts[index];
 
     // nothing happened, return null
     return null;
@@ -60,14 +60,14 @@ class MyCardGrid extends StatelessWidget{
   /// Get the corresponding texts in a list depending on index
   String getTexts(int index){
 
+    // check for the corresponding grid text passed in the text list
+    if (gridTexts != null) return gridTexts[index];
+
     // return text if it is a community model or feature model
     // specific cases
     if (list[index] is CommunityModel || list[index] is FeatureModel){
       return list[index].name;
     }
-
-    // check for the corresponding grid text passed in the text list
-    if (gridTexts != null) return gridTexts[index];
 
     // nothing happened, return null
     return null;
@@ -76,14 +76,14 @@ class MyCardGrid extends StatelessWidget{
   /// Get the corresponding pictures in a list depending on index
   String getPictureUrl(int index){
 
+    // check for the corresponding grid picture url passed in the text list
+    if (gridPicturesUrls != null) return gridPicturesUrls[index];
+
     // return picture url if it is a community or feature model
     // specific cases
     if (list[index] is CommunityModel || list[index] is FeatureModel){
       return list[index].pictureUrl;
     }
-
-    // check for the corresponding grid picture url passed in the text list
-    if (gridPicturesUrls != null) return gridPicturesUrls[index];
 
     // nothing happened, return null
     return null;

@@ -43,7 +43,9 @@ class MyCard extends StatelessWidget{
                     child: Column(
                       children: <Widget>[
                         ...texts.map((text) => MainText(text: text, textCenter: true)).toList(),
-                        if(subTexts != null) ...subTexts.map((text) => Text(text, textAlign: TextAlign.center,)).toList(),
+                        if((subTexts.length==1 && !subTexts.contains(null))
+                            || subTexts.length > 1)
+                          ...subTexts.map((text) => Text(text, textAlign: TextAlign.center,)).toList(),
                       ],
                       mainAxisAlignment: MainAxisAlignment.end,
                       crossAxisAlignment: CrossAxisAlignment.center,

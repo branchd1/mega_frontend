@@ -64,7 +64,7 @@ class MyAppBars{
     ),
     actions: <Widget>[
       Padding(
-        padding: EdgeInsets.fromLTRB(0, 0, 20, 0),
+        padding: EdgeInsets.fromLTRB(0, 0, 30, 0),
         child: ClipRRect(
           borderRadius: BorderRadius.all(Radius.circular(10)),
           child: Image.network(logoUrl),

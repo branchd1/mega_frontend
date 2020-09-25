@@ -32,9 +32,11 @@ class _MySubmitButtonState extends State<MySubmitButton>{
         ],
       ),
       onPressed: (){
-        setState(() {
-          isLoading = true;
-        });
+        if (Form.of(context).validate()) {
+          setState(() {
+            isLoading = true;
+          });
+        }
         if( widget.submitCallback != null ) widget.submitCallback().whenComplete((){
           setState(() {
             isLoading = false;
