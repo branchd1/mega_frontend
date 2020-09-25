@@ -49,10 +49,13 @@ class _JoinCommunityFormState extends State<JoinCommunityForm>{
         onPressCallback: () async {
           bool _res = await CommunityAPI.joinCommunities(context, _communityKeyController.text, setErrorText);
 
-          if(_res) Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => HomeScreen())
-          );
+          if(_res){
+            Navigator.pushNamedAndRemoveUntil(
+                context,
+                HomeScreen.routeName,
+                (Route<dynamic> route) => false
+            );
+          }
         }
       );
 

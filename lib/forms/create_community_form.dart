@@ -68,10 +68,13 @@ class _CreateCommunityFormState extends State<CreateCommunityForm>{
           } catch (e) {}
 
           // go to home screen
-          if(_res != null) Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => HomeScreen())
-          );
+          if(_res != null){
+            Navigator.pushNamedAndRemoveUntil(
+              context,
+              HomeScreen.routeName,
+              (Route<dynamic> route) => false
+            );
+          }
 
         }
       );
