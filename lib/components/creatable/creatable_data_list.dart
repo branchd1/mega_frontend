@@ -3,7 +3,7 @@ import 'package:mega/components/texts/error_text_plain.dart';
 import 'package:mega/services/api/feature_dev_api.dart';
 
 /// Mega Component for list with data from server
-class CreatableDataList extends StatefulWidget{
+class CreatableDataList extends StatelessWidget{
   /// Component data
   final Map<String, dynamic> data;
 
@@ -11,14 +11,6 @@ class CreatableDataList extends StatefulWidget{
 
   /// Create the Mega list component
   static Widget createList(Map<String, dynamic> data) => CreatableDataList(data: data);
-
-  @override
-  _CreatableDataListState createState()=> _CreatableDataListState();
-}
-
-class _CreatableDataListState extends State<CreatableDataList>{
-
-  bool isLoading = false;
 
   /// Convert the special strings in the component map data
   /// to the appropriate values
@@ -42,8 +34,8 @@ class _CreatableDataListState extends State<CreatableDataList>{
   @override
   Widget build(BuildContext context) {
     // check component data is well formed
-    assert(widget.data.containsKey('title'));
-    assert((widget.data['title'] as Map).containsKey('value'));
+    assert(data.containsKey('title'));
+    assert((data['title'] as Map).containsKey('value'));
 
     // call back when add button pressed
     VoidCallback _addButtonCallback;
@@ -52,7 +44,7 @@ class _CreatableDataListState extends State<CreatableDataList>{
     Future<List<dynamic>> _getData;
 
     // get list action map
-    Map<String, dynamic> _listActionMap = widget.data.containsKey('action') ? widget.data['action'] : null;
+    Map<String, dynamic> _listActionMap = data.containsKey('action') ? data['action'] : null;
 
 
     if(_listActionMap!=null){
@@ -74,8 +66,8 @@ class _CreatableDataListState extends State<CreatableDataList>{
       builder: (BuildContext context, AsyncSnapshot<List<dynamic>> snapshot) {
         Widget _widget;
         if(snapshot.hasData){
-          String _titleValue = widget.data['title']['value'];
-          String _subtitleValue = widget.data.containsKey('subtitle') ? widget.data['subtitle']['value'] : null;
+          String _titleValue = data['title']['value'];
+          String _subtitleValue = data.containsKey('subtitle') ? data['subtitle']['value'] : null;
 
           _widget = Expanded(
             child: ListView.separated(
@@ -86,13 +78,13 @@ class _CreatableDataListState extends State<CreatableDataList>{
                 }
                 return ListTile(
                     // get appropriate values for list item title and subtitle
-                    title: (widget.data['title'] as Map).containsKey('prefix') ?
-                    Text(widget.data['title']['prefix'] + convertSpecialStrings(_titleValue, snapshot.data[index])) :
+                    title: (data['title'] as Map).containsKey('prefix') ?
+                    Text(data['title']['prefix'] + convertSpecialStrings(_titleValue, snapshot.data[index])) :
                     Text(convertSpecialStrings(_titleValue, snapshot.data[index])),
 
                     subtitle: _subtitleValue != null ?
-                    ((widget.data['subtitle'] as Map).containsKey('prefix') ?
-                    Text(widget.data['subtitle']['prefix'] + convertSpecialStrings(_subtitleValue, snapshot.data[index])) :
+                    ((data['subtitle'] as Map).containsKey('prefix') ?
+                    Text(data['subtitle']['prefix'] + convertSpecialStrings(_subtitleValue, snapshot.data[index])) :
                     Text(convertSpecialStrings(_subtitleValue, snapshot.data[index]))) :
                     null,
 
@@ -104,26 +96,10 @@ class _CreatableDataListState extends State<CreatableDataList>{
                           // and set the callback
                           if(_listActionMap != null && _listActionMap.containsKey('delete'))
                             (
-                              isLoading ? CircularProgressIndicator() : IconButton(
-                                icon: Icon(Icons.delete),
-                                onPressed: () async {
-                                  setState(() {
-                                    isLoading = true;
-                                  });
-
-                                  bool isSuccess = await FeatureDevAPI.deleteFromDataStore(
-                                      context,
-                                      storeId: snapshot.data[index]['id'].toString()
-                                  );
-
-                                  if(isSuccess==true) {
-                                    _listActionMap['delete']['new_page']();
-                                    setState(() {
-                                      isLoading = false;
-                                    });
-                                  }
-                                },
-                                color: Colors.red,
+                              DeleteIconListButton(
+                                snapshot: snapshot,
+                                listActionMap: _listActionMap,
+                                index: index,
                               )
                             )
                         ],
@@ -146,6 +122,58 @@ class _CreatableDataListState extends State<CreatableDataList>{
         }
         return _widget;
       },
+    );
+  }
+}
+
+/// Delete icon button for the data list
+class DeleteIconListButton extends StatefulWidget{
+
+  /// Data from server
+  final AsyncSnapshot<List<dynamic>> snapshot;
+
+  /// The action map for the parent list
+  final Map<String, dynamic> listActionMap;
+
+  /// The item index in the list
+  final int index;
+
+  const DeleteIconListButton({Key key, @required this.snapshot,
+    @required this.listActionMap, @required this.index}) : super(key: key);
+
+  @override
+  _DeleteIconListButtonState createState()=> _DeleteIconListButtonState();
+}
+
+class _DeleteIconListButtonState extends State<DeleteIconListButton>{
+  /// Tracks if the request is loading
+  bool isLoading = false;
+
+  @override
+  Widget build(BuildContext context) {
+    return isLoading ? CircularProgressIndicator() : IconButton(
+      icon: Icon(Icons.delete),
+      onPressed: () async {
+        // start loading
+        setState(() {
+          isLoading = true;
+        });
+
+        // send delete request
+        bool isSuccess = await FeatureDevAPI.deleteFromDataStore(
+            context,
+            storeId: widget.snapshot.data[widget.index]['id'].toString()
+        );
+
+        // complete request
+        if(isSuccess==true) {
+          widget.listActionMap['delete']['new_page']();
+          setState(() {
+            isLoading = false;
+          });
+        }
+      },
+      color: Colors.red,
     );
   }
 }
