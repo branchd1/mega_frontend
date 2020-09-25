@@ -78,11 +78,15 @@ class CreatableButton extends StatelessWidget{
       );
     }
 
-    return MyButton(
-      buttonText: data['value'],
-      onPressCallback: () {
-        if (data['action'] != null) buttonAction(data['action']);
-      }
+    // regular button
+    return Align(
+      alignment: Alignment.bottomLeft,
+      child: MyButton(
+        buttonText: data['value'],
+        onPressCallback: () {
+          if (data['action'] != null) buttonAction(data['action']);
+        },
+      ),
     );
   }
 }

@@ -37,7 +37,7 @@ class _MySubmitButtonState extends State<MySubmitButton>{
             isLoading = true;
           });
         }
-        if( widget.submitCallback != null ) widget.submitCallback().whenComplete((){
+        if( widget.submitCallback != null ) widget.submitCallback()?.whenComplete((){
           setState(() {
             isLoading = false;
           });

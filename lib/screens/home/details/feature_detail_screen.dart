@@ -122,20 +122,22 @@ class _FeatureDetailScreenState extends State<FeatureDetailScreen>{
     }).toList();
 
     return Scaffold(
-        appBar: MyAppBars.myAppBar3(context, onPop: ()=>setState(()=>{screenStack.removeLast()}), isFirstScreen: isFirstScreen),
-        body: Padding(
-          child: Column(
-            children: <Widget>[
-              BigText(text:this.widget.feature.name),
-              Expanded(
-                child: Column(
-                  children: widgetList,
-                ),
+      appBar: MyAppBars.myAppBar3(context, onPop: ()=>setState((){
+        screenStack.removeWhere((element) => element == screenStack.last);
+      }), isFirstScreen: isFirstScreen),
+      body: Padding(
+        child: Column(
+          children: <Widget>[
+            BigText(text:this.widget.feature.name),
+            Expanded(
+              child: Column(
+                children: widgetList,
               ),
-            ],
-          ),
-          padding: EdgeInsets.fromLTRB(30, 0, 30, 0),
-        )
+            ),
+          ],
+        ),
+        padding: EdgeInsets.fromLTRB(30, 0, 30, 0),
+      )
     );
   }
 }
