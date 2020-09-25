@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:mega/components/my_menu.dart';
 import 'package:mega/components/texts/big_text.dart';
@@ -21,7 +23,10 @@ class HomeScreen extends StatefulWidget{
 }
 
 class _HomeScreenState extends State<HomeScreen>{
-  /// search bar value
+  /// The list of user communities
+  Future<List<CommunityModel>> communities;
+
+  /// Search bar value
   String searchVal;
 
   /// Update list when search bar value changes
@@ -48,8 +53,6 @@ class _HomeScreenState extends State<HomeScreen>{
 
   @override
   Widget build(BuildContext context){
-    Future<List<CommunityModel>> communities;
-
     // get communities
     if (searchVal == null) communities = CommunityAPI.getCommunities(context);
 
@@ -72,18 +75,25 @@ class _HomeScreenState extends State<HomeScreen>{
                 Widget _widget;
                 if(snapshot.hasData){
                   _widget = Expanded(
-                    child: MyCardGrid(
-                      list: searchVal == null ?
-                      snapshot.data : snapshot.data.where((element) => element.name.toLowerCase().contains(searchVal)).toList(),
-                      addButtonCallback: (){
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) => AddCommunityScreen()),
-                        );
-                      },
-                      emptyText: 'No communities',
-                      emptySubtext: 'add below',
-                      tapCardCallback: tapCardCallback,
+                    child: RefreshIndicator(
+                      onRefresh: refresh,
+                      child: ListView(
+                        children: [
+                          MyCardGrid(
+                            list: searchVal == null ?
+                            snapshot.data : snapshot.data.where((element) => element.name.toLowerCase().contains(searchVal)).toList(),
+                            addButtonCallback: (){
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(builder: (context) => AddCommunityScreen()),
+                              );
+                            },
+                            emptyText: 'No communities',
+                            emptySubtext: 'add below',
+                            tapCardCallback: tapCardCallback,
+                          )
+                        ],
+                      ),
                     ),
                   );
                 } else if (snapshot.hasError){

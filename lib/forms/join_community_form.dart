@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mega/components/buttons/my_async_button.dart';
 import 'package:mega/components/buttons/my_button.dart';
 import 'package:mega/components/buttons/my_submit_button.dart';
 import 'package:mega/components/inputs/my_text_input.dart';
@@ -44,7 +45,7 @@ class _JoinCommunityFormState extends State<JoinCommunityForm>{
           'community admin(s).\n\n' + 'Click continue to accept or click cancel to decline.';
 
       // Consent button
-      Widget _dialogContinueButton = MyButton(
+      Widget _dialogContinueButton = MyAsyncButton(
         buttonText: 'continue',
         onPressCallback: () async {
           bool _res = await CommunityAPI.joinCommunities(context, _communityKeyController.text, setErrorText);

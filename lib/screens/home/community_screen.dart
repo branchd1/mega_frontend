@@ -50,10 +50,10 @@ class _CommunityScreenState extends State<CommunityScreen>{
     );
   }
 
-//  /// refresh widget
-//  Future<void> forceRefresh() async{
-//    setState((){});
-//  }
+  /// refresh widget
+  Future<void> refresh() async{
+    setState((){});
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -105,22 +105,29 @@ class _CommunityScreenState extends State<CommunityScreen>{
                 Widget _widget;
                 if(snapshot.hasData){
                   _widget = Expanded(
-                    child: MyCardGrid(
-                      list: searchVal == null ?
-                      snapshot.data : snapshot.data.where((element) => element.name.toLowerCase().contains(searchVal)).toList(),
-                      addButtonCallback: this.widget.community.isAdmin ? (){
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => AddFeatureScreen(
-                              community: this.widget.community,
-                            )
-                          ),
-                        );
-                      } : null,
-                      emptyText: 'No features',
-                      emptySubtext: 'add below',
-                      tapCardCallback: tapCardCallback,
+                    child: RefreshIndicator(
+                      onRefresh: refresh,
+                      child: ListView(
+                        children: [
+                          MyCardGrid(
+                            list: searchVal == null ?
+                            snapshot.data : snapshot.data.where((element) => element.name.toLowerCase().contains(searchVal)).toList(),
+                            addButtonCallback: this.widget.community.isAdmin ? (){
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => AddFeatureScreen(
+                                      community: this.widget.community,
+                                    )
+                                ),
+                              );
+                            } : null,
+                            emptyText: 'No features',
+                            emptySubtext: 'add below',
+                            tapCardCallback: tapCardCallback,
+                          )
+                        ],
+                      ),
                     ),
                   );
                 } else if (snapshot.hasError){
@@ -130,10 +137,6 @@ class _CommunityScreenState extends State<CommunityScreen>{
                   _widget = CircularProgressIndicator();
                 }
                 return _widget;
-//                return RefreshIndicator(
-//                  child: _widget,
-//                  onRefresh: forceRefresh,
-//                );
               },
             ),
           ],
