@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mega/components/texts/empty_text.dart';
 import 'package:mega/components/texts/error_text_plain.dart';
 import 'package:mega/services/api/feature_dev_api.dart';
 
@@ -68,7 +69,7 @@ class CreatableDataList extends StatelessWidget{
           String _titleValue = data['title']['value'];
           String _subtitleValue = data.containsKey('subtitle') ? data['subtitle']['value'] : null;
 
-          _widget = Expanded(
+          _widget = snapshot.data.length == 0 ? EmptyText(text: 'No items in this list',) : Expanded(
             child: ListView.separated(
               shrinkWrap: true,
               itemBuilder: (context, index){
