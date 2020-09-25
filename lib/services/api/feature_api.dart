@@ -142,8 +142,6 @@ class FeatureAPI {
       'feature': featureId,
     };
 
-    print(featureId);
-
     http.Response _res;
 
     try{
@@ -157,8 +155,6 @@ class FeatureAPI {
     } catch (e) {
       print(e);
     }
-
-    print(_res.body);
 
     if(_res.statusCode==200){
       return true;
