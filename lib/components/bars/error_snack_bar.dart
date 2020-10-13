@@ -1,14 +1,18 @@
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class ErrorSnackBar{
+/// Error bar shown below app when something goes wrong
+class ErrorSnackBar extends StatelessWidget{
+  /// show the error bar
   static void showErrorSnackBar(BuildContext context){
-    Scaffold.of(context).showSnackBar(
-        SnackBar(
-            content: Text('Something went wrong'),
-            backgroundColor: Colors.red
-        )
+    Scaffold.of(context).showSnackBar(ErrorSnackBar().build(context));
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return SnackBar(
+        content: Text('Something went wrong'),
+        backgroundColor: Colors.red
     );
   }
 }

@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:mega/services/type_defs.dart';
 
-typedef void OnChangeCallback(String val);
-
+/// Widget representing search bar
 class SearchInput extends StatelessWidget{
+
+  /// Callback when search bar value changes
   final OnChangeCallback onChangeCallback;
 
   SearchInput({@required this.onChangeCallback});

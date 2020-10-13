@@ -1,13 +1,16 @@
-import 'package:flutter/material.dart';
 
+/// Response from REST API from logging in
 class LoginResponseModel{
-  final String authToken;
+  /// The users token
+  final String _authToken;
 
-  LoginResponseModel({this.authToken});
+  // Getter
+  String get authToken => _authToken;
 
+  LoginResponseModel(this._authToken);
+
+  /// Create object from JSON data
   factory LoginResponseModel.fromJson(Map<String, dynamic> json) {
-    return LoginResponseModel(
-      authToken: json['auth_token']
-    );
+    return LoginResponseModel(json['auth_token']);
   }
 }

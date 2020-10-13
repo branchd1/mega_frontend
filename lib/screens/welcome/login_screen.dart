@@ -4,8 +4,12 @@ import 'package:mega/components/texts/big_text.dart';
 import 'package:mega/components/bars/my_app_bars.dart';
 import 'package:mega/forms/login_form.dart';
 
+/// Login screen
+///
+/// The screen where the user logs in
 class LoginScreen extends StatelessWidget{
 
+  /// The users email
   final String email;
 
   const LoginScreen({this.email});
@@ -21,7 +25,7 @@ class LoginScreen extends StatelessWidget{
                 Image.asset('assets/img/logo/logo.png'),
                 Column(
                   children: <Widget>[
-                    BigText('Login'),
+                    BigText(text:'Login'),
                     Align(
                         alignment: Alignment.bottomLeft,
                         child: Text(email + ' is already registered. Login below.')

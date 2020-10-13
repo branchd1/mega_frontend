@@ -11,7 +11,9 @@ import 'package:provider/provider.dart';
 
 import 'base_api.dart';
 
+/// Methods related to feature API
 class FeatureAPI {
+  /// Get features of a community
   static Future<List<FeatureModel>> getFeatures(BuildContext context, int communityId) async {
 
     Map<String, String> headers = <String, String>{
@@ -50,6 +52,8 @@ class FeatureAPI {
     }
   }
 
+  /// Get all features in database
+  /// except features already added to a community
   static Future<List<FeatureModel>> getAllFeatures(BuildContext context, String communityType, int communityId) async {
 
     Map<String, String> headers = <String, String>{
@@ -89,6 +93,7 @@ class FeatureAPI {
     }
   }
 
+  /// Add a feature to a community
   static Future<bool> addFeatureToCommunity(BuildContext context, int featureId, int communityId) async {
 
     Map<String, String> headers = <String, String>{
@@ -104,7 +109,7 @@ class FeatureAPI {
 
     try{
       _res = await BaseAPI.post(
-          'api/features/add_to_community/',
+          'api/features/add-to-community/',
           additionalHeaders: headers,
           data: data
       );
@@ -125,6 +130,7 @@ class FeatureAPI {
     }
   }
 
+  /// Remove a feature from a community
   static Future<bool> removeFeature(BuildContext context, String communityId, String featureId) async {
 
     Map<String, String> headers = <String, String>{
@@ -135,8 +141,6 @@ class FeatureAPI {
       'community': communityId,
       'feature': featureId,
     };
-
-    print(featureId);
 
     http.Response _res;
 
@@ -151,8 +155,6 @@ class FeatureAPI {
     } catch (e) {
       print(e);
     }
-
-    print(_res.body);
 
     if(_res.statusCode==200){
       return true;

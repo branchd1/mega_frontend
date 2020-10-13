@@ -4,28 +4,44 @@ import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:mega/components/buttons/my_button.dart';
 import 'package:mega/components/texts/error_text_plain.dart';
-import 'package:mega/services/callback_types.dart';
+import 'package:mega/services/type_defs.dart';
 
+/// File input widget
 class MyFileInput extends StatefulWidget{
+  /// The input placeholder
   final String hintText;
+
+  /// Callback to validate the input value
   final ValidatorCallback validator;
+
+  /// Text controller used to track changes in the input
   final TextEditingController controller;
 
-  MyFileInput({this.hintText, this.validator, this.controller});
+  MyFileInput({@required this.hintText, @required this.controller, this.validator});
 
   @override
   _MyFileInputState createState()=> _MyFileInputState();
 }
 
 class _MyFileInputState extends State<MyFileInput>{
-  String _filePath;
 
+  /// The file path of the file chosen
+  String _filePath = '';
+
+  /// Set the file path attribute to the chosen file
   void setFile() async {
+    // get the file path
     String _tempFilePath = await FilePicker.getFilePath(type: FileType.image);
-    if(!(_filePath != null && _tempFilePath == null)) setState(() {
-      _filePath = _tempFilePath;
-    });
-    widget.controller.text = _filePath;
+
+    if(_tempFilePath != null) {
+      setState(() {
+        // Set the file path to the chosen file
+        _filePath = _tempFilePath;
+      });
+
+      // set the controller text to the file path
+      widget.controller.text = _filePath;
+    }
   }
 
   @override
@@ -38,7 +54,8 @@ class _MyFileInputState extends State<MyFileInput>{
                 Row(
                   children: [
                     Container(
-                      child: _filePath == null ? Image.network('https://via.placeholder.com/150'): Image.file(File(_filePath)),
+                      // show placeholder when file path is empty
+                      child: _filePath.length == 0 ? Image.asset('assets/img/placeholder.png') : Image.file(File(_filePath)),
                       constraints: BoxConstraints.tight(Size.square(50)),
                     ),
                     Padding(
@@ -63,11 +80,10 @@ class _MyFileInputState extends State<MyFileInput>{
       },
       validator: (val){
         if(widget.validator != null){
-          return _filePath == null ? widget.validator('') : widget.validator(_filePath);
+          return widget.validator(_filePath);
         }
         return null;
       },
-      initialValue: '',
     );
   }
 }

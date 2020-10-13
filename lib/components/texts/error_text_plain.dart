@@ -1,17 +1,20 @@
 import 'package:flutter/material.dart';
 
+/// Widget displays an error message in red text
 class ErrorTextPlain extends StatelessWidget{
-  final String errorText;
+  /// The main error text
+  final String text;
 
-  const ErrorTextPlain(this.errorText, {Key key}) : super(key: key);
+  const ErrorTextPlain(this.text, {Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Text(
-      errorText,
+      text,
       textAlign: TextAlign.left,
       style: TextStyle(
-          color: Colors.red
+        // make the text red
+        color: Colors.red
       ),
     );
   }

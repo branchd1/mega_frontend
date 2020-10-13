@@ -1,5 +1,7 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
-import 'package:mega/components/menu.dart';
+import 'package:mega/components/my_menu.dart';
 import 'package:mega/components/texts/big_text.dart';
 import 'package:mega/components/cards/my_card_grid.dart';
 import 'package:mega/components/bars/my_app_bars.dart';
@@ -11,7 +13,9 @@ import 'package:mega/services/api/community_api.dart';
 import 'add/add_community_screen.dart';
 import 'community_screen.dart';
 
+/// The home screen which lists all the users communities
 class HomeScreen extends StatefulWidget{
+  /// The home screen route name
   static const routeName = '/home';
 
   @override
@@ -19,14 +23,22 @@ class HomeScreen extends StatefulWidget{
 }
 
 class _HomeScreenState extends State<HomeScreen>{
+  /// The list of user communities
+  Future<List<CommunityModel>> communities;
+
+  /// Search bar value
   String searchVal;
 
+  /// Update list when search bar value changes
   void onSearch(String val){
     setState(() {
       searchVal = val;
     });
   }
 
+  /// Callback when community card tapped
+  ///
+  /// Goes to community screen when the community's card is tapped
   void tapCardCallback(BuildContext context, dynamic item){
     Navigator.push(
       context,
@@ -34,23 +46,23 @@ class _HomeScreenState extends State<HomeScreen>{
     );
   }
 
+  /// refresh widget
   Future<void> refresh() async {
     setState(() {});
   }
 
   @override
   Widget build(BuildContext context){
-    Future<List<CommunityModel>> communities;
-
+    // get communities
     if (searchVal == null) communities = CommunityAPI.getCommunities(context);
 
     return Scaffold(
       appBar: MyAppBars.myAppBar2(),
-      drawer: Menu(),
+      drawer: MyMenu(),
       body: Padding(
         child: Column(
           children: <Widget>[
-            BigText('Your communities'),
+            BigText(text:'Your communities'),
             Padding(
               child: SearchInput(
                 onChangeCallback: onSearch,
@@ -63,18 +75,25 @@ class _HomeScreenState extends State<HomeScreen>{
                 Widget _widget;
                 if(snapshot.hasData){
                   _widget = Expanded(
-                    child: MyCardGrid(
-                      list: searchVal == null ?
-                      snapshot.data : snapshot.data.where((element) => element.name.toLowerCase().contains(searchVal)).toList(),
-                      addButtonCallback: (){
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) => AddCommunityScreen()),
-                        );
-                      },
-                      emptyText: 'No communities',
-                      emptySubtext: 'add below',
-                      tapCardCallback: tapCardCallback,
+                    child: RefreshIndicator(
+                      onRefresh: refresh,
+                      child: ListView(
+                        children: [
+                          MyCardGrid(
+                            list: searchVal == null ?
+                            snapshot.data : snapshot.data.where((element) => element.name.toLowerCase().contains(searchVal)).toList(),
+                            addButtonCallback: (){
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(builder: (context) => AddCommunityScreen()),
+                              );
+                            },
+                            emptyText: 'No communities',
+                            emptySubtext: 'add below',
+                            tapCardCallback: tapCardCallback,
+                          )
+                        ],
+                      ),
                     ),
                   );
                 } else if (snapshot.hasError){

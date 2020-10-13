@@ -12,8 +12,9 @@ import 'package:mega/models/state_models/current_feature_state_model.dart';
 import 'package:mega/services/api/base_api.dart';
 import 'package:provider/provider.dart';
 
+/// Methods related to feature development API
 class FeatureDevAPI {
-
+  /// Save data to server data store
   static Future<Map<String, dynamic>> saveToDataStore(
       BuildContext context,
       {
@@ -29,6 +30,7 @@ class FeatureDevAPI {
 
     http.Response _res;
 
+    // form the data using Mega's syntax
     data = {
       if (data != null) ...data,
       'mega\$tag': tag,
@@ -39,7 +41,7 @@ class FeatureDevAPI {
 
     try{
       _res = await BaseAPI.post(
-          'api/data_store/',
+          'api/data-store/',
           additionalHeaders: headers,
           data: data
       );
@@ -61,6 +63,7 @@ class FeatureDevAPI {
     }
   }
 
+  /// Get data from data store
   static Future<List<dynamic>> getToDataStore(
       BuildContext context,
       {
@@ -84,7 +87,7 @@ class FeatureDevAPI {
 
     try{
       _res = await BaseAPI.get(
-          'api/data_store/',
+          'api/data-store/',
           additionalHeaders: headers,
           params: params
       );
@@ -106,66 +109,10 @@ class FeatureDevAPI {
     }
   }
 
-  static Future<http.Response> postExternal(
-    BuildContext context,
-    String url,
-    String endpoint,
-    {
-      Map<String, String> data,
-    }){
-
-    Map<String, String> headers = <String, String>{
-      'Content-Type': 'application/json; charset=UTF-8',
-      'Authorization': 'Token ' + Provider.of<AuthTokenStateModel>(context, listen: false).token
-    };
-
-    headers = {
-      ...headers,
-    };
-
-    // add a trailing slash
-    if(!endpoint.endsWith('/')) endpoint += '/';
-
-    final Uri uri = Uri.https(url, endpoint);
-
-    return http.post(
-      uri,
-      headers: headers,
-      body: jsonEncode(data),
-    );
-  }
-
-  static Future<http.Response> getExternal(
-      BuildContext context,
-      String url,
-      String endpoint,
-      {
-        Map<String, String> params,
-      }){
-
-    Map<String, String> headers = <String, String>{
-      'Content-Type': 'application/json; charset=UTF-8',
-      'Authorization': 'Token ' + Provider.of<AuthTokenStateModel>(context, listen: false).token
-    };
-
-    headers = {
-      ...headers,
-    };
-
-    // add a trailing slash
-    if(!endpoint.endsWith('/')) endpoint += '/';
-
-    final Uri uri = Uri.https(url, endpoint, params);
-
-    return http.get(
-      uri,
-      headers: headers,
-    );
-  }
-
+  /// upload image to datastore
   static Future<String> uploadImageToDataStore(BuildContext fileContext, File image) async {
 
-    final String endpoint = 'api/upload_img/';
+    final String endpoint = 'api/upload-img/';
 
     final stream = new http.ByteStream(image.openRead());
     final length = await image.length();
@@ -192,6 +139,7 @@ class FeatureDevAPI {
     return jsonDecode(_resStr)['url'];
   }
 
+  /// delete data from datastore
   static Future<bool> deleteFromDataStore(
       BuildContext context,
       {
@@ -207,7 +155,7 @@ class FeatureDevAPI {
 
     try{
       _res = await BaseAPI.delete(
-          'api/data_store_delete/' + storeId + '/',
+          'api/data-store/delete/' + storeId + '/',
           additionalHeaders: headers,
       );
     } on SocketException{

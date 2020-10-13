@@ -1,27 +1,44 @@
+
+/// Response from REST API from registering
 class RegisterResponseModel{
-  final dynamic username;
-  final dynamic email;
-  final dynamic password;
-  final dynamic rePassword;
+  /// The users username
+  final dynamic _username;
 
-  RegisterResponseModel({this.username, this.email, this.password, this.rePassword});
+  /// The users email
+  final dynamic _email;
 
+  /// The users password
+  final dynamic _password;
+
+  /// The users password repeated
+  final dynamic _rePassword;
+
+  // Getters
+  dynamic get password => _password;
+  dynamic get username => _username;
+  dynamic get email => _email;
+  dynamic get rePassword => _rePassword;
+
+  RegisterResponseModel(this._username, this._email, this._password, this._rePassword);
+
+  /// Create object from JSON data
   factory RegisterResponseModel.fromJson(Map<String, dynamic> json) {
     return RegisterResponseModel(
-      username: json['username'],
-      email: json['email'],
-      password: json['password'],
-      rePassword: json['re_password'],
+      json['username'],
+      json['email'],
+      json['password'],
+      json['re_password'],
     );
   }
 
+  /// Create object from error JSON data
   String errorToString() {
-    if (username != null && username is List<dynamic>){
-      return username[0];
-    } else if (email != null && email is List<dynamic>){
-      return email[0];
-    } else if (password != null && password is List<dynamic>){
-      return password[0];
+    if (_username != null && _username is List<dynamic>){
+      return _username[0];
+    } else if (_email != null && _email is List<dynamic>){
+      return _email[0];
+    } else if (_password != null && _password is List<dynamic>){
+      return _password[0];
     } else {
       return null;
     }

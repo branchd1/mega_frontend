@@ -1,13 +1,19 @@
-import 'package:flutter/material.dart';
 
+/// Response from REST API from check if email exists
 class EmailExistsResponseModel{
-  final bool exists;
+  /// Represents if the email exists or not
+  /// True if it exists, false otherwise
+  final bool _exists;
 
-  EmailExistsResponseModel({this.exists});
+  // Getter
+  bool get exists => _exists;
 
+  EmailExistsResponseModel(this._exists);
+
+  /// Create object from JSON data
   factory EmailExistsResponseModel.fromJson(Map<String, dynamic> json) {
     return EmailExistsResponseModel(
-      exists: json['exists'],
+      json['exists'],
     );
   }
 }

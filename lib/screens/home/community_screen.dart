@@ -13,25 +13,36 @@ import 'package:mega/screens/home/details/feature_detail_screen.dart';
 import 'package:mega/services/api/feature_api.dart';
 import 'package:provider/provider.dart';
 
+/// The community screen
+///
+/// Displays the list of features
 class CommunityScreen extends StatefulWidget{
+  /// The community
   final CommunityModel community;
 
-  const CommunityScreen({Key key, this.community}) : super(key: key);
+  const CommunityScreen({Key key, @required this.community}) : super(key: key);
 
   @override
   _CommunityScreenState createState()=>_CommunityScreenState();
 }
 
 class _CommunityScreenState extends State<CommunityScreen>{
+  /// The community features
   Future<List<FeatureModel>> features;
+
+  /// Search bar value
   String searchVal;
 
+  /// Filter feature list on search
   void onSearch(String val){
     setState(() {
       searchVal = val;
     });
   }
 
+  /// Callback when feature card tapped
+  ///
+  /// Goes to feature detail screen when the feature's card is tapped
   void tapCardCallback(BuildContext context, dynamic item){
     Navigator.push(
       context,
@@ -39,7 +50,8 @@ class _CommunityScreenState extends State<CommunityScreen>{
     );
   }
 
-  Future<void> forceRefresh() async{
+  /// refresh widget
+  Future<void> refresh() async{
     setState((){});
   }
 
@@ -48,9 +60,11 @@ class _CommunityScreenState extends State<CommunityScreen>{
     // set the current community
     Provider.of<CurrentCommunityStateModel>(context, listen: false).setCurrentCommunity(widget.community);
 
+    // get the list of features
     if (searchVal == null) features = FeatureAPI.getFeatures(context, widget.community.id);
+
     return Scaffold(
-      appBar: MyAppBars.myAppBar6(context, logoUrl: this.widget.community.picture),
+      appBar: MyAppBars.myAppBar4(context, logoUrl: this.widget.community.pictureUrl),
       body: Padding(
         child: Column(
           children: <Widget>[
@@ -58,7 +72,7 @@ class _CommunityScreenState extends State<CommunityScreen>{
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Expanded(
-                  child: BigText(this.widget.community.name),
+                  child: BigText(text:this.widget.community.name),
                 ),
                 IconButton(
                   icon: Icon(Icons.settings),
@@ -74,7 +88,7 @@ class _CommunityScreenState extends State<CommunityScreen>{
             ),
             Align(
               child: Text(
-                this.widget.community.isAdmin ? 'admin' : 'member',
+                'You are ' + (this.widget.community.isAdmin ? 'admin' : 'member'),
                 textAlign: TextAlign.left,
               ),
               alignment: Alignment.bottomLeft,
@@ -91,22 +105,29 @@ class _CommunityScreenState extends State<CommunityScreen>{
                 Widget _widget;
                 if(snapshot.hasData){
                   _widget = Expanded(
-                    child: MyCardGrid(
-                      list: searchVal == null ?
-                      snapshot.data : snapshot.data.where((element) => element.name.toLowerCase().contains(searchVal)).toList(),
-                      addButtonCallback: this.widget.community.isAdmin ? (){
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => AddFeatureScreen(
-                              community: this.widget.community,
-                            )
-                          ),
-                        );
-                      } : null,
-                      emptyText: 'No features',
-                      emptySubtext: 'add below',
-                      tapCardCallback: tapCardCallback,
+                    child: RefreshIndicator(
+                      onRefresh: refresh,
+                      child: ListView(
+                        children: [
+                          MyCardGrid(
+                            list: searchVal == null ?
+                            snapshot.data : snapshot.data.where((element) => element.name.toLowerCase().contains(searchVal)).toList(),
+                            addButtonCallback: this.widget.community.isAdmin ? (){
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => AddFeatureScreen(
+                                      community: this.widget.community,
+                                    )
+                                ),
+                              );
+                            } : null,
+                            emptyText: 'No features',
+                            emptySubtext: 'add below',
+                            tapCardCallback: tapCardCallback,
+                          )
+                        ],
+                      ),
                     ),
                   );
                 } else if (snapshot.hasError){
@@ -116,10 +137,6 @@ class _CommunityScreenState extends State<CommunityScreen>{
                   _widget = CircularProgressIndicator();
                 }
                 return _widget;
-//                return RefreshIndicator(
-//                  child: _widget,
-//                  onRefresh: forceRefresh,
-//                );
               },
             ),
           ],

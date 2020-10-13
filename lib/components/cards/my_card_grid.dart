@@ -1,58 +1,91 @@
 import 'package:flutter/material.dart';
+import 'package:mega/components/cards/my_card.dart';
 import 'package:mega/components/texts/empty_text.dart';
 import 'package:mega/models/community_model.dart';
 import 'package:mega/models/feature_model.dart';
-import 'package:mega/services/callback_types.dart';
+import 'package:mega/services/type_defs.dart';
 
-import 'my_card.dart';
-
+/// Card grid widget
 class MyCardGrid extends StatelessWidget{
+  /// List of grid items
   final List<dynamic> list;
+
+  /// Callback to add item to the list
   final VoidCallback addButtonCallback;
+
+  /// Text to show when grid is empty
   final String emptyText;
+
+  /// Subtext to show when grid is empty
   final String emptySubtext;
+
+  /// Callback when a grid item is tapped
   final TapCardCallback tapCardCallback;
 
+  /// The grid texts
+  /// Used for creatable widgets
   final List<String> gridTexts;
+
+  /// The grid subtexts
+  /// Used for creatable widgets
   final List<String> gridSubTexts;
+
+  /// The grid picture urls
+  /// Used for creatable widgets
   final List<String> gridPicturesUrls;
 
-  const MyCardGrid({Key key, this.list, this.addButtonCallback, this.emptyText, this.emptySubtext, this.tapCardCallback, this.gridTexts, this.gridSubTexts, this.gridPicturesUrls}) : super(key: key);
+  const MyCardGrid({Key key, @required this.list,
+    this.addButtonCallback, @required this.emptyText,
+    this.emptySubtext, this.tapCardCallback,
+    this.gridTexts, this.gridSubTexts,
+    this.gridPicturesUrls}) : super(key: key);
 
-  List<String> getSubtexts(int index){
-    List<String> res = List<String>();
+  /// Get the corresponding subtexts in a list depending on index
+  String getSubtexts(int index){
+
+    // check for the corresponding grid subtext passed in the subtext list
+    if (gridSubTexts != null) return gridSubTexts[index];
+
+    // return subtext if it is a community model
+    // specific case
     if (list[index] is CommunityModel){
-      res.add(list[index].isAdmin ? 'admin' : 'member');
+      return list[index].isAdmin ? 'admin' : 'member';
     }
 
-    if(res.length > 0) return res;
-    if (gridSubTexts != null) return [gridSubTexts[index],];
+    // nothing happened, return null
     return null;
   }
 
-  List<String> getTexts(int index){
-    List<String> res = List<String>();
+
+  /// Get the corresponding texts in a list depending on index
+  String getTexts(int index){
+
+    // check for the corresponding grid text passed in the text list
+    if (gridTexts != null) return gridTexts[index];
+
+    // return text if it is a community model or feature model
+    // specific cases
     if (list[index] is CommunityModel || list[index] is FeatureModel){
-      res.add(list[index].name);
+      return list[index].name;
     }
 
-    if(res.length > 0) return res;
-    if (gridTexts != null) return [gridTexts[index],];
+    // nothing happened, return null
     return null;
   }
 
+  /// Get the corresponding pictures in a list depending on index
   String getPictureUrl(int index){
+
+    // check for the corresponding grid picture url passed in the text list
+    if (gridPicturesUrls != null) return gridPicturesUrls[index];
+
+    // return picture url if it is a community or feature model
+    // specific cases
     if (list[index] is CommunityModel || list[index] is FeatureModel){
-      return list[index].picture;
+      return list[index].pictureUrl;
     }
 
-    if (gridPicturesUrls != null) {
-      try {
-        return gridPicturesUrls[index];
-      } on RangeError {
-        return null;
-      }
-    }
+    // nothing happened, return null
     return null;
   }
 
@@ -61,6 +94,7 @@ class MyCardGrid extends StatelessWidget{
     return SingleChildScrollView(
       child: Column(
         children: <Widget>[
+          // if list is empty, show empty text, else show grid
           list.length == 0 ? EmptyText(text: emptyText, subtext: emptySubtext) : GridView.count(
             shrinkWrap: true,
             physics: BouncingScrollPhysics(),
@@ -72,14 +106,15 @@ class MyCardGrid extends StatelessWidget{
                 child: GestureDetector(
                     onTap: tapCardCallback != null ? ()=>tapCardCallback(context, list[index]) : (){},
                     child: MyCard(
-                      texts: getTexts(index),
-                      subTexts: getSubtexts(index),
+                      texts: [getTexts(index), ],
+                      subTexts: [getSubtexts(index), ],
                       imageUrl: getPictureUrl(index),
                     )
                 ),
               ),
             ),
           ),
+          // show add button, if specified
           if(addButtonCallback != null)IconButton(
             icon: Icon(Icons.add_circle_outline),
             iconSize: 50,

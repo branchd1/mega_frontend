@@ -6,12 +6,18 @@ import 'package:mega/models/state_models/auth_token_state_model.dart';
 import 'package:mega/screens/home/home_screen.dart';
 import 'package:provider/provider.dart';
 
+/// Welcome screen
+///
+/// The first screen the user sees
 class WelcomeScreen extends StatelessWidget{
+  /// The screen route name
   static const routeName = '/';
 
   @override
   Widget build(BuildContext context){
 
+    // check that user hasn't sign in previously
+    // if user has signed in, push to home screen
     Provider.of<AuthTokenStateModel>(context, listen: false).checkAndGetToken().then((value){
       if (value != null){
         WidgetsBinding.instance.addPostFrameCallback((_){
@@ -33,7 +39,7 @@ class WelcomeScreen extends StatelessWidget{
               Image.asset('assets/img/logo/logo.png'),
               Column(
                 children: <Widget>[
-                  BigText('Welcome'),
+                  BigText(text:'Welcome'),
                   Padding(
                     child: WelcomeForm(),
                     padding: EdgeInsets.fromLTRB(0, 30, 0, 30),

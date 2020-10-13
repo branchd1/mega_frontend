@@ -3,11 +3,13 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
+/// Base API methods
 class BaseAPI {
+  /// The backend URL
 //  static const String url = '0.0.0.0:9000';
   static const String url = 'mega-app-project.herokuapp.com';
 
-
+  /// Post request to server
   static Future<http.Response> post(
     String endpoint,
     {
@@ -15,6 +17,7 @@ class BaseAPI {
       Map<String, String> additionalHeaders
     }){
 
+    // add headers
     Map<String, String> headers = <String, String>{
       'Content-Type': 'application/json; charset=UTF-8',
     };
@@ -24,8 +27,10 @@ class BaseAPI {
       if(additionalHeaders != null) ...additionalHeaders
     };
 
-    final Uri uri = Uri.http(url, endpoint);
+    // build uri
+    final Uri uri = Uri.https(url, endpoint);
 
+    // send post request
     return http.post(
       uri,
       headers: headers,
@@ -33,6 +38,7 @@ class BaseAPI {
     );
   }
 
+  /// Send delete request to server
   static Future<http.Response> delete(
       String endpoint,
       {
@@ -56,6 +62,7 @@ class BaseAPI {
     );
   }
 
+  /// Send patch request to server
   static Future<http.Response> patch(
       String endpoint,
       {
@@ -81,6 +88,7 @@ class BaseAPI {
     );
   }
 
+  /// Send get request to server
   static Future<http.Response> get(
       String endpoint,
       {
@@ -105,6 +113,7 @@ class BaseAPI {
     );
   }
 
+  /// Send multipart post request to server
   static Future<http.StreamedResponse> multipartPost (String endpoint,
     {
       @required List<String> mediaKeys,
@@ -123,14 +132,16 @@ class BaseAPI {
 
     request.headers.addAll(headers);
 
+    // get data keys
     List<String> _keys = data.keys.toList();
 
+    // convert files to multipart files in data map
     for(String _key in _keys){
       if(mediaKeys.contains(_key)){
         String _imagePath = data[_key];
         final http.MultipartFile _multipartFile = await http.MultipartFile.fromPath(
-            _key,
-            _imagePath
+          _key,
+          _imagePath
         );
         request.files.add(_multipartFile);
       } else {
@@ -138,11 +149,13 @@ class BaseAPI {
       }
     }
 
+    // send streamed request
     http.StreamedResponse _res = await request.send();
 
     return _res;
   }
 
+  /// Send multipart patch request to server
   static Future<http.StreamedResponse> multipartPatch (String endpoint,
       {
         @required List<String> mediaKeys,
@@ -163,6 +176,7 @@ class BaseAPI {
 
     List<String> _keys = data.keys.toList();
 
+    // convert files to multipart files in data map
     for(String _key in _keys){
       if(mediaKeys.contains(_key)){
         String _imagePath = data[_key];

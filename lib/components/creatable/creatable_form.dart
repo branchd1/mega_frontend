@@ -2,16 +2,17 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:mega/components/texts/error_text_plain.dart';
-import 'package:mega/services/api/base_api.dart';
 import 'package:mega/services/api/feature_dev_api.dart';
-import 'package:mega/services/callback_types.dart';
 import 'package:mega/services/constants.dart';
 
+/// Mega form component
 class CreatableForm extends StatefulWidget{
+  /// The component map
   final Map data;
 
-  const CreatableForm({Key key, this.data}) : super(key: key);
+  const CreatableForm({Key key, @required this.data}) : super(key: key);
 
+  /// Create Mega form
   static Widget createForm(Map _data) => CreatableForm(data: _data);
 
   _CreatableFormState createState() => _CreatableFormState();
@@ -19,9 +20,14 @@ class CreatableForm extends StatefulWidget{
 
 class _CreatableFormState extends State<CreatableForm>{
 
-  Map<TextEditingController, String> _controllersMap = Map<TextEditingController, String>();
+  /// Map of controllers for form inputs
+  Map<TextEditingController, String> _controllersMap =
+  Map<TextEditingController, String>();
+
+  /// Globally unique form key
   final _formKey = GlobalKey<FormState>();
 
+  /// Callback when form is submitted
   void submit({VoidCallback doAfter}) async {
     if (_formKey.currentState.validate()){
       // get form action map
@@ -30,39 +36,10 @@ class _CreatableFormState extends State<CreatableForm>{
       // create map from form values using controllers
       Map<String, String> formValuesMap = Map<String, String>.from(_controllersMap.map((key, value) => MapEntry(value, key.text)));
 
-      // calling external api
-      if (_formActionMap['action_type'] == 'external_api'){
-        assert(_formActionMap['method']!=null);
-
-        // send data to api and do something with it
-        if(_formActionMap['method'] == 'get') {
-          // send map for storage in server
-          FeatureDevAPI.getExternal(context,
-              _formActionMap['url'],
-              _formActionMap['endpoint'],
-              params: formValuesMap
-          );
-          // incomplete
-        } else if (_formActionMap['method'] == 'post'){
-          // send map for storage in server
-          FeatureDevAPI.postExternal(context,
-              _formActionMap['url'],
-              _formActionMap['endpoint'], data: formValuesMap
-          );
-          // incomplete
-        } else {
-          throw ('action method must be get or post');
-        }
-      }
       // saving to data store
-      else if (_formActionMap['action_type'] == 'save'){
+      if (_formActionMap['action_type'] == 'save'){
         // send data to api and do something with it
-        if(_formActionMap['method'] == 'get') {
-          // send map for storage in server
-          await FeatureDevAPI.getToDataStore(context, params: formValuesMap);
-
-          // incomplete - do something with return data above
-        } else if (_formActionMap['method'] == 'post'){
+        if (_formActionMap['method'] == 'post'){
           // get tag
           assert(_formActionMap.containsKey('tag') && _formActionMap['tag'] != null);
           String tag = _formActionMap['tag'];
@@ -99,12 +76,13 @@ class _CreatableFormState extends State<CreatableForm>{
 
   @override
   Widget build(BuildContext context) {
+    // validate component data
     assert(widget.data['body'] != null);
     assert(widget.data['action'] != null);
 
     List<Map<String, dynamic>> _formBody = widget.data['body'];
 
-    // this is repeated somewhere else, put in one method?
+    // map form inner components map values to Mega components
     List<Widget> list = _formBody.map<Widget>((component){
       final String _componentName = component.keys.toList()[0];
       try{
